@@ -14,7 +14,7 @@
           <br>
           <br>
         </div>
-        <form [formGroup]="profileForm" >
+        <form [formGroup]="profileForm">
           <ion-row>
             <ion-col>
               <ion-input formControlName="names" type="text" required placeholder="Names"></ion-input>
@@ -61,11 +61,8 @@
             </ion-col>
           </ion-row>
 
-
-
-          <ion-button class="txt-center" type="submit" routerLink="/home" color="primary">Update profile</ion-button>
-          <ion-button class="txt-center" type="submit" (click)="changePass()" color="primary">Change Password
-          </ion-button>
+          <ion-button class="txt-center" type="submit" (click)="doUpdatetUser()" color="primary">Update profile</ion-button>
+          <ion-button class="txt-center" type="submit" (click)="changePass()" color="primary">Change Password</ion-button>
           <ion-button class="txt-center" type="submit" (click)="deregister()" color="danger">Delete Account</ion-button>
 
         </form>

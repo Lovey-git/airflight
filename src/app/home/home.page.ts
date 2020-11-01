@@ -8,6 +8,7 @@ import { AlertController, PickerController, LoadingController, MenuController, N
 import * as moment from 'moment';
 import { PickerOptions } from "@ionic/core";
 import { DestinationList } from '../../providers/lists/destination'
+// import { PayPal, PayPalPayment, PayPalConfiguration } from '@ionic-native/paypal/ngx';
 
 
 @Component({
@@ -20,11 +21,13 @@ export class HomePage {
   public flightForm: FormGroup;
   public mealsForm: FormGroup;
   public bookingForm: FormGroup;
+  public paymentForm: FormGroup;
   public meals: any[] = ["fish and chips"];
   public selectedMeals: any[][] = new Array();
-  public Destinations :any = this.d.destination_list;
+  public Destinations: any = this.d.destination_list;
   index = 0;
-  booking_meals :any;
+  booking_meals: any;
+  isLogged;
 
   public from;
   public to;
@@ -49,7 +52,8 @@ export class HomePage {
     public loadingCtrl: LoadingController,
     public navCtrl: NavController,
     private pickerController: PickerController,
-    private d: DestinationList
+    private d: DestinationList,
+    //private payPal: PayPal
   ) {
     this.flightForm = this.fb.group({
       from: ['', Validators.required],
@@ -75,6 +79,14 @@ export class HomePage {
       children: ['0', Validators.required],
       adults: ['1', Validators.required],
     });
+    this.paymentForm = this.fb.group({
+      card_number: ['', Validators.required],
+      card_holder: ['', Validators.required],
+      card_expMonth: [this.minDate, Validators.required],
+      card_expYear: ['', Validators.required],
+      card_cvv: ['', Validators.required],
+    });
+    this.isLogged = authService.isLoggedin();
   }
 
   ngOnInit() {
@@ -86,12 +98,12 @@ export class HomePage {
       this.current_page_type = 'flight';
       localStorage.setItem('current_page_type', this.current_page_type);
     }
-    if(this.current_page_type=='booking'){
+    if (this.current_page_type == 'booking') {
       var meals = JSON.parse(localStorage.getItem('meals'));
       console.log(meals[0].meal)
       this.booking_meals = meals;
-      this.to     = localStorage.getItem('to');
-      this.from   = localStorage.getItem('from');
+      this.to = localStorage.getItem('to');
+      this.from = localStorage.getItem('from');
       this.depart = localStorage.getItem('depart');
       this.return = localStorage.getItem('return');
       this.adults = localStorage.getItem('adults');
@@ -99,8 +111,6 @@ export class HomePage {
       console.log(this.booking_meals);
     }
   }
-
-  
 
   async proceed() {
     if (this.current_page_type == 'flight')
@@ -120,12 +130,12 @@ export class HomePage {
         localStorage.setItem('children', this.flightForm.get('children').value);
         window.location.reload();
       }
-      if(this.current_page_type=='meals'){
-        localStorage.setItem('current_page_type', 'booking');
-        localStorage.setItem('meals', JSON.stringify(this.selectedMeals ) );
-        console.log(localStorage.getItem('meals'));
-        window.location.reload();
-      }
+    if (this.current_page_type == 'meals') {
+      localStorage.setItem('current_page_type', 'booking');
+      localStorage.setItem('meals', JSON.stringify(this.selectedMeals));
+      console.log(localStorage.getItem('meals'));
+      window.location.reload();
+    }
   }
 
   async presentAlert(msg) {
@@ -203,15 +213,11 @@ export class HomePage {
     console.log(this.selectedMeals);
   }
 
-  revert() {
-
-  }
-
   restMeals() {
     window.location.reload();
   }
 
-  cancelOrder(){
+  cancelOrder() {
     this.current_page_type = 'flight';
     localStorage.removeItem('current_page_type');
     localStorage.removeItem('to');
@@ -225,8 +231,131 @@ export class HomePage {
     window.location.reload();
   }
 
+  async paymentAlert() {
+    const alert = await this.alertCtrl.create({
+      cssClass: 'my-custom-class',
+      header: 'Card Details',
+      inputs: [
+        {
+          name: 'name',
+          type: 'text',
+          placeholder: 'Name on card',
+          cssClass: 'specialClass',
+          attributes: {
+            inputmode: 'decimal'
+          }
+        },
+        {
+          name: 'cardNumber',
+          type: 'number',
+          max:10,
+          placeholder: 'Card Number',
+          cssClass: 'specialClass',
+          attributes: {
+            inputmode: 'decimal'
+          }
+        }
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+            console.log('Confirm Cancel');
+          }
+        }, {
+          text: 'Ok',
+          handler: (data) => {
+            
+          }
+        }
+      ]
+    });
 
+    await alert.present();
+  }
 
+  async booking(){
+    if(this.isLogged){
+      //this.paymentAlert();
+      this.doBook();
+    }else{
+      this.loginAlert()
+    }
+  }
+
+  async loginAlert() {
+    const alert = await this.alertCtrl.create({
+      cssClass: 'my-custom-class',
+      header: 'Login!',
+      message: '<strong>To proceed login to your account</strong>!!!',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'login',
+          handler: () => {
+            this.router.navigateByUrl('login');
+          }
+        }
+      ]
+    });
+    await alert.present();
+  }
+
+  doBook(){
+    localStorage.setItem('current_page_type', 'payment');
+    window.location.reload();
+  }
+
+  // pay( amount ){
+  //   this.payPal.init({
+  //     PayPalEnvironmentProduction: 'YOUR_PRODUCTION_CLIENT_ID',
+  //     PayPalEnvironmentSandbox: 'YOUR_SANDBOX_CLIENT_ID'
+  //   }).then(() => {
+  //     // Environments: PayPalEnvironmentNoNetwork, PayPalEnvironmentSandbox, PayPalEnvironmentProduction
+  //     this.payPal.prepareToRender('PayPalEnvironmentSandbox', new PayPalConfiguration({
+  //       // Only needed if you get an "Internal Service Error" after PayPal login!
+  //       //payPalShippingAddressOption: 2 // PayPalShippingAddressOptionPayPal
+  //     })).then(() => {
+  //       let payment = new PayPalPayment('amount', 'ZAR', 'Air-Food flight', 'sale');
+  //       this.payPal.renderSinglePaymentUI(payment).then(() => {
+  //         // Successfully paid
+    
+  //         // Example sandbox response
+  //         //
+  //         // {
+  //         //   "client": {
+  //         //     "environment": "sandbox",
+  //         //     "product_name": "PayPal iOS SDK",
+  //         //     "paypal_sdk_version": "2.16.0",
+  //         //     "platform": "iOS"
+  //         //   },
+  //         //   "response_type": "payment",
+  //         //   "response": {
+  //         //     "id": "PAY-1AB23456CD789012EF34GHIJ",
+  //         //     "state": "approved",
+  //         //     "create_time": "2016-10-03T13:33:33Z",
+  //         //     "intent": "sale"
+  //         //   }
+  //         // }
+  //       }, () => {
+  //         // Error or render dialog closed without being successful
+  //       });
+  //     }, () => {
+  //       // Error in configuration
+  //     });
+  //   }, () => {
+  //     // Error in initialization, maybe PayPal isn't supported or something else
+  //   });
+  // }
+  
 }
 
 

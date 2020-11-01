@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 
 import {ActivatedRoute} from '@angular/router';
@@ -11,6 +12,7 @@ import {map} from 'rxjs/operators';
 
 import { PopoverController } from '@ionic/angular';
 import { MenuController } from '@ionic/angular';
+import { ActionSheetController, AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-root',
@@ -31,7 +33,9 @@ export class AppComponent {
     private auth : AuthService,
     route: ActivatedRoute,
     public popoverController: PopoverController,
-    private menu: MenuController
+    private menu: MenuController,
+    public actionSheetController: ActionSheetController,
+    private router: Router
   ) {
     this.initializeApp();
     this.role = localStorage.getItem('ur');
@@ -56,6 +60,37 @@ export class AppComponent {
   openCustom() {
     this.menu.enable(true, 'custom');
     this.menu.open('custom');
+  }
+
+  async presentOptions0() {
+    const actionSheet = await this.actionSheetController.create({
+      header: 'Options',
+      cssClass: 'my-custom-class',
+      buttons: [{
+        text: 'Profile',
+        icon: 'person-outline',
+        handler: () => {
+          this.router.navigateByUrl('profile');
+        }
+      },
+      {
+        text: 'Logout',
+        icon: 'log-out-outline',
+        handler: () => {
+          localStorage.clear();
+          this.router.navigateByUrl('login');
+        }
+      }
+      , {
+        text: 'Cancel',
+        icon: 'close',
+        role: 'cancel',
+        handler: () => {
+          console.log('Cancel clicked');
+        }
+      }]
+    });
+    await actionSheet.present();
   }
 
   initializeApp() {

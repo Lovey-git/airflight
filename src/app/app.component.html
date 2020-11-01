@@ -6,14 +6,12 @@
           <ion-title slot="start" routerLink="/home">
             {{title}}
           </ion-title>
-          <ion-title>
-            {{header}}
-          </ion-title>
+         
         </ion-item>
         <ion-item lines="none" slot="end">
-          <ion-title>{{email}} </ion-title>
-          <ion-icon *ngIf="role=='normal'"  slot='end' name="options-outline"></ion-icon>
-          <ion-icon *ngIf="role=='admin'"  slot='end' name="options-outline"></ion-icon>
+          <ion-title *ngIf="isLoggedIn && role=='admin'">(Admin) </ion-title>
+          <ion-icon *ngIf="isLoggedIn && role=='normal'" (click)="presentOptions0()"  slot='end' name="options-outline"></ion-icon>
+          <ion-icon *ngIf="role=='admin' && isLoggedIn"  (click)="presentOptions0()" slot='end' name="options-outline"></ion-icon>
         </ion-item>
 
       </ion-item>

@@ -110,12 +110,16 @@ ion-slides {
       background: $gradient;
     }
   }
-
+  ion-content{
+    --background: #fff url('./assets/easy-travel-tips-for-a-comfortable-flight-view-out-the-window_f-1150x767.jpg') no-repeat center center / cover;
+}
 
 .login-form{
     margin: auto;
     margin-top: 80px;
     margin-bottom: 50px;
+    background: #fff;
+    opacity: 0.85;
     ion-input[type=text]{
         text-align: center; 
         border: 1px solid ;@extend .color-primary;
@@ -131,6 +135,17 @@ ion-slides {
         border: 1px solid ;@extend .color-primary;
         border-radius: 5px;
     }
+    // ion-datetime{
+    //     text-align: center;
+    //     border: 1px solid ;@extend .color-primary;
+    //     border-radius: 5px;
+    //     width: 100%;
+    // }
+    // ion-input[type=number]{
+    //     text-align: center;
+    //     border: 1px solid ;@extend .color-primary;
+    //     border-radius: 5px;
+    // }
     ion-button {
         border-radius: 25px;
         background-image: linear-gradient(to right, #795548 , #218c39, #795548);    width : 100%;
@@ -140,7 +155,9 @@ ion-slides {
 
 .booking-form{
     margin: auto;
-    margin-top: 50px;
+    margin-top: 80px;
+    background: #fff;
+    opacity: 0.85;
     ion-input[type=text]{
         text-align: center; 
         border: 1px solid ;@extend .color-primary;

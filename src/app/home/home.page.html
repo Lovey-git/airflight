@@ -1,4 +1,4 @@
-<ion-content fullscreen id="main">
+<ion-content fullscreen id="main" >
   <ion-grid>
     <div *ngIf="current_page_type=='flight'" class="login-form">
       <ion-col>
@@ -101,6 +101,7 @@
 
     <div *ngIf="current_page_type=='booking'" class="booking-form">
       <div class="txt-center">
+        <br>
         <ion-icon style="font-size: 55px;" name="document-text-outline"></ion-icon>
         <br>
         <strong>Booking Details</strong>
@@ -178,10 +179,10 @@
           </div>
         </ion-col>
       </ion-row>
-      <ion-row >
+      <ion-row>
         <ion-col>
-          <ion-button>
-            Confirm Booking
+          <ion-button (click)="booking()">
+            Confirm and Book
           </ion-button>
         </ion-col>
         <ion-col>
@@ -195,6 +196,56 @@
 
     </div>
 
+
+    <div *ngIf="current_page_type=='payment'" class="login-form">
+      <ion-col>
+        <div class="txt-center">
+          <ion-icon style="font-size: 55px;" name="card-outline"></ion-icon>
+          <br>
+          <strong>Payment</strong>
+          <br>
+          <ion-label color="dark">Well we can't all fly for free!</ion-label>
+          <br>
+          <br>
+        </div>
+        <form [formGroup]="paymentForm" (ngSubmit)="proceed()">
+
+          <ion-col>
+            <ion-label>Card Number:</ion-label>
+            <ion-input style="text-align: center;border: 1px solid #3880ff;border-radius: 5px;" formControlName="card_number" type="number"></ion-input>
+          </ion-col>
+
+          <ion-col>
+            <ion-label>Card Holders:</ion-label>
+            <ion-input formControlName="card_holder" type="text"></ion-input>
+          </ion-col>
+
+          <ion-col>
+            <ion-item lines="none">
+              <ion-label  slot="start">Expiration Date</ion-label>
+              <ion-label slot="end">CVV</ion-label>
+            </ion-item>
+          </ion-col>
+
+          <ion-row>
+            <ion-col>
+              <ion-datetime style="text-align: center;border: 1px solid #3880ff;border-radius: 5px;" formControlName="card_expYear" placeholder="YYYY" displayFormat="YYYY" min="2015"
+                max="2020"></ion-datetime>
+            </ion-col>
+            <ion-col>
+              <ion-datetime style="text-align: center;border: 1px solid #3880ff;border-radius: 5px;" formControlName="card_expMonth" placeholder="MM" displayFormat="MM"></ion-datetime>
+            </ion-col>
+            <ion-col>
+              <ion-input style="text-align: center;border: 1px solid #3880ff;border-radius: 5px;" formControlName="card_cvv" type="number" placeholder="CVV" max="3"></ion-input>
+            </ion-col>
+          </ion-row>
+
+          <ion-button class="txt-center" type="submit" color="primary">Submit</ion-button>
+
+        </form>
+      </ion-col>
+    </div>
+
+
   </ion-grid>
 </ion-content>
-
