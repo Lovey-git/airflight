@@ -1,20 +1,200 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content fullscreen id="main">
+  <ion-grid>
+    <div *ngIf="current_page_type=='flight'" class="login-form">
+      <ion-col>
+        <div class="txt-center">
+          <ion-icon style="font-size: 55px;" name="airplane-outline"></ion-icon>
+          <br>
+          <strong>Flight</strong>
+          <br>
+          <ion-label color="dark">You don't Always need wings to fly!, we got that coverd </ion-label>
+          <br>
+          <br>
+        </div>
+        <form [formGroup]="flightForm" (ngSubmit)="proceed()">
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+          <ion-item>
+            <ion-label>From:</ion-label>
+            <ion-select formControlName="from" value="select" okText="Okay" cancelText="Dismiss">
+              <ion-select-option value="male">male</ion-select-option>
+              <ion-select-option value="female">female</ion-select-option>
+            </ion-select>
+          </ion-item>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+          <ion-item>
+            <ion-label>To:</ion-label>
+            <ion-select formControlName="to" value="select" okText="Okay" cancelText="Dismiss">
+              <ion-select-option *ngFor="let item of Destinations;" value="item">{{item}}</ion-select-option>
+            </ion-select>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>Depart:</ion-label>
+            <ion-item>
+              <ion-datetime formControlName="depart" displayFormat="MMMM /DD/YYYY" [min]="minDate" [max]="maxDate">
+              </ion-datetime>
+            </ion-item>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>Return:</ion-label>
+            <ion-item>
+              <ion-label position="floating"></ion-label>
+              <ion-datetime formControlName="return" displayFormat="MMMM/DD/YYYY" [min]="minDate" [max]="maxDate"
+                placeholder="One Way"></ion-datetime>
+            </ion-item>
+          </ion-item>
+          <br>
+
+          <ion-item>
+            <ion-label slot="start">
+              Adults:
+            </ion-label>
+            <ion-input slot="end" formControlName="adults" type="number" min="1" max="10" value="1"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label slot="start">
+              Children (under 12):
+            </ion-label>
+            <ion-input slot="end" formControlName="children" type="number" min="1" max="10" value="0"></ion-input>
+          </ion-item>
+          <ion-button class="txt-center" type="submit" routerLink="/home" color="primary">Proceed</ion-button>
+        </form>
+      </ion-col>
+    </div>
+
+    <div *ngIf="current_page_type=='meals'" class="login-form">
+      <ion-col>
+        <div class="txt-center">
+          <ion-icon style="font-size: 55px;" name="fast-food-outline"></ion-icon>
+          <br>
+          <strong>Meals</strong>
+          <br>
+          <ion-label color="dark">Let's Dine aboard!</ion-label>
+          <br>
+          <br>
+        </div>
+        <form [formGroup]="flightForm" (ngSubmit)="proceed()">
+
+          <ion-button class="txt-center" (click)="showPicker()" color="light">Choose a Meal or beverage</ion-button>
+          <ion-list-header>
+            <ion-label><strong>Selected Meals</strong></ion-label>
+          </ion-list-header>
+          <ion-list *ngFor="let item of selectedMeals;let i = index">
+            <ion-item lines="none" slot="start">
+              <ion-label slot="start" readonly>{{item.meal.value}}</ion-label>
+              <ion-item lines="none" slot="end">
+                <ion-label>
+                  Qty: {{item.qty.value}}
+                </ion-label>
+                <!-- <ion-icon (click)="removeItem(i)" style="font-size: 30px;" name="close-outline"></ion-icon> -->
+              </ion-item>
+            </ion-item>
+          </ion-list>
+
+          <ion-button class="txt-center" type="submit" routerLink="/home" color="primary">Proceed</ion-button>
+          <ion-button (click)="restMeals()" class="txt-center" color="light">Reset</ion-button>
+        </form>
+      </ion-col>
+    </div>
+
+    <div *ngIf="current_page_type=='booking'" class="booking-form">
+      <div class="txt-center">
+        <ion-icon style="font-size: 55px;" name="document-text-outline"></ion-icon>
+        <br>
+        <strong>Booking Details</strong>
+        <br>
+        <ion-label color="dark">Almost There!</ion-label>
+        <br>
+        <br>
+      </div>
+      <ion-row>
+        <ion-col>
+          <form [formGroup]="bookingForm" (ngSubmit)="proceed()">
+            <ion-list-header>
+              <ion-label><strong>Flight Details</strong></ion-label>
+            </ion-list-header>
+            <ion-list>
+              <ion-item lines='full'>
+                <ion-label slot="start">From: </ion-label>
+                <ion-label slot="">{{from}}</ion-label>
+              </ion-item>
+              <ion-item lines='full'>
+                <ion-label slot="start">To: </ion-label>
+                <ion-label slot="">{{to}}</ion-label>
+              </ion-item>
+              <ion-item lines='full'>
+                <ion-label slot="start">Depart: </ion-label>
+                <ion-label slot="">{{depart.substr(0,10)}}</ion-label>
+              </ion-item>
+              <ion-item lines='full'>
+                <ion-label slot="start">Return: </ion-label>
+                <ion-label slot="">{{return}}</ion-label>
+              </ion-item>
+              <ion-item lines='full'>
+                <ion-label slot="start">Adults: </ion-label>
+                <ion-label slot="">{{adults}}</ion-label>
+              </ion-item>
+              <ion-item lines='full'>
+                <ion-label slot="start">Children (under 12): </ion-label>
+                <ion-label slot="">{{children}}</ion-label>
+              </ion-item>
+            </ion-list>
+          </form>
+        </ion-col>
+        <ion-col>
+          <form [formGroup]="bookingForm" (ngSubmit)="proceed()">
+            <ion-list-header>
+              <ion-label><strong>Selected Meals</strong></ion-label>
+            </ion-list-header>
+            <ion-list *ngFor="let item of booking_meals;let i = index">
+              <ion-item lines="none" slot="start">
+                <ion-label slot="start" readonly>{{item.meal.value}}</ion-label>
+                <ion-item lines="none" slot="end">
+                  <ion-label>
+                    Qty: {{item.qty.value}}
+                  </ion-label>
+                  <!-- <ion-icon (click)="removeItem(i)" style="font-size: 30px;" name="close-outline"></ion-icon> -->
+                </ion-item>
+              </ion-item>
+            </ion-list>
+          </form>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <div class="txt-center">
+            <strong>
+              Flight total: R765.90
+            </strong>
+          </div>
+        </ion-col>
+        <ion-col>
+          <div class="txt-center">
+            <strong>
+              Meals total: R56.8
+            </strong>
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row >
+        <ion-col>
+          <ion-button>
+            Confirm Booking
+          </ion-button>
+        </ion-col>
+        <ion-col>
+          <ion-button (click)="cancelOrder()" color="light">
+            Cancel Booking
+          </ion-button>
+        </ion-col>
+      </ion-row>
+
+
+
+    </div>
+
+  </ion-grid>
 </ion-content>
+
