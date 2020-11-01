@@ -14,7 +14,7 @@ import { ProvinceList } from '../../providers/lists/province';
 })
 export class ProfilePage implements OnInit {
 
-  private profileForm: FormGroup;
+  public profileForm: FormGroup;
   public Province: any = this.p.Province_list;
   private User: any;
 
@@ -28,7 +28,6 @@ export class ProfilePage implements OnInit {
     public loadingCtrl: LoadingController,
     public navCtrl: NavController,
     private p: ProvinceList,
-
   ) {
     this.profileForm = this.fb.group({
       email: ['', Validators.required],
@@ -44,9 +43,6 @@ export class ProfilePage implements OnInit {
   ngOnInit() {
     this.doGetUser();
   }
-
-
-
 
   async deregister() {
     const alert = await this.alertCtrl.create({
@@ -235,7 +231,6 @@ export class ProfilePage implements OnInit {
       }
     );
   }
-
 
   async presentAlert(msg) {
     const alert = await this.alertCtrl.create({

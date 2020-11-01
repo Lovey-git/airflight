@@ -17,27 +17,27 @@ import { DestinationList } from '../../providers/lists/destination'
 })
 export class HomePage {
 
-  private flightForm: FormGroup;
-  private mealsForm: FormGroup;
-  private bookingForm: FormGroup;
-  private meals: any[] = ["fish and chips"];
-  private selectedMeals: any[][] = new Array();
-  private Destinations :any = this.d.destination_list;
+  public flightForm: FormGroup;
+  public mealsForm: FormGroup;
+  public bookingForm: FormGroup;
+  public meals: any[] = ["fish and chips"];
+  public selectedMeals: any[][] = new Array();
+  public Destinations :any = this.d.destination_list;
   index = 0;
   booking_meals :any;
 
-  private from;
-  private to;
-  private return;
-  private depart;
-  private children;
-  private adults;
+  public from;
+  public to;
+  public return;
+  public depart;
+  public children;
+  public adults;
 
 
   public minDate = moment().add(1, 'd').format().toString();
   public maxDate = moment().add(60, 'd').format().toString();
-  private current_page = localStorage.getItem('current_page');
-  private current_page_type = localStorage.getItem('current_page_type');
+  public current_page = localStorage.getItem('current_page');
+  public current_page_type = localStorage.getItem('current_page_type');
 
   constructor(
     private router: Router,

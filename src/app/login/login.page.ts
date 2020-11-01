@@ -14,7 +14,7 @@ import { invalid } from '@angular/compiler/src/render3/view/util';
 })
 export class LoginPage implements OnInit {
 
-  loginForm: FormGroup;
+  public loginForm: FormGroup;
 
   constructor(
     private router: Router,

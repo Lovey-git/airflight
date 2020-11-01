@@ -13,7 +13,7 @@ import { AlertController, ToastController, LoadingController, MenuController, Na
 })
 export class RegisterPage implements OnInit {
 
-  private registerForm: FormGroup;
+  public registerForm: FormGroup;
 
   constructor(
     private router: Router,

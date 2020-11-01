@@ -1,14 +1,20 @@
-const express = require('express');
+var express = require('express'),
+    app = express();
 
-const app = express();
+app.use(express.static('www'));
 
-app.use(express.static('./dist/Kohaku'));
-
-app.get('/*', function (req, res) {
-    res.sendFile('index.html', { root: 'dist/dashboard' }
-    );
+// CORS (Cross-Origin Resource Sharing) headers to support Cross-site HTTP requests
+app.all('*', function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "X-Requested-With");
+    next();
 });
 
-app.listen(process.env.PORT || 8080);
+// API Routes
+// app.get('/blah', routeHandler);
 
-console.log(`Running on port ${process.env.PORT || 8080}`)
+app.set('port', process.env.PORT || 8080);
+
+app.listen(app.get('port'), function () {
+    console.log('Express server listening on port ' + app.get('port'));
+});

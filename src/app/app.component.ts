@@ -10,7 +10,6 @@ import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 
 import { PopoverController } from '@ionic/angular';
-import { PopoverComponent } from './popover/popover.component';
 import { MenuController } from '@ionic/angular';
 
 @Component({
@@ -39,16 +38,6 @@ export class AppComponent {
     this.isLoggedIn = auth.isLoggedin();
     const url: string = route.snapshot.url.join('home');
     console.log(url);
-  }
-
-  async presentPopover(ev: any) {
-    const popover = await this.popoverController.create({
-      component: PopoverComponent,
-      cssClass: 'my-custom-class',
-      event: ev,
-      translucent: true
-    });
-    return await popover.present();
   }
 
   async  openMenu() {
