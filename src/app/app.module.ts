@@ -19,6 +19,9 @@ import { DestinationList } from '../providers/lists/destination';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment'
 
+import { NgxMaskModule, IConfig } from 'ngx-mask';
+export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -29,8 +32,8 @@ import { environment } from '../environments/environment'
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
-    
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+    NgxMaskModule.forRoot(),
   ],
   providers: [
     StatusBar,

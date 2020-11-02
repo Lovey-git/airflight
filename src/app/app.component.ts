@@ -101,6 +101,14 @@ export class AppComponent {
     await actionSheet.present();
   }
 
+  ngAfterViewInit(){
+
+  }
+
+  ionViewWillEnter(){
+    
+  }
+
   async presentOptions1() {
     const actionSheet = await this.actionSheetController.create({
       header: 'Options',

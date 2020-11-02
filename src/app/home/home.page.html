@@ -49,16 +49,16 @@
             <ion-label slot="start">
               Adults:
             </ion-label>
-            <ion-input slot="end" formControlName="adults" type="number" min="1" max="10" value="1"></ion-input>
+            <ion-input slot="end" style="text-align: right;" formControlName="adults" type="number" min="1" max="10" value="1"></ion-input>
           </ion-item>
 
           <ion-item>
             <ion-label slot="start">
               Children (under 12):
             </ion-label>
-            <ion-input slot="end" formControlName="children" type="number" min="1" max="10" value="0"></ion-input>
+            <ion-input slot="end" style="text-align: right;"  formControlName="children" type="number" min="1" max="10" value="0"></ion-input>
           </ion-item>
-          <ion-button class="txt-center" type="submit" routerLink="/home" color="primary">Proceed</ion-button>
+          <ion-button  type="submit" routerLink="/home" color="primary">Proceed</ion-button>
         </form>
       </ion-col>
     </div>
@@ -211,7 +211,7 @@
 
           <ion-col>
             <ion-label>Card Number:</ion-label>
-            <ion-input style="text-align: center;border: 1px solid #3880ff;border-radius: 5px;" formControlName="card_number" type="number"></ion-input>
+            <ion-input mask="0000 0000 0000 0000" placeholder="xxxx-xxxx-xxxx-xxxx" style="text-align: center;border: 1px solid #3880ff;border-radius: 5px;" formControlName="card_number" type="number"></ion-input>
           </ion-col>
 
           <ion-col>

@@ -11,8 +11,8 @@ export class ApiService {
     private http: HttpClient,
   ) { }
 
-  _Url = "http://localhost:8080/";
-  //_Url = "https://kohaku-b.herokuapp.com/";
+  //_Url = "http://localhost:8080/";
+  _Url = "https://kohaku-b.herokuapp.com/";
 
   //Register
   register(email, password, lname, fname) {

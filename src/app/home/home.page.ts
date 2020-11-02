@@ -84,7 +84,7 @@ export class HomePage {
     this.paymentForm = this.fb.group({
       card_number: ['', Validators.required],
       card_holder: ['', Validators.required],
-      card_expMonth: [this.minDate, Validators.required],
+      card_expMonth: ['', Validators.required],
       card_expYear: ['', Validators.required],
       card_cvv: ['', Validators.required],
     });
@@ -144,8 +144,8 @@ export class HomePage {
   async presentAlert(msg) {
     const alert = await this.alertCtrl.create({
       cssClass: 'my-custom-class',
-      header: 'Caution',
-      subHeader: 'Fill requred field',
+      header: 'Air Food ✈️',
+      subHeader: 'Warning',
       message: msg,
       buttons: ['OK']
     });
@@ -234,6 +234,11 @@ export class HomePage {
     window.location.reload();
   }
 
+  ionViewWillEnter(){
+    this.isLogged = this.authService.isLoggedin();
+
+  }
+
   async paymentAlert() {
     const alert = await this.alertCtrl.create({
       cssClass: 'my-custom-class',
@@ -280,7 +285,7 @@ export class HomePage {
   }
 
   async booking() {
-    if (this.isLogged) {
+    if (this.authService.isLoggedin()) {
       //this.paymentAlert();
       this.doBook();
     } else {
@@ -342,7 +347,9 @@ export class HomePage {
           window.location.reload();
         }
       }, error => {
-        //console.log(error);
+        loading.dismiss();
+
+        this.presentAlert(error);
       }
     );
 

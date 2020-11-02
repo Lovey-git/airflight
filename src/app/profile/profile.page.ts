@@ -28,7 +28,6 @@ export class ProfilePage implements OnInit {
     public loadingCtrl: LoadingController,
     public navCtrl: NavController,
     private p: ProvinceList,
-
   ) {
     this.profileForm = this.fb.group({
       email: ['', Validators.required],
@@ -56,7 +55,6 @@ export class ProfilePage implements OnInit {
           role: 'cancel',
           cssClass: 'secondary',
           handler: (blah) => {
-            console.log('Confirm Cancel: blah');
           }
         }, {
           text: 'Okay',
@@ -100,13 +98,10 @@ export class ProfilePage implements OnInit {
           role: 'cancel',
           cssClass: 'secondary',
           handler: () => {
-            console.log('Confirm Cancel');
           }
         }, {
           text: 'Ok',
           handler: (data) => {
-            console.log('Pass: ' + data.pass);
-            console.log('Pass1: ' + data.pass1);
             this.doChangePassword(data.pass, data.pass1);
           }
         }
@@ -138,11 +133,11 @@ export class ProfilePage implements OnInit {
             this.presentAlert(data.msg);
           }
         }, error => {
-          //console.log(error);
+          loading.dismiss();
+          this.presentAlert(error.message);
         }
       );
     }
-
   }
 
   async doDeleteUser() {
@@ -150,7 +145,6 @@ export class ProfilePage implements OnInit {
       cssClass: 'my-custom-class',
       message: 'Please wait...',
     });
-
 
     await loading.present();
     this.api.remove_user().subscribe(
@@ -164,7 +158,8 @@ export class ProfilePage implements OnInit {
           this.presentAlert(data.msg);
         }
       }, error => {
-        //console.log(error);
+        loading.dismiss();
+        this.presentAlert(error.message);
       }
     );
   }
@@ -178,11 +173,10 @@ export class ProfilePage implements OnInit {
     await loading.present();
     this.authService.get_user().subscribe(
       data => {
-        console.log(data);
         if (data.status == 0) {
           this.profileForm.setValue({
             'email': data.data[0].email,
-            'names': data.data[0].names,
+            'names': data.data[0].name,
             'surname': data.data[0].surname,
             'cell': data.data[0].cell,
             'province': data.data[0].province,
@@ -216,7 +210,6 @@ export class ProfilePage implements OnInit {
     let province = this.profileForm.get('province').value;
     let email = this.profileForm.get('email').value;
 
-    console.log(cell)
 
     this.api.update_user(names, surname, email, cell, gender, province).subscribe(
       data => {
@@ -226,7 +219,7 @@ export class ProfilePage implements OnInit {
         } else {
           loading.dismiss();
           this.presentAlert(data.msg);
-          
+
         }
       }, error => {
         loading.dismiss();
