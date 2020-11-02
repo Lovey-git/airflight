@@ -43,10 +43,10 @@ export class ApiService {
     return this.http.post<any>(this._Url + 'delete_user', { uuid });
   }
 
-   //Remove user
-   add_ticket(lname, from, to, depart, Return, adults, children, adult_price, child_price, meals) {
+   //add ticket
+   add_ticket(from, to, depart, Return, adults, children, adult_price, child_price, meals) {
     var uuid = localStorage.getItem('uuid');
-    return this.http.post<any>(this._Url + 'add_ticket', { uuid, lname, from, to, depart, Return, adults, children, adult_price, child_price, meals });
+    return this.http.post<any>(this._Url + 'add_ticket', { uuid, from, to, depart, Return, adults, children, adult_price, child_price, meals });
   }
 
 

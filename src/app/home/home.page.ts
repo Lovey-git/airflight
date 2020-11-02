@@ -22,9 +22,9 @@ export class HomePage {
   public mealsForm: FormGroup;
   public bookingForm: FormGroup;
   public paymentForm: FormGroup;
-  public destination_list : any = ["Cape Town CPT", "Bloemfontain BFN", "Windhoek WDH", "Port Elizabeth PLZ", "Durban DUR"];
+  public destination_list: any = ["Cape Town CPT", "Bloemfontain BFN", "Windhoek WDH", "Port Elizabeth PLZ", "Durban DUR"];
 
-  public meals: any[] = ["fish and chips","chicken", "beef", "fish", "pasta", "halal", "cocktail", 'cola'];
+  public meals: any[] = ["fish and chips", "chicken", "beef", "fish", "pasta", "halal", "cocktail", 'cola'];
   public selectedMeals: any[][] = new Array();
   public Destinations: any = this.d.destination_list;
   index = 0;
@@ -250,7 +250,7 @@ export class HomePage {
         {
           name: 'cardNumber',
           type: 'number',
-          max:10,
+          max: 10,
           placeholder: 'Card Number',
           cssClass: 'specialClass',
           attributes: {
@@ -269,7 +269,7 @@ export class HomePage {
         }, {
           text: 'Ok',
           handler: (data) => {
-            
+
           }
         }
       ]
@@ -278,11 +278,11 @@ export class HomePage {
     await alert.present();
   }
 
-  async booking(){
-    if(this.isLogged){
+  async booking() {
+    if (this.isLogged) {
       //this.paymentAlert();
       this.doBook();
-    }else{
+    } else {
       this.loginAlert()
     }
   }
@@ -311,9 +311,41 @@ export class HomePage {
     await alert.present();
   }
 
-  doBook(){
-    localStorage.setItem('current_page_type', 'payment');
-    window.location.reload();
+  async doBook() {
+    const loading = await this.loadingCtrl.create({
+      cssClass: 'my-custom-class',
+      message: 'Please wait...',
+    });
+
+    await loading.present();
+
+    this.api.add_ticket(
+      localStorage.getItem('from'),
+      localStorage.getItem('to'),
+      localStorage.getItem('depart'),
+      localStorage.getItem('return'),
+      localStorage.getItem('adults'),
+      localStorage.getItem('children'),
+      localStorage.getItem('adult_price'),
+      localStorage.getItem('child_price'),
+      localStorage.getItem('meals')
+    ).subscribe(
+      data => {
+        if (data.status == 0) {
+          loading.dismiss();
+          this.toaster.successToast(data.msg);
+        } else {
+          loading.dismiss();
+          this.presentAlert(data.msg);
+          localStorage.setItem('current_page_type', 'payment');
+          window.location.reload();
+        }
+      }, error => {
+        //console.log(error);
+      }
+    );
+
+
   }
 
   // pay( amount ){
@@ -329,7 +361,7 @@ export class HomePage {
   //       let payment = new PayPalPayment('amount', 'ZAR', 'Air-Food flight', 'sale');
   //       this.payPal.renderSinglePaymentUI(payment).then(() => {
   //         // Successfully paid
-    
+
   //         // Example sandbox response
   //         //
   //         // {
@@ -357,7 +389,7 @@ export class HomePage {
   //     // Error in initialization, maybe PayPal isn't supported or something else
   //   });
   // }
-  
+
 }
 
 
