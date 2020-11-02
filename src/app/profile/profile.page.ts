@@ -28,6 +28,7 @@ export class ProfilePage implements OnInit {
     public loadingCtrl: LoadingController,
     public navCtrl: NavController,
     private p: ProvinceList,
+
   ) {
     this.profileForm = this.fb.group({
       email: ['', Validators.required],
@@ -208,22 +209,24 @@ export class ProfilePage implements OnInit {
 
     await loading.present();
 
-    let names = this.profileForm.get('names');
-    let surname = this.profileForm.get('surname');
-    let cell = this.profileForm.get('cell');
-    let gender = this.profileForm.get('gender');
-    let province = this.profileForm.get('province');
-    let email = this.profileForm.get('email');
+    let names = this.profileForm.get('names').value;
+    let surname = this.profileForm.get('surname').value;
+    let cell = this.profileForm.get('cell').value;
+    let gender = this.profileForm.get('gender').value;
+    let province = this.profileForm.get('province').value;
+    let email = this.profileForm.get('email').value;
 
-    this.api.update_user(names, surname, email, cell, gender, province
+    console.log(cell)
 
-    ).subscribe(
+    this.api.update_user(names, surname, email, cell, gender, province).subscribe(
       data => {
         if (data.status == 0) {
           loading.dismiss();
+          this.toaster.successToast(data.msg);
         } else {
           loading.dismiss();
           this.presentAlert(data.msg);
+          
         }
       }, error => {
         loading.dismiss();

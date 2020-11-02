@@ -9,7 +9,8 @@
          
         </ion-item>
         <ion-item lines="none" slot="end">
-          <ion-title *ngIf="isLoggedIn && role=='admin'">(Admin) </ion-title>
+          <ion-title *ngIf="role=='admin'">(Admin) </ion-title>
+          <!-- <ion-icon *ngIf="!isLoggedIn" (click)="presentOptions1()"  slot='end' name="options-outline"></ion-icon> -->
           <ion-icon *ngIf="isLoggedIn && role=='normal'" (click)="presentOptions0()"  slot='end' name="options-outline"></ion-icon>
           <ion-icon *ngIf="role=='admin' && isLoggedIn"  (click)="presentOptions0()" slot='end' name="options-outline"></ion-icon>
         </ion-item>

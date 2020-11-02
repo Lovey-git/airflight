@@ -74,11 +74,52 @@ export class AppComponent {
         }
       },
       {
+        text: 'Report',
+        icon: 'document-text-outline',
+        handler: () => {
+          localStorage.clear();
+          this.router.navigateByUrl('report');
+        }
+      },
+      {
         text: 'Logout',
         icon: 'log-out-outline',
         handler: () => {
           localStorage.clear();
           this.router.navigateByUrl('login');
+        }
+      }
+      , {
+        text: 'Cancel',
+        icon: 'close',
+        role: 'cancel',
+        handler: () => {
+          console.log('Cancel clicked');
+        }
+      }]
+    });
+    await actionSheet.present();
+  }
+
+  async presentOptions1() {
+    const actionSheet = await this.actionSheetController.create({
+      header: 'Options',
+      cssClass: 'my-custom-class',
+      buttons: [
+      {
+        text: 'Login',
+        icon: 'log-out-outline',
+        handler: () => {
+          localStorage.clear();
+          this.router.navigateByUrl('login');
+        }
+      },
+      {
+        text: 'Register',
+        icon: 'log-in-outline',
+        handler: () => {
+          localStorage.clear();
+          this.router.navigateByUrl('register');
         }
       }
       , {

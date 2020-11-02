@@ -103,7 +103,6 @@ ion-slides {
     height: 200px;
 }
 
-
 // Gradient backgrounds
 @mixin bg-gradient($parent, $gradient) {
     #{$parent} {
@@ -111,6 +110,7 @@ ion-slides {
     }
   }
   ion-content{
+    --background: #fff url('./assets/easy-travel-tips-for-a-comfortable-flight-view-out-the-window_f-1150x767.jpg') no-repeat center center / cover;
 }
 
 .login-form{

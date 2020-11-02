@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>report</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div class="login-form">
+    <ion-list-header>Verified Users</ion-list-header>
+    <ion-list>
+      <ion-item *ngFor="let item of user;">
+        <ion-title>
+          {{item.email}}
+        </ion-title>
+        <ion-title>
+          {{item.names}}
+        </ion-title>
+      </ion-item>
+    </ion-list>
+  </div>
+
+</ion-content>

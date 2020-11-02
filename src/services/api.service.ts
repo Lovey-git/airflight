@@ -11,8 +11,8 @@ export class ApiService {
     private http: HttpClient,
   ) { }
 
-  //_Url = "http://localhost:8080/";
-  _Url = "https://kohaku-b.herokuapp.com/";
+  _Url = "http://localhost:8080/";
+  //_Url = "https://kohaku-b.herokuapp.com/";
 
   //Register
   register(email, password, lname, fname) {
@@ -47,6 +47,11 @@ export class ApiService {
    add_ticket(from, to, depart, Return, adults, children, adult_price, child_price, meals) {
     var uuid = localStorage.getItem('uuid');
     return this.http.post<any>(this._Url + 'add_ticket', { uuid, from, to, depart, Return, adults, children, adult_price, child_price, meals });
+  }
+
+   //get all users
+   get_all_users() {
+    return this.http.post<any>(this._Url + 'get_all_users', { });
   }
 
 
