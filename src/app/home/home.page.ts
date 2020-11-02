@@ -22,7 +22,9 @@ export class HomePage {
   public mealsForm: FormGroup;
   public bookingForm: FormGroup;
   public paymentForm: FormGroup;
-  public meals: any[] = ["fish and chips"];
+  public destination_list : any = ["Cape Town CPT", "Bloemfontain BFN", "Windhoek WDH", "Port Elizabeth PLZ", "Durban DUR"];
+
+  public meals: any[] = ["fish and chips","chicken", "beef", "fish", "pasta", "halal", "cocktail", 'cola'];
   public selectedMeals: any[][] = new Array();
   public Destinations: any = this.d.destination_list;
   index = 0;
