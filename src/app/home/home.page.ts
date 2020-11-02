@@ -39,7 +39,7 @@ export class HomePage {
   public adults;
 
 
-  public minDate = moment().add(1, 'd').format().toString();
+  public minDate = moment().add(0, 'd').format().toString();
   public maxDate = moment().add(60, 'd').format().toString();
   public current_page = localStorage.getItem('current_page');
   public current_page_type = localStorage.getItem('current_page_type');
@@ -92,6 +92,7 @@ export class HomePage {
   }
 
   ngOnInit() {
+    this.isLogged = this.authService.isLoggedin();
     if (!localStorage.getItem('current_page')) {
       this.current_page = 'flight';
       localStorage.setItem('current_page', this.current_page);
@@ -326,8 +327,8 @@ export class HomePage {
       localStorage.getItem('return'),
       localStorage.getItem('adults'),
       localStorage.getItem('children'),
-      localStorage.getItem('adult_price'),
-      localStorage.getItem('child_price'),
+      0,
+      0,
       localStorage.getItem('meals')
     ).subscribe(
       data => {
