@@ -16,15 +16,14 @@
           <ion-item>
             <ion-label>From:</ion-label>
             <ion-select formControlName="from" value="select" okText="Okay" cancelText="Dismiss">
-              <ion-select-option value="male">male</ion-select-option>
-              <ion-select-option value="female">female</ion-select-option>
+              <ion-select-option *ngFor="let item of destination_list;">{{item}}</ion-select-option>
             </ion-select>
           </ion-item>
 
           <ion-item>
             <ion-label>To:</ion-label>
             <ion-select formControlName="to" value="select" okText="Okay" cancelText="Dismiss">
-              <ion-select-option *ngFor="let item of destination_list;" value="item">{{item}}</ion-select-option>
+              <ion-select-option *ngFor="let item of Destinations;" value="item">{{item}}</ion-select-option>
             </ion-select>
           </ion-item>
 

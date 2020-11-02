@@ -15,7 +15,9 @@ import { AuthService } from '../services/auth.service';
 import { ToasterService } from '../services/toaster.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProvinceList } from '../providers/lists/province';
-import { DestinationList } from '../providers/lists/destination'
+import { DestinationList } from '../providers/lists/destination';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment'
 
 @NgModule({
   declarations: [AppComponent],
@@ -26,7 +28,8 @@ import { DestinationList } from '../providers/lists/destination'
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
     
   ],
   providers: [
