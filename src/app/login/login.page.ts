@@ -138,6 +138,8 @@ export class LoginPage implements OnInit {
                 data => {
                   if (data.status == 0) {
                     loading.dismiss();
+                    this.toaster.successToast(data.msg);
+                    this.presentAlert('Password reseted check your emails for further instructions!')
                     console.log(data);
                   } else {
                     loading.dismiss();

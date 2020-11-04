@@ -5,6 +5,7 @@ import { ApiService } from '../../services/api.service';
 import { ToasterService } from '../../services/toaster.service';
 import { AuthService } from '../../services/auth.service';
 import { AlertController, ToastController, LoadingController, MenuController, NavController } from '@ionic/angular';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-register',
@@ -14,6 +15,8 @@ import { AlertController, ToastController, LoadingController, MenuController, Na
 export class RegisterPage implements OnInit {
 
   public registerForm: FormGroup;
+  public minDate = moment().add(0, 'd').format().toString();
+  public dob: string;
 
   constructor(
     private router: Router,
@@ -40,14 +43,14 @@ export class RegisterPage implements OnInit {
 
   }
 
-  ionViewWillEnter(){
-    if(this.authService.isLoggedin()){
-      if(localStorage.getItem('ur') == 'admin'){
+  ionViewWillEnter() {
+    if (this.authService.isLoggedin()) {
+      if (localStorage.getItem('ur') == 'admin') {
         this.router.navigateByUrl('report');
-      }else{
-        if(localStorage.getItem('current_page') == 'flight'){
+      } else {
+        if (localStorage.getItem('current_page') == 'flight') {
           this.router.navigateByUrl('home');
-        }else {
+        } else {
           this.router.navigateByUrl('home');
         }
       }
@@ -65,13 +68,14 @@ export class RegisterPage implements OnInit {
     await alert.present();
   }
 
-  async login() {
+  async register() {
     let email = this.registerForm.get('email').value;
     let password = this.registerForm.get('password').value;
     let password1 = this.registerForm.get('password1').value;
     let names = this.registerForm.get('names').value;
     let surname = this.registerForm.get('surname').value;
     let cell = this.registerForm.get('cell').value;
+    this.dob = this.registerForm.get('dob').value;
 
     const loading = await this.loadingCtrl.create({
       cssClass: 'my-custom-class',
@@ -90,6 +94,13 @@ export class RegisterPage implements OnInit {
       this.presentAlert('names and surname should consist of only characters and no special symbols');
     } else if (!this.validateEmail(email)) {
       this.presentAlert('Invalid email entered');
+    }
+    else if (this.dob.substr(0,10) == this.minDate.substr(0, 10)) {
+      this.presentAlert('You might just be a very smart 👶 infant to even use a computer!');
+    }
+    else if ( parseInt(this.minDate.substr(0, 4)) - (parseInt(this.dob.substr(0,4))) <=17 ) {
+      this.presentAlert('You must be atleast 18 years old to register!');
+      console.log((parseInt(this.dob.substr(0,4)) - parseInt(this.minDate.substr(0, 4))));
     }
     else {
       await loading.present();
