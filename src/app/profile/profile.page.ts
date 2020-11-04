@@ -155,7 +155,7 @@ export class ProfilePage implements OnInit {
     });
 
     await loading.present();
-    this.api.remove_user().subscribe(
+    this.api.remove_user(localStorage.getItem('uuid')).subscribe(
       data => {
         if (data.status == 0) {
           loading.dismiss();

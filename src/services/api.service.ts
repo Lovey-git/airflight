@@ -38,8 +38,7 @@ export class ApiService {
   }
 
   //Remove user
-  remove_user() {
-    var uuid = localStorage.getItem('uuid');
+  remove_user(uuid) {
     return this.http.post<any>(this._Url + 'delete_user', { uuid });
   }
 
@@ -61,6 +60,11 @@ export class ApiService {
   }
   get_all_users() {
     return this.http.post<any>(this._Url + 'get_all_users', {});
+  }
+
+  //register as admin
+  register_as_admin(uuid: string, ur:string) {
+    return this.http.post<any>(this._Url + 'register_admin', {uuid, ur});
   }
 
 }
