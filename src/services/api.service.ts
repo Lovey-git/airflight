@@ -11,8 +11,8 @@ export class ApiService {
     private http: HttpClient,
   ) { }
 
-  _Url = "http://localhost:8080/";
-  //_Url = "https://kohaku-b.herokuapp.com/";
+  //_Url = "http://localhost:8080/";
+  _Url = "https://kohaku-b.herokuapp.com/";
 
   //Register
   register(email, password, lname, fname) {
@@ -43,17 +43,24 @@ export class ApiService {
     return this.http.post<any>(this._Url + 'delete_user', { uuid });
   }
 
-   //add ticket
-   add_ticket(from, to, depart, Return, adults, children, adult_price, child_price, meals) {
+  //add ticket
+  add_ticket(from, to, depart, Return, adults, children, adult_price, child_price, meals, Class) {
     var uuid = localStorage.getItem('uuid');
-    return this.http.post<any>(this._Url + 'add_ticket', { uuid, from, to, depart, Return, adults, children, adult_price, child_price, meals });
+    return this.http.post<any>(this._Url + 'add_ticket', { uuid, from, to, depart, Return, adults, children, adult_price, child_price, meals, Class });
   }
 
-   //get all users
-   get_all_users() {
-    return this.http.post<any>(this._Url + 'get_all_users', { });
+  //get all users
+  get_all_verrified_users() {
+    return this.http.post<any>(this._Url + 'get_all_verrified_users', {});
   }
-
-
+  get_all_nonverrified_users() {
+    return this.http.post<any>(this._Url + 'get_all_nonverrified_users', {});
+  }
+  get_all_users_by_search(searchText) {
+    return this.http.post<any>(this._Url + 'get_all_users_by_search', {searchText});
+  }
+  get_all_users() {
+    return this.http.post<any>(this._Url + 'get_all_users', {});
+  }
 
 }

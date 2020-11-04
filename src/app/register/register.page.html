@@ -18,10 +18,13 @@
           <ion-input formControlName="surname" type="text" required placeholder="Surname"></ion-input>
           <br>
           <ion-input formControlName="email" type="text" required placeholder="Email"></ion-input>
-          
           <br>
           <ion-input formControlName="cell" type="tel" required placeholder="Phone Number"></ion-input>
           <br>
+          <ion-col>
+            <ion-datetime style="text-align: center;border: 1px solid #3880ff;border-radius: 5px;" formControlName="dob" placeholder="YYYY" displayFormat="YYYY" min="2015"
+              max="2020"></ion-datetime>
+          </ion-col>
           <ion-input formControlName="password" type="password" required placeholder="Password"></ion-input>
           <br>
           <ion-input formControlName="password1" type="password" required placeholder="Confirm Password"></ion-input>

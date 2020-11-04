@@ -32,11 +32,26 @@ export class RegisterPage implements OnInit {
       names: ['', Validators.required],
       surname: ['', Validators.required],
       cell: ['', Validators.required],
+      dob: ['', Validators.required],
     });
   }
 
   ngOnInit() {
 
+  }
+
+  ionViewWillEnter(){
+    if(this.authService.isLoggedin()){
+      if(localStorage.getItem('ur') == 'admin'){
+        this.router.navigateByUrl('report');
+      }else{
+        if(localStorage.getItem('current_page') == 'flight'){
+          this.router.navigateByUrl('home');
+        }else {
+          this.router.navigateByUrl('home');
+        }
+      }
+    }
   }
 
   async presentAlert(msg) {

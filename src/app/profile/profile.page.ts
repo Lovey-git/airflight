@@ -41,7 +41,15 @@ export class ProfilePage implements OnInit {
   }
 
   ngOnInit() {
-    this.doGetUser();
+    
+  }
+
+  ionViewWillEnter() {
+    if (this.authService.isLoggedin() == false) {
+      this.router.navigateByUrl('home');
+    } else{
+      this.doGetUser();
+    }
   }
 
   async deregister() {

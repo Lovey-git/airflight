@@ -22,8 +22,9 @@ export class HomePage {
   public mealsForm: FormGroup;
   public bookingForm: FormGroup;
   public paymentForm: FormGroup;
-  public destination_list: any = ["Cape Town CPT", "Bloemfontain BFN", "Windhoek WDH", "Port Elizabeth PLZ", "Durban DUR"];
+  public destination_list: any = ["Johannesburg JNB", "Cape Town CPT", "Bloemfontain BFN", "Windhoek WDH", "Port Elizabeth PLZ", "Durban DUR", "Dubai DUB"];
 
+  public meals_prices: any[] = [25.00, 89.9, 164.99, 40.99,60.00, 250.00, 46.90, 12.99];
   public meals: any[] = ["fish and chips", "chicken", "beef", "fish", "pasta", "halal", "cocktail", 'cola'];
   public selectedMeals: any[][] = new Array();
   public Destinations: any = this.d.destination_list;
@@ -37,6 +38,7 @@ export class HomePage {
   public depart;
   public children;
   public adults;
+  public _class;
 
 
   public minDate = moment().add(0, 'd').format().toString();
@@ -64,6 +66,7 @@ export class HomePage {
       return: ['One Way', Validators.required],
       children: ['0', Validators.required],
       adults: ['1', Validators.required],
+      _class: ['Economy', Validators.required]
     });
     this.mealsForm = this.fb.group({
       from: ['', Validators.required],
@@ -84,11 +87,10 @@ export class HomePage {
     this.paymentForm = this.fb.group({
       card_number: ['', Validators.required],
       card_holder: ['', Validators.required],
-      card_expMonth: ['', Validators.required],
+      card_expMonth: [this.minDate, Validators.required],
       card_expYear: ['', Validators.required],
       card_cvv: ['', Validators.required],
     });
-    this.isLogged = authService.isLoggedin();
   }
 
   ngOnInit() {
@@ -103,7 +105,6 @@ export class HomePage {
     }
     if (this.current_page_type == 'booking') {
       var meals = JSON.parse(localStorage.getItem('meals'));
-      console.log(meals[0].meal)
       this.booking_meals = meals;
       this.to = localStorage.getItem('to');
       this.from = localStorage.getItem('from');
@@ -111,7 +112,7 @@ export class HomePage {
       this.return = localStorage.getItem('return');
       this.adults = localStorage.getItem('adults');
       this.children = localStorage.getItem('children');
-      console.log(this.booking_meals);
+      this._class = localStorage.getItem('_class');
     }
   }
 
@@ -123,12 +124,16 @@ export class HomePage {
         this.presentAlert('Destination to : cannot be empty');
       } else if (this.flightForm.get('from').value == this.flightForm.get('to').value) {
         this.presentAlert('Destinations cannot be the same');
-      } else {
+      } else if (this.flightForm.get('_class').value == '') {
+        this.presentAlert('Choose a class');
+      }else
+      {
         localStorage.setItem('current_page_type', 'meals');
         localStorage.setItem('from', this.flightForm.get('from').value);
         localStorage.setItem('to', this.flightForm.get('to').value);
         localStorage.setItem('depart', this.flightForm.get('depart').value);
         localStorage.setItem('return', this.flightForm.get('return').value);
+        localStorage.setItem('_class', this.flightForm.get('_class').value);
         localStorage.setItem('adults', this.flightForm.get('adults').value);
         localStorage.setItem('children', this.flightForm.get('children').value);
         window.location.reload();
@@ -144,8 +149,8 @@ export class HomePage {
   async presentAlert(msg) {
     const alert = await this.alertCtrl.create({
       cssClass: 'my-custom-class',
-      header: 'Air Food ✈️',
-      subHeader: 'Warning',
+      header: 'Caution',
+      subHeader: 'Fill requred field',
       message: msg,
       buttons: ['OK']
     });
@@ -164,6 +169,7 @@ export class HomePage {
           handler: (value: any) => {
             if (this.selectedMeals) {
               this.selectedMeals[this.index] = value;
+              this.selectedMeals[this.index][0] = this.meals_prices[value.id] ;
               console.log(this.selectedMeals[this.index]);
               this.index++;
             } else {
@@ -230,14 +236,16 @@ export class HomePage {
     localStorage.removeItem('adults');
     localStorage.removeItem('children');
     localStorage.removeItem('meals');
-
     window.location.reload();
   }
 
   ionViewWillEnter(){
+    console.log(this.isLogged);
     this.isLogged = this.authService.isLoggedin();
-
+    console.log(this.isLogged);
   }
+
+
 
   async paymentAlert() {
     const alert = await this.alertCtrl.create({
@@ -334,7 +342,8 @@ export class HomePage {
       localStorage.getItem('children'),
       0,
       0,
-      localStorage.getItem('meals')
+      localStorage.getItem('meals'),
+      localStorage.getItem('_class')
     ).subscribe(
       data => {
         if (data.status == 0) {

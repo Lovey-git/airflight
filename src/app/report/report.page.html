@@ -3,29 +3,28 @@
   <ion-row  class="booking-form">
     <ion-header>
       <ion-segment>
-        <ion-segment-button value="Verified">
+        <ion-segment-button (click)="filterBy('v')" value="Verified">
           <ion-label>Verified users</ion-label>
         </ion-segment-button>
-        <ion-segment-button value="Non-Verified">
+        <ion-segment-button (click)="filterBy('n')" value="Non-Verified">
           <ion-label>Non-Verified users</ion-label>
         </ion-segment-button>
-        <ion-segment-button value="all">
+        <ion-segment-button (click)="filterBy('a')" value="all">
           <ion-label>All users</ion-label>
         </ion-segment-button>
       </ion-segment>
       
-      <ion-searchbar showCancelButton="focus"></ion-searchbar>
+      <ion-searchbar [(ngModel)]="searchText" (ngModelChange)="searcher()" showCancelButton="focus"></ion-searchbar>
     </ion-header>
   </ion-row>
 
   <div class="booking-form">
     <ion-list-header>Users</ion-list-header>
-
-
-    <ion-row style="border-bottom: groove;" *ngFor="let item of user;">
+    <ion-row style="border-bottom: groove;" *ngFor="let item of users;">
       <ion-col >
         <ion-item lines="none">
-          <ion-icon color="success" slot="" name="checkmark-circle-outline"></ion-icon>
+          <ion-icon *ngIf="item.isVerified == 1" color="success" slot="" name="checkmark-circle-outline"></ion-icon>
+          <ion-icon *ngIf="item.isVerified == 0" color="danger" slot="" name="close-circle-outline"></ion-icon>
           <ion-title style="text-align: left;">{{item.email}}</ion-title>
         </ion-item>
       </ion-col>

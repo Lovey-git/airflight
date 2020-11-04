@@ -62,7 +62,7 @@ export class AppComponent {
     this.menu.open('custom');
   }
 
-  async presentOptions0() {
+  async adminOptions() {
     const actionSheet = await this.actionSheetController.create({
       header: 'Options',
       cssClass: 'my-custom-class',
@@ -74,10 +74,10 @@ export class AppComponent {
         }
       },
       {
-        text: 'Report',
+        text: 'Reports',
         icon: 'document-text-outline',
         handler: () => {
-          localStorage.clear();
+          
           this.router.navigateByUrl('report');
         }
       },
@@ -85,8 +85,8 @@ export class AppComponent {
         text: 'Logout',
         icon: 'log-out-outline',
         handler: () => {
-          localStorage.clear();
-          this.router.navigateByUrl('login');
+          this.auth.logout();
+          window.location.reload();
         }
       }
       , {
@@ -101,15 +101,46 @@ export class AppComponent {
     await actionSheet.present();
   }
 
-  ngAfterViewInit(){
-
+  async userOptions() {
+    const actionSheet = await this.actionSheetController.create({
+      header: 'Options',
+      cssClass: 'my-custom-class',
+      buttons: [{
+        text: 'Profile',
+        icon: 'person-outline',
+        handler: () => {
+          this.router.navigateByUrl('profile');
+        }
+      },
+      {
+        text: 'Tickets',
+        icon: 'document-text-outline',
+        handler: () => {
+          localStorage.clear();
+          this.router.navigateByUrl('tickets');
+        }
+      },
+      {
+        text: 'Logout',
+        icon: 'log-out-outline',
+        handler: () => {
+          localStorage.clear();
+          window.location.reload();
+        }
+      }
+      , {
+        text: 'Cancel',
+        icon: 'close',
+        role: 'cancel',
+        handler: () => {
+          console.log('Cancel clicked');
+        }
+      }]
+    });
+    await actionSheet.present();
   }
 
-  ionViewWillEnter(){
-    
-  }
-
-  async presentOptions1() {
+  async guestOptions() {
     const actionSheet = await this.actionSheetController.create({
       header: 'Options',
       cssClass: 'my-custom-class',
@@ -142,9 +173,20 @@ export class AppComponent {
     await actionSheet.present();
   }
 
+  ngAfterViewInit(){
+
+  }
+
+  ionViewWillEnter(){
+    
+  }
+
+ 
+
   initializeApp() {
     this.platform.ready().then(() => {
-      this.statusBar.styleDefault();
+      this.statusBar.overlaysWebView(true);
+      this.statusBar.backgroundColorByHexString('#33000000');
       this.splashScreen.hide();
     });
   }

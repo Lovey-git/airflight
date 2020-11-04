@@ -1,0 +1,47 @@
+<ion-content>
+
+  <ion-row  class="booking-form">
+    <ion-header>
+      <ion-segment>
+        <ion-segment-button value="Verified">
+          <ion-label>Paid Tickets</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="Non-Verified">
+          <ion-label>Non-Paid Tickets</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="all">
+          <ion-label>All Tickets</ion-label>
+        </ion-segment-button>
+      </ion-segment>
+      
+      <ion-searchbar showCancelButton="focus"></ion-searchbar>
+    </ion-header>
+  </ion-row>
+
+  <div class="booking-form">
+    <ion-list-header>Users</ion-list-header>
+
+
+    <ion-row style="border-bottom: groove;" *ngFor="let item of users;">
+      <ion-col >
+        <ion-item lines="none">
+          <ion-icon color="success" slot="" name="checkmark-circle-outline"></ion-icon>
+          <ion-title style="text-align: left;">{{item.email}}</ion-title>
+        </ion-item>
+      </ion-col>
+
+      <ion-col >
+        <ion-item lines="none">
+          <ion-title style="text-align: center;">{{item.created_at}}</ion-title>
+        </ion-item>
+      </ion-col>
+
+      <ion-col >
+        <ion-item lines="none">
+          <ion-title style="text-align: right;">{{item.role}}</ion-title>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </div>
+
+</ion-content>

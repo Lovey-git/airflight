@@ -36,6 +36,20 @@ export class LoginPage implements OnInit {
 
   }
 
+  ionViewWillEnter(){
+    if(this.authService.isLoggedin()){
+      if(localStorage.getItem('ur') == 'admin'){
+        this.router.navigateByUrl('report');
+      }else{
+        if(localStorage.getItem('current_page') == 'flight'){
+          this.router.navigateByUrl('home');
+        }else {
+          this.router.navigateByUrl('home');
+        }
+      }
+    }
+  }
+
 
   async login() {
     let email = this.loginForm.get('email').value;
@@ -60,7 +74,7 @@ export class LoginPage implements OnInit {
             loading.dismiss();
             localStorage.setItem('uuid', data.data[0].uuid);
             localStorage.setItem('ur', data.data[0].role);
-            this.router.navigateByUrl('/home');
+            window.location.reload();
           } else {
             loading.dismiss();
             this.presentAlert(data.msg);

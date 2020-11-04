@@ -43,7 +43,14 @@
                 placeholder="One Way"></ion-datetime>
             </ion-item>
           </ion-item>
-          <br>
+
+          <ion-item>
+            <ion-label>Class:</ion-label>
+            <ion-select formControlName="_class" value="select" okText="Okay" cancelText="Dismiss">
+              <ion-select-option>Economy</ion-select-option>
+              <ion-select-option>Business</ion-select-option>
+            </ion-select>
+          </ion-item>
 
           <ion-item>
             <ion-label slot="start">
@@ -58,7 +65,7 @@
             </ion-label>
             <ion-input slot="end" style="text-align: right;"  formControlName="children" type="number" min="1" max="10" value="0"></ion-input>
           </ion-item>
-          <ion-button  type="submit" routerLink="/home" color="primary">Proceed</ion-button>
+          <ion-button  type="submit" color="primary">Proceed</ion-button>
         </form>
       </ion-col>
     </div>
@@ -106,8 +113,6 @@
         <strong>Booking Details</strong>
         <br>
         <ion-label color="dark">Almost There!</ion-label>
-        <br>
-        <br>
       </div>
       <ion-row>
         <ion-col>
@@ -133,6 +138,10 @@
                 <ion-label slot="">{{return}}</ion-label>
               </ion-item>
               <ion-item lines='full'>
+                <ion-label slot="start">Class: </ion-label>
+                <ion-label slot="">{{_class}}</ion-label>
+              </ion-item>
+              <ion-item lines='full'>
                 <ion-label slot="start">Adults: </ion-label>
                 <ion-label slot="">{{adults}}</ion-label>
               </ion-item>
@@ -143,7 +152,7 @@
             </ion-list>
           </form>
         </ion-col>
-        <ion-col>
+        <ion-col *ngIf="booking_meals">
           <form [formGroup]="bookingForm" (ngSubmit)="proceed()">
             <ion-list-header>
               <ion-label><strong>Selected Meals</strong></ion-label>
@@ -170,7 +179,7 @@
             </strong>
           </div>
         </ion-col>
-        <ion-col>
+        <ion-col *ngIf="booking_meals">
           <div class="txt-center">
             <strong>
               Meals total: R56.8
