@@ -102,30 +102,38 @@ export class RegisterPage implements OnInit {
       this.presentAlert('You must be atleast 18 years old to register!');
       console.log((parseInt(this.dob.substr(0,4)) - parseInt(this.minDate.substr(0, 4))));
     }
+    if(!this.validateCell(cell)){
+      this.presentAlert('Invalid Phone number');
+    }
     else {
-      await loading.present();
-      this.api.register(email, password, names, surname).subscribe(
-        data => {
-          if (data.status == 0) {
-            loading.dismiss();
-            console.log(data);
-            this.toaster.successToast(data.msg);
-            this.router.navigateByUrl('login');
-          } else {
-            loading.dismiss();
-            this.presentAlert(data.msg);
-          }
-        }, error => {
-          loading.dismiss();
-          this.presentAlert(error.message);
-        }
-      )
+      //await loading.present();
+      // this.api.register(email, password, names, surname).subscribe(
+      //   data => {
+      //     if (data.status == 0) {
+      //       loading.dismiss();
+      //       console.log(data);
+      //       this.toaster.successToast(data.msg);
+      //       this.router.navigateByUrl('login');
+      //     } else {
+      //       loading.dismiss();
+      //       this.presentAlert(data.msg);
+      //     }
+      //   }, error => {
+      //     loading.dismiss();
+      //     this.presentAlert(error.message);
+      //   }
+      // )
     }
   }
 
   validateEmail(email) {
     const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(String(email).toLowerCase());
+  }
+
+  validateCell(phone) {
+    const re = /^[0]{1}[6-8]{1}[1-8]{1}/;
+    return re.test(String(phone).toLowerCase());
   }
 
   revert() {
