@@ -106,23 +106,23 @@ export class RegisterPage implements OnInit {
       this.presentAlert('Invalid Phone number');
     }
     else {
-      //await loading.present();
-      // this.api.register(email, password, names, surname).subscribe(
-      //   data => {
-      //     if (data.status == 0) {
-      //       loading.dismiss();
-      //       console.log(data);
-      //       this.toaster.successToast(data.msg);
-      //       this.router.navigateByUrl('login');
-      //     } else {
-      //       loading.dismiss();
-      //       this.presentAlert(data.msg);
-      //     }
-      //   }, error => {
-      //     loading.dismiss();
-      //     this.presentAlert(error.message);
-      //   }
-      // )
+      await loading.present();
+      this.api.register(email, password, names, surname).subscribe(
+        data => {
+          if (data.status == 0) {
+            loading.dismiss();
+            console.log(data);
+            this.toaster.successToast(data.msg);
+            this.router.navigateByUrl('login');
+          } else {
+            loading.dismiss();
+            this.presentAlert(data.msg);
+          }
+        }, error => {
+          loading.dismiss();
+          this.presentAlert(error.message);
+        }
+      )
     }
   }
 
