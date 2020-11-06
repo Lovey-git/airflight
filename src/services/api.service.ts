@@ -43,9 +43,9 @@ export class ApiService {
   }
 
   //add ticket
-  add_ticket(from, to, depart, Return, adults, children, adult_price, child_price, meals, Class) {
+  add_ticket(from, to, depart, Return, adults, children, adult_price, child_price, meals, Class, totalAmt) {
     var uuid = localStorage.getItem('uuid');
-    return this.http.post<any>(this._Url + 'add_ticket', { uuid, from, to, depart, Return, adults, children, adult_price, child_price, meals, Class });
+    return this.http.post<any>(this._Url + 'add_ticket', { uuid, from, to, depart, Return, adults, children, adult_price, child_price, meals, Class, totalAmt });
   }
 
   //get all users
@@ -56,15 +56,24 @@ export class ApiService {
     return this.http.post<any>(this._Url + 'get_all_nonverrified_users', {});
   }
   get_all_users_by_search(searchText) {
-    return this.http.post<any>(this._Url + 'get_all_users_by_search', {searchText});
+    return this.http.post<any>(this._Url + 'get_all_users_by_search', { searchText });
   }
   get_all_users() {
     return this.http.post<any>(this._Url + 'get_all_users', {});
   }
 
   //register as admin
-  register_as_admin(uuid: string, ur:string) {
-    return this.http.post<any>(this._Url + 'register_admin', {uuid, ur});
+  register_as_admin(uuid: string, ur: string) {
+    return this.http.post<any>(this._Url + 'register_admin', { uuid, ur });
   }
 
+  //add user payment
+  add_user_payment(ticket_id, amount, card_number, cvv, expire_date) {
+    return this.http.post<any>(this._Url + 'add_user_payment', { ticket_id, amount, card_number, cvv, expire_date });
+  }
+
+    //add user payment
+    get_user_tickets(searchText) {
+      return this.http.post<any>(this._Url + 'get_user_tickets', { searchText });
+    }
 }

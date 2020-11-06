@@ -24,13 +24,16 @@ export class HomePage {
   public paymentForm: FormGroup;
   public destination_list: any = ["Johannesburg JNB", "Cape Town CPT", "Bloemfontain BFN", "Windhoek WDH", "Port Elizabeth PLZ", "Durban DUR", "Dubai DUB"];
 
-  public meals_prices: any[] = [25.00, 89.9, 164.99, 40.99,60.00, 250.00, 46.90, 12.99];
+  public meals_prices: any[] = [25.00, 89.9, 164.99, 40.99, 60.00, 250.00, 46.90, 12.99];
   public meals: any[] = ["fish and chips", "chicken", "beef", "fish", "pasta", "halal", "cocktail", 'cola'];
   public selectedMeals: any[][] = new Array();
   public Destinations: any = this.d.destination_list;
   index = 0;
   booking_meals: any;
   isLogged;
+
+  meal_tot = 0;
+  flight_price = 0;
 
   public from;
   public to;
@@ -39,6 +42,12 @@ export class HomePage {
   public children;
   public adults;
   public _class;
+
+  card_number: any;
+  card_holder: any;
+  card_expMonth: any;
+  card_expYear: any;
+  card_cvv: any;
 
 
   public minDate = moment().add(0, 'd').format().toString();
@@ -87,7 +96,7 @@ export class HomePage {
     this.paymentForm = this.fb.group({
       card_number: ['', Validators.required],
       card_holder: ['', Validators.required],
-      card_expMonth: [this.minDate, Validators.required],
+      card_expMonth: ['', Validators.required],
       card_expYear: ['', Validators.required],
       card_cvv: ['', Validators.required],
     });
@@ -113,6 +122,37 @@ export class HomePage {
       this.adults = localStorage.getItem('adults');
       this.children = localStorage.getItem('children');
       this._class = localStorage.getItem('_class');
+      this.meal_tot = 0;
+      for (let index = 0; index < meals.length; index++) {
+        this.meal_tot += meals[index].meal.value * meals[index].qty.value;
+      }
+      //["Johannesburg JNB", "Cape Town CPT", "Bloemfontain BFN", "Windhoek WDH", "Port Elizabeth PLZ", "Durban DUR", "Dubai DUB"];
+
+      if (this.to == "Cape Town CPT") {
+        this.flight_price = 1418;
+      }
+      if (this.to == "Bloemfontain BFN") {
+        this.flight_price = 1968;
+      }
+      if (this.to == "Windhoek WDH") {
+        this.flight_price = 1438;
+      }
+      if (this.to == "Port Elizabeth PLZ") {
+        this.flight_price = 1849;
+      }
+      if (this.to == "Durban DUR") {
+        this.flight_price = 948;
+      }
+      if (this.to == "Dubai DUB") {
+        this.flight_price = 6529;
+      }
+      if (this._class == 'Business') {
+        this.flight_price = (this.flight_price * this.adults) + this.flight_price * this.children * .8;
+        this.flight_price *= this.flight_price;
+      } else {
+        this.flight_price = (this.flight_price * this.adults) + this.flight_price * this.children * .8;
+      }
+
     }
   }
 
@@ -126,8 +166,7 @@ export class HomePage {
         this.presentAlert('Destinations cannot be the same');
       } else if (this.flightForm.get('_class').value == '') {
         this.presentAlert('Choose a class');
-      }else
-      {
+      } else {
         localStorage.setItem('current_page_type', 'meals');
         localStorage.setItem('from', this.flightForm.get('from').value);
         localStorage.setItem('to', this.flightForm.get('to').value);
@@ -169,7 +208,7 @@ export class HomePage {
           handler: (value: any) => {
             if (this.selectedMeals) {
               this.selectedMeals[this.index] = value;
-              this.selectedMeals[this.index][0] = this.meals_prices[value.id] ;
+              this.selectedMeals[this.index][0] = this.meals_prices[value.id];
               console.log(this.selectedMeals[this.index]);
               this.index++;
             } else {
@@ -200,9 +239,9 @@ export class HomePage {
 
   getMealsOptions() {
     let options = [];
-    this.meals.forEach(x => {
-      options.push({ text: x, value: x });
-    });
+    for (let x = 0; x < this.meals.length; x++) {
+      options.push({ text: this.meals[x], value: this.meals_prices[x] });
+    }
     return options;
   }
 
@@ -239,7 +278,7 @@ export class HomePage {
     window.location.reload();
   }
 
-  ionViewWillEnter(){
+  ionViewWillEnter() {
     console.log(this.isLogged);
     this.isLogged = this.authService.isLoggedin();
     console.log(this.isLogged);
@@ -343,27 +382,86 @@ export class HomePage {
       0,
       0,
       localStorage.getItem('meals'),
-      localStorage.getItem('_class')
+      localStorage.getItem('_class'),
+      this.meal_tot + this.flight_price
     ).subscribe(
       data => {
         if (data.status == 0) {
           loading.dismiss();
           this.toaster.successToast(data.msg);
+          localStorage.setItem('t_id', data.t_id);
+          let amount = this.meal_tot + this.flight_price;
+          localStorage.setItem('amount', amount+'');
+          localStorage.setItem('current_page_type', 'payment');
+          window.location.reload();
         } else {
           loading.dismiss();
           this.presentAlert(data.msg);
-          localStorage.setItem('current_page_type', 'payment');
-          window.location.reload();
+
         }
       }, error => {
         loading.dismiss();
-
         this.presentAlert(error);
       }
     );
-
-
   }
+
+  pay() {
+    this.card_number = this.paymentForm.get('card_number').value;
+    this.card_holder = this.paymentForm.get('card_holder').value;
+    this.card_expMonth = this.paymentForm.get('card_expMonth').value;
+    this.card_expYear = this.paymentForm.get('card_expYear').value;
+    this.card_cvv = this.paymentForm.get('card_cvv').value;
+    console.log(this.card_cvv.length);
+    if (
+      this.card_number == '' ||
+      this.card_holder == '' ||
+      this.card_expMonth == '' ||
+      this.card_expYear == '' ||
+      this.card_cvv == ''
+    ) {
+      this.presentAlert('Fill in all required fields!');
+    } else {
+      this.doPay();
+
+    }
+  }
+
+
+  async doPay() {
+    const loading = await this.loadingCtrl.create({
+      cssClass: 'my-custom-class',
+      message: 'Please wait...',
+    });
+
+    await loading.present();
+
+    this.api.add_user_payment(
+      localStorage.getItem('t_id'),
+      localStorage.getItem('amount'),
+      this.card_number,
+      this.card_cvv,
+      this.card_expYear + '-' + this.card_expMonth
+    ).subscribe(
+      data => {
+        if (data.status == 0) {
+          loading.dismiss();
+          this.toaster.successToast(data.msg);
+          localStorage.setItem('current_page_type', 'payment');
+          localStorage.removeItem('current_page_type');
+          this.router.navigateByUrl('tickets');
+        } else {
+          loading.dismiss();
+          this.presentAlert(data.msg);
+
+        }
+      }, error => {
+        loading.dismiss();
+        this.presentAlert(error);
+      }
+    );
+  }
+
 
   // pay( amount ){
   //   this.payPal.init({

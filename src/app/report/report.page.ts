@@ -101,6 +101,7 @@ export class ReportPage implements OnInit {
       data => {
         if (data.status == 0) {
           this.users = data.data;
+          this.count = data.data.length;
         } else {
           this.presentAlert(data.msg);
         }

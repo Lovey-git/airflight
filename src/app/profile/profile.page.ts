@@ -41,13 +41,13 @@ export class ProfilePage implements OnInit {
   }
 
   ngOnInit() {
-    
+
   }
 
   ionViewWillEnter() {
     if (this.authService.isLoggedin() == false) {
       this.router.navigateByUrl('home');
-    } else{
+    } else {
       this.doGetUser();
     }
   }

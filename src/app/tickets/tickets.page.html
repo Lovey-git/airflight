@@ -2,43 +2,36 @@
 
   <ion-row  class="booking-form">
     <ion-header>
-      <ion-segment>
-        <ion-segment-button value="Verified">
-          <ion-label>Paid Tickets</ion-label>
-        </ion-segment-button>
-        <ion-segment-button value="Non-Verified">
-          <ion-label>Non-Paid Tickets</ion-label>
-        </ion-segment-button>
-        <ion-segment-button value="all">
-          <ion-label>All Tickets</ion-label>
-        </ion-segment-button>
-      </ion-segment>
       
-      <ion-searchbar showCancelButton="focus"></ion-searchbar>
+      <ion-searchbar [(ngModel)]="searchText" (ngModelChange)="init()" showCancelButton="focus"></ion-searchbar>
     </ion-header>
   </ion-row>
 
-  <div class="booking-form">
-    <ion-list-header>Users</ion-list-header>
-
-
-    <ion-row style="border-bottom: groove;" *ngFor="let item of users;">
+  <div  class="booking-form">
+    <ion-list-header>Tickets ({{count}})</ion-list-header>
+    <ion-row  style="border-bottom: groove;" *ngFor="let item of users;">
       <ion-col >
         <ion-item lines="none">
-          <ion-icon color="success" slot="" name="checkmark-circle-outline"></ion-icon>
-          <ion-title style="text-align: left;">{{item.email}}</ion-title>
+          <ion-icon  color="success" slot="" name="airplane-outline"></ion-icon>
+          <ion-title style="text-align: left;">{{item.airport_name}}</ion-title>
         </ion-item>
       </ion-col>
 
       <ion-col >
         <ion-item lines="none">
-          <ion-title style="text-align: center;">{{item.created_at}}</ion-title>
+          <ion-title style="text-align: center;">{{item.boarding_time}}</ion-title>
         </ion-item>
       </ion-col>
 
       <ion-col >
         <ion-item lines="none">
-          <ion-title style="text-align: right;">{{item.role}}</ion-title>
+          <ion-title style="text-align: right;">{{item.flight_no}}</ion-title>
+        </ion-item>
+      </ion-col>
+
+      <ion-col >
+        <ion-item lines="none">
+          <ion-title style="text-align: right;">Seat :{{item.seat}}</ion-title>
         </ion-item>
       </ion-col>
     </ion-row>

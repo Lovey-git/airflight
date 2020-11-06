@@ -89,7 +89,7 @@
           </ion-list-header>
           <ion-list *ngFor="let item of selectedMeals;let i = index">
             <ion-item lines="none" slot="start">
-              <ion-label slot="start" readonly>{{item.meal.value}}</ion-label>
+              <ion-label slot="start" readonly>{{item.meal.text}}</ion-label>
               <ion-item lines="none" slot="end">
                 <ion-label>
                   Qty: {{item.qty.value}}
@@ -159,7 +159,7 @@
             </ion-list-header>
             <ion-list *ngFor="let item of booking_meals;let i = index">
               <ion-item lines="none" slot="start">
-                <ion-label slot="start" readonly>{{item.meal.value}}</ion-label>
+                <ion-label slot="start" readonly>{{item.meal.text}}</ion-label>
                 <ion-item lines="none" slot="end">
                   <ion-label>
                     Qty: {{item.qty.value}}
@@ -175,14 +175,14 @@
         <ion-col>
           <div class="txt-center">
             <strong>
-              Flight total: R765.90
+              Flight total: R{{flight_price}}
             </strong>
           </div>
         </ion-col>
         <ion-col *ngIf="booking_meals">
           <div class="txt-center">
             <strong>
-              Meals total: R56.8
+              Meals total: R{{meal_tot}}
             </strong>
           </div>
         </ion-col>
@@ -216,7 +216,7 @@
           <br>
           <br>
         </div>
-        <form [formGroup]="paymentForm" (ngSubmit)="proceed()">
+        <form [formGroup]="paymentForm" >
 
           <ion-col>
             <ion-label>Card Number:</ion-label>
@@ -248,7 +248,7 @@
             </ion-col>
           </ion-row>
 
-          <ion-button class="txt-center" type="submit" color="primary">Submit</ion-button>
+          <ion-button class="txt-center" (click)="pay()" color="primary">Submit</ion-button>
 
         </form>
       </ion-col>
