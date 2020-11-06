@@ -41,10 +41,10 @@ export class LoginPage implements OnInit {
       if(localStorage.getItem('ur') == 'admin'){
         this.router.navigateByUrl('report');
       }else{
-        if(localStorage.getItem('current_page') == 'flight'){
+        if(localStorage.getItem('current_page_type') == 'flight'){
           this.router.navigateByUrl('home');
         }else {
-          this.router.navigateByUrl('home');
+          this.router.navigateByUrl('tickets');
         }
       }
     }

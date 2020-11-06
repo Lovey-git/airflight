@@ -116,10 +116,16 @@ export class AppComponent {
         text: 'Tickets',
         icon: 'document-text-outline',
         handler: () => {
-          localStorage.clear();
           this.router.navigateByUrl('tickets');
         }
-      },
+      },{
+        text: 'Flights',
+        icon: 'airplane-outline',
+        handler: () => {
+          this.router.navigateByUrl('home');
+        }
+      }
+      ,
       {
         text: 'Logout',
         icon: 'log-out-outline',

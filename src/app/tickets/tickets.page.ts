@@ -29,6 +29,7 @@ export class TicketsPage implements OnInit {
   }
 
   async init(){
+    console.log(this.searchText);
     this.api.get_user_tickets(this.searchText).subscribe(
       data => {
         if (data.status == 0) {
