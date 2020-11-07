@@ -29,6 +29,7 @@ export class TicketsPage implements OnInit {
   }
 
   share(title, id) {
+    console.log(id);
     if (window.navigator && window.navigator.share) {
       window.navigator['share']({
         title: title,
