@@ -28,6 +28,20 @@ export class TicketsPage implements OnInit {
     
   }
 
+  share(title, id) {
+    if (window.navigator && window.navigator.share) {
+      window.navigator['share']({
+        title: title,
+        text: 'description',
+        'url': 'https://che.ac.za/new/#/moreitemdetails/?f_id=' + id
+      })
+        .then(() => console.log('Successful share'))
+        .catch((error) => console.log('Error sharing', error));
+    } else {
+      alert('share not supported');
+    }
+  }
+
   async init(){
     console.log(this.searchText);
     this.api.get_user_tickets(this.searchText).subscribe(
