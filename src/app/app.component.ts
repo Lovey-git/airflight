@@ -48,6 +48,11 @@ export class AppComponent {
     await this.menu.open();
   }
 
+  async  closeMenu() {
+    await this.menu.close();
+  }
+
+
   openFirst() {
     this.menu.enable(true, 'first');
     this.menu.open('first');

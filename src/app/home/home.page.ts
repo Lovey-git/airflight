@@ -72,7 +72,7 @@ export class HomePage {
       from: ['', Validators.required],
       to: ['', Validators.required],
       depart: [this.minDate, Validators.required],
-      return: ['One Way', Validators.required],
+      return: ['One Way Trip', Validators.required],
       children: ['0', Validators.required],
       adults: ['1', Validators.required],
       _class: ['Economy Class', Validators.required]
