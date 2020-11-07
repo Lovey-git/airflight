@@ -16,7 +16,7 @@ export class ApiService {
 
   //Register
   register(email, password, lname, fname) {
-    return this.http.post<any>(this._Url + 'register', { email, password, lname, fname });
+    return this.http.post<any>(this._Url + 'register', { email, password, fname, lname });
   }
 
   //UPDATE USER
@@ -74,6 +74,7 @@ export class ApiService {
 
     //add user payment
     get_user_tickets(searchText) {
-      return this.http.post<any>(this._Url + 'get_user_tickets', { searchText });
+      var uuid = localStorage.getItem('uuid');
+      return this.http.post<any>(this._Url + 'get_user_tickets', { searchText, uuid });
     }
 }

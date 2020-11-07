@@ -75,7 +75,7 @@ export class HomePage {
       return: ['One Way', Validators.required],
       children: ['0', Validators.required],
       adults: ['1', Validators.required],
-      _class: ['Economy', Validators.required]
+      _class: ['Economy Class', Validators.required]
     });
     this.mealsForm = this.fb.group({
       from: ['', Validators.required],
