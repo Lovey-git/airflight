@@ -430,8 +430,7 @@ export class HomePage {
       this.presentAlert('CVV number should be atleast 3 digits long in length and not greater than 4!');
      }
      else  {
-      //this.doPay();
-
+      this.doPay();
     }
   }
 

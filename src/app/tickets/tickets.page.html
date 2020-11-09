@@ -1,14 +1,14 @@
 <ion-content>
-  <ion-row  class="booking-form">
+  <ion-row   class="booking-form">
     <ion-header>
-      <ion-searchbar [(ngModel)]="searchText" (ngModelChange)="init()" showCancelButton="focus"></ion-searchbar>
+      <ion-searchbar  [(ngModel)]="searchText" (ngModelChange)="init()" showCancelButton="focus"></ion-searchbar>
     </ion-header>
   </ion-row>
 
   <div  class="booking-form">
     <ion-list-header>Tickets ({{count}})</ion-list-header>
 
-    <ion-row (click)="share(item.airport_name, item.ticket_id)" style="border-bottom: groove;" *ngFor="let item of users;">
+    <ion-row style="border-bottom: groove;" *ngFor="let item of users;">
       <ion-col >
         <ion-item lines="none">
           <ion-icon  color="success" slot="" name="airplane-outline"></ion-icon>
