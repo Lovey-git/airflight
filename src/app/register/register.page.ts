@@ -81,31 +81,27 @@ export class RegisterPage implements OnInit {
       cssClass: 'my-custom-class',
       message: 'Please wait...',
     });
-    var format = /^[!@#$%^&*()_+\=\[\]{};:"\\|,.<>\/?]*$/;
-    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-
+    
     if (email == null || password == '' || password1 == '' || names == '' || surname == '' || cell == '') {
-      this.presentAlert('All fields are required!');
+      this.presentAlert('All fields are required! ⚠️');
     } else if (password != password1) {
-      this.presentAlert('Passwords do not match');
+      this.presentAlert('Passwords do not match ❌');
     } else if (isNaN(cell) || cell.length <= 9) {
-      this.presentAlert('Phone number should consist of only numbers and atleast 10 digits long');
-    } else if (names.match(format) || surname.match(format) || isNaN(names) == false || isNaN(surname) == false) {
-      this.presentAlert('names and surname should consist of only characters and no special symbols');
-    } else if (!this.validateEmail(email)) {
-      this.presentAlert('Invalid email entered');
-    }
-    else if (this.dob.substr(0,10) == this.minDate.substr(0, 10)) {
+      this.presentAlert('Phone number should consist of only numbers and atleast 10 digits long ❌');
+    } else if (this.api.validateName(names) || this.api.validateName(surname)) {
+      this.presentAlert('names and surname should consist of only characters and no special symbols ❌');
+    } else if (!this.api.validateEmail(email)) {
+      this.presentAlert('Invalid email entered ❌');
+    }else if (this.dob.substr(0,10) == this.minDate.substr(0, 10)) {
       this.presentAlert('You might just be a very smart 👶 infant to even use a computer!');
-    }
-    else if ( parseInt(this.minDate.substr(0, 4)) - (parseInt(this.dob.substr(0,4))) <=17 ) {
-      this.presentAlert('You must be atleast 18 years old to register!');
+    }else if ( parseInt(this.minDate.substr(0, 4)) - (parseInt(this.dob.substr(0,4))) <=17 ) {
+      this.presentAlert('You must be atleast 18 years old to register! 🔞');
       console.log((parseInt(this.dob.substr(0,4)) - parseInt(this.minDate.substr(0, 4))));
-    }
-    if(!this.validateCell(cell)){
-      this.presentAlert('Invalid Phone number');
-    }
-    else {
+    }else if(!this.api.validateCell(cell)){
+      this.presentAlert('Invalid Phone number ❌');
+    }else if (this.api.validatePass(password) < 4) {
+      this.presentAlert('Weak Password detected 👎❌');
+    } else {
       await loading.present();
       this.api.register(email, password, names, surname).subscribe(
         data => {
@@ -126,15 +122,6 @@ export class RegisterPage implements OnInit {
     }
   }
 
-  validateEmail(email) {
-    const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(String(email).toLowerCase());
-  }
-
-  validateCell(phone) {
-    const re = /^[0]{1}[6-8]{1}[1-8]{1}/;
-    return re.test(String(phone).toLowerCase());
-  }
 
   revert() {
     this.registerForm.reset();

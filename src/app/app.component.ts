@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
@@ -13,12 +13,16 @@ import {map} from 'rxjs/operators';
 import { PopoverController } from '@ionic/angular';
 import { MenuController } from '@ionic/angular';
 import { ActionSheetController, AlertController } from '@ionic/angular';
+import { Content } from '@angular/compiler/src/render3/r3_ast';
 
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss']
 })
+
+
+
 export class AppComponent {
   role;
   isLoggedIn;
@@ -44,6 +48,12 @@ export class AppComponent {
     console.log(url);
   }
 
+  ionViewWillEnter(){
+    this.closeMenu();
+    this.role=localStorage.getItem('ur');
+    this.isLoggedIn = this.auth.isLoggedin();
+  }
+  
   async  openMenu() {
     await this.menu.open();
   }
@@ -184,15 +194,15 @@ export class AppComponent {
     await actionSheet.present();
   }
 
+  logout(){
+    this.auth.logout();
+    window.location.reload();
+  }
+
   ngAfterViewInit(){
 
   }
 
-  ionViewWillEnter(){
-    
-  }
-
- 
 
   initializeApp() {
     this.platform.ready().then(() => {

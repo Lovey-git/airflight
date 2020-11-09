@@ -46,7 +46,7 @@ export class HomePage {
   card_number: any;
   card_holder: any;
   card_expMonth: any;
-  card_expYear: any;
+  card_expYear: string;
   card_cvv: any;
 
 
@@ -117,7 +117,7 @@ export class HomePage {
       this.booking_meals = meals;
       this.to = localStorage.getItem('to');
       this.from = localStorage.getItem('from');
-      this.depart = localStorage.getItem('depart');
+      this.depart = localStorage.getItem('depart').substr(0, 10);
       this.return = localStorage.getItem('return');
       this.adults = localStorage.getItem('adults');
       this.children = localStorage.getItem('children');
@@ -412,7 +412,7 @@ export class HomePage {
     this.card_expMonth = this.paymentForm.get('card_expMonth').value;
     this.card_expYear = this.paymentForm.get('card_expYear').value;
     this.card_cvv = this.paymentForm.get('card_cvv').value;
-    console.log(this.card_cvv.length);
+    console.log(String(this.card_number).length);
     if (
       this.card_number == '' ||
       this.card_holder == '' ||
@@ -421,8 +421,16 @@ export class HomePage {
       this.card_cvv == ''
     ) {
       this.presentAlert('Fill in all required fields!');
-    } else {
-      this.doPay();
+    }else if (String(this.card_number).length<16 || String(this.card_number).length>16) {
+      this.presentAlert('card number should be 16 digits long!');
+    }
+     else if (this.api.validateName(this.card_holder)) {
+      this.presentAlert('Invalid card holders name!');
+     } if (String(this.card_cvv).length >4 || String(this.card_cvv).length <2) {
+      this.presentAlert('CVV number should be atleast 3 digits long in length and not greater than 4!');
+     }
+     else  {
+      //this.doPay();
 
     }
   }

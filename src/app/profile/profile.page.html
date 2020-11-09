@@ -5,7 +5,7 @@
 
         <div class="txt-center">
 
-          <ion-icon style="font-size: 55px;" name="person-outline"></ion-icon>
+          <ion-icon style="font-size: 55px;" name="person-circle-outline"></ion-icon>
           <br>
           <strong>Profile</strong>
           <br>
@@ -16,26 +16,23 @@
         </div>
         <form [formGroup]="profileForm">
           <ion-row>
-            <ion-col>
-              <ion-input formControlName="names" type="text" required placeholder="Names"></ion-input>
-            </ion-col>
-            <ion-col>
-              <ion-input formControlName="surname" type="text" required placeholder="Surname"></ion-input>
-            </ion-col>
+            <ion-input formControlName="names" type="text" required placeholder="Names"></ion-input>
+            <ion-input formControlName="surname" type="text" required placeholder="Surname"></ion-input>
           </ion-row>
 
-          <ion-row>
-            <ion-col>
-              <ion-input formControlName="email" type="text" required placeholder="Email"></ion-input>
-            </ion-col>
-          </ion-row>
+          <ion-col>
+            <ion-input formControlName="email" type="text" required placeholder="Email"></ion-input>
+          </ion-col>
 
-          <ion-row>
-            <ion-col>
-              <ion-input formControlName="cell" type="text" required placeholder="Phone Number"></ion-input>
-            </ion-col>
-          </ion-row>
+          <ion-col>
+            <ion-input formControlName="cell" type="text" required placeholder="Phone Number"></ion-input>
+          </ion-col>
 
+          <ion-col>
+            <ion-datetime class="txt-center" style="text-align: center;border: 1px solid #3880ff;border-radius: 5px;" formControlName="dob"
+              placeholder="Date Of Birth" displayFormat="YYYY-MM-DD" max="2020">
+            </ion-datetime>
+          </ion-col>
 
           <ion-row>
             <ion-col>
@@ -61,8 +58,10 @@
             </ion-col>
           </ion-row>
 
-          <ion-button class="txt-center" type="submit" (click)="doUpdatetUser()" color="primary">Update profile</ion-button>
-          <ion-button class="txt-center" type="submit" (click)="changePass()" color="primary">Change Password</ion-button>
+          <ion-button class="txt-center" type="submit" (click)="doUpdatetUser()" color="primary">Update profile
+          </ion-button>
+          <ion-button class="txt-center" type="submit" (click)="changePass()" color="primary">Change Password
+          </ion-button>
           <ion-button class="txt-center" type="submit" (click)="deregister()" color="danger">Delete Account</ion-button>
 
         </form>

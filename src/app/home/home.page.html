@@ -22,7 +22,7 @@
 
           <ion-item>
             <ion-label>To:</ion-label>
-            <ion-select formControlName="to" value="select" okText="Okay" cancelText="Dismiss">
+            <ion-select ion-item [class.highlight]="item" formControlName="to" value="select" okText="Okay" cancelText="Dismiss">
               <ion-select-option *ngFor="let item of destination_list;">{{item}}</ion-select-option>
             </ion-select>
           </ion-item>
@@ -30,7 +30,7 @@
           <ion-item>
             <ion-label>Depart:</ion-label>
             <ion-item>
-              <ion-datetime formControlName="depart" displayFormat="MMMM /DD/YYYY" [min]="minDate" [max]="maxDate">
+              <ion-datetime formControlName="depart" displayFormat="MMMM/DD/YYYY" [min]="minDate" [max]="maxDate">
               </ion-datetime>
             </ion-item>
           </ion-item>
@@ -239,7 +239,7 @@
           <ion-row>
             <ion-col>
               <ion-datetime style="text-align: center;border: 1px solid #3880ff;border-radius: 5px;" formControlName="card_expYear" placeholder="YYYY" displayFormat="YYYY" min="2015"
-                max="2020"></ion-datetime>
+                max="2026"></ion-datetime>
             </ion-col>
             <ion-col>
               <ion-datetime style="text-align: center;border: 1px solid #3880ff;border-radius: 5px;" formControlName="card_expMonth" placeholder="MM" displayFormat="MM"></ion-datetime>

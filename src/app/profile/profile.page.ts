@@ -56,7 +56,7 @@ export class ProfilePage implements OnInit {
     const alert = await this.alertCtrl.create({
       cssClass: 'my-custom-class',
       header: 'Confirm!',
-      message: '<strong>Delete account?</strong>!!!',
+      message: '<strong>Delete account?  ⚠️</strong>!!!',
       buttons: [
         {
           text: 'Cancel',
@@ -126,10 +126,13 @@ export class ProfilePage implements OnInit {
     });
 
     if (password == '' || password1 == '') {
-      this.presentAlert('Password fields required');
+      this.presentAlert('Password fields required ⚠️');
     } else if (password1 != password) {
-      this.presentAlert('Passwords do not match! ');
-    } else {
+      this.presentAlert('Passwords do not match! ❌');
+    }else if (this.api.validatePass(password)) {
+      this.presentAlert('Weak Password detected 👎❌');
+    }
+    else {
       await loading.present();
       this.api.update_password(password).subscribe(
         data => {
@@ -189,8 +192,9 @@ export class ProfilePage implements OnInit {
             'cell': data.data[0].cell,
             'province': data.data[0].province,
             'gender': data.data[0].gender,
-            'dob': data.data[0].gender,
-          })
+            'dob': data.data[0].date_of_birth,
+          });
+          this.profileForm.controls['dob'].disable();
           loading.dismiss();
         } else {
           loading.dismiss();
@@ -209,8 +213,6 @@ export class ProfilePage implements OnInit {
       message: 'Please wait...',
     });
 
-    await loading.present();
-
     let names = this.profileForm.get('names').value;
     let surname = this.profileForm.get('surname').value;
     let cell = this.profileForm.get('cell').value;
@@ -218,22 +220,33 @@ export class ProfilePage implements OnInit {
     let province = this.profileForm.get('province').value;
     let email = this.profileForm.get('email').value;
 
-
-    this.api.update_user(names, surname, email, cell, gender, province).subscribe(
-      data => {
-        if (data.status == 0) {
+    if (email == null || gender == '' || province == '' || names == '' || surname == '' || cell == '') {
+      this.presentAlert('All fields are required! ⚠️');
+    } else if (isNaN(cell) || cell.length <= 9) {
+      this.presentAlert('Phone number should consist of only numbers and atleast 10 digits long ❌');
+    } else if (this.api.validateName(names) || this.api.validateName(surname)) {
+      this.presentAlert('names and surname should consist of only characters and no special symbols ❌');
+    } else if (!this.api.validateEmail(email)) {
+      this.presentAlert('Invalid email entered ❌');
+    } else if (!this.api.validateCell(cell)) {
+      this.presentAlert('Invalid Phone number ❌');
+    } else {
+      await loading.present();
+      this.api.update_user(names, surname, email, cell, gender, province).subscribe(
+        data => {
+          if (data.status == 0) {
+            loading.dismiss();
+            this.toaster.successToast(data.msg);
+          } else {
+            loading.dismiss();
+            this.presentAlert(data.msg);
+          }
+        }, error => {
           loading.dismiss();
-          this.toaster.successToast(data.msg);
-        } else {
-          loading.dismiss();
-          this.presentAlert(data.msg);
-
+          this.presentAlert("Could not connect to server 🖥️, check your internet connection!");
         }
-      }, error => {
-        loading.dismiss();
-        this.presentAlert(error.message);
-      }
-    );
+      );
+    }
   }
 
   async presentAlert(msg) {

@@ -14,6 +14,39 @@ export class ApiService {
   //_Url = "http://localhost:8080/";
   _Url = "https://kohaku-b.herokuapp.com/";
 
+  validateCell(phone) {
+    const re = /^[0]{1}[6-8]{1}[1-8]{1}/;
+    if (re.test(String(phone).toLowerCase())) {
+      return true;
+    }else{
+      return false;
+    }
+  }
+
+  validateName(name) {
+    var format =  /^[0-9!@#$%^&*()_+\=\[\]{};':"\\|,.<>\/?]*$/;
+    var re = /.*[0-9].*/;
+    if( name.match(format) ||  name.match(re)){
+      return true;
+    }else{
+      return false;
+    }
+  }
+
+  validatePass(password) {
+    let numberOfElements = 0;
+    numberOfElements = /.*[a-z].*/.test(password) ? ++numberOfElements : numberOfElements;      // Lowercase letters
+    numberOfElements = /.*[A-Z].*/.test(password) ? ++numberOfElements : numberOfElements;      // Uppercase letters
+    numberOfElements = /.*[0-9].*/.test(password) ? ++numberOfElements : numberOfElements;      // Numbers
+    numberOfElements = /[^a-zA-Z0-9]/.test(password) ? ++numberOfElements : numberOfElements;   // Special characters (inc. space)
+    return numberOfElements;
+  }
+
+  validateEmail(email) {
+    const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+  }
+
   //Register
   register(email, password, lname, fname) {
     return this.http.post<any>(this._Url + 'register', { email, password, fname, lname });
@@ -72,9 +105,9 @@ export class ApiService {
     return this.http.post<any>(this._Url + 'add_user_payment', { ticket_id, amount, card_number, cvv, expire_date });
   }
 
-    //add user payment
-    get_user_tickets(searchText) {
-      var uuid = localStorage.getItem('uuid');
-      return this.http.post<any>(this._Url + 'get_user_tickets', { searchText, uuid });
-    }
+  //add user payment
+  get_user_tickets(searchText) {
+    var uuid = localStorage.getItem('uuid');
+    return this.http.post<any>(this._Url + 'get_user_tickets', { searchText, uuid });
+  }
 }

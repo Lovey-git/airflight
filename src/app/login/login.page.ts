@@ -60,10 +60,13 @@ export class LoginPage implements OnInit {
     });
 
     if( email == '' ){
-      this.presentAlert('Email is required');
+      this.presentAlert('Email is required ⚠️');
     }else if(password == ''){
-      this.presentAlert('Password is required');
-    }else{
+      this.presentAlert('Password is required ⚠️');
+    }else if (!this.api.validateEmail(email)) {
+      this.presentAlert('Invalid email entered ❌');
+    }
+    else{
       await loading.present();
       this.authService.login(
         email,
