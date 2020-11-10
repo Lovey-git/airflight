@@ -116,7 +116,7 @@ export class RegisterPage implements OnInit {
           }
         }, error => {
           loading.dismiss();
-          this.presentAlert(error.message);
+          this.presentAlert("Could not connect to server 🖥️, check your internet connection!");
         }
       )
     }

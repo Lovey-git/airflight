@@ -28,6 +28,16 @@ export class TicketsPage implements OnInit {
     
   }
 
+  downloadMyFile(t_id) {
+    const link = document.createElement('a');
+    link.setAttribute('target', '_self');
+    link.setAttribute('href', 'https://kohaku-b.herokuapp.com/download/' + localStorage.getItem('uuid') + t_id + '.pdf');
+    link.setAttribute('download', `Ticket.pdf`);
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+  }
+
   share(title, id) {
     console.log(id);
     if (window.navigator && window.navigator.share) {

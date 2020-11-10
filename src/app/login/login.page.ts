@@ -83,7 +83,8 @@ export class LoginPage implements OnInit {
             this.presentAlert(data.msg);
           }
         }, error => {
-          //console.log(error);
+          loading.dismiss();
+          this.presentAlert("Could not connect to server 🖥️, check your internet connection!");
         }
       )
     }

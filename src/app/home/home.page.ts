@@ -24,8 +24,8 @@ export class HomePage {
   public paymentForm: FormGroup;
   public destination_list: any = ["Johannesburg JNB", "Cape Town CPT", "Bloemfontain BFN", "Windhoek WDH", "Port Elizabeth PLZ", "Durban DUR", "Dubai DUB"];
 
-  public meals_prices: any[] = [25.00, 89.9, 164.99, 40.99, 60.00, 250.00, 46.90, 12.99];
-  public meals: any[] = ["fish and chips", "chicken", "beef", "fish", "pasta", "halal", "cocktail", 'cola'];
+  public meals_prices: any[] = [25.00, 89.9, 164.99, 40.99, 89.00,60.00, 250.00, 46.90, 27.8,  12.99];
+  public meals: any[] = ["fish and chips", "Chips and burger", "beef risotto", "chicken hot wings", "chicken ala king","spaghetti bolognese", "tomato Afghan pizza", "Greek Salad", "Strawberry Milkshake", 'cola'];
   public selectedMeals: any[][] = new Array();
   public Destinations: any = this.d.destination_list;
   index = 0;
@@ -48,6 +48,7 @@ export class HomePage {
   card_expMonth: any;
   card_expYear: string;
   card_cvv: any;
+  
 
 
   public minDate = moment().add(0, 'd').format().toString();
@@ -66,7 +67,7 @@ export class HomePage {
     public navCtrl: NavController,
     private pickerController: PickerController,
     private d: DestinationList,
-    //private payPal: PayPal
+    //private payPal: PayPal,
   ) {
     this.flightForm = this.fb.group({
       from: ['', Validators.required],
@@ -152,7 +153,6 @@ export class HomePage {
       } else {
         this.flight_price = (this.flight_price * this.adults) + this.flight_price * this.children * .8;
       }
-
     }
   }
 
@@ -391,7 +391,7 @@ export class HomePage {
           this.toaster.successToast(data.msg);
           localStorage.setItem('t_id', data.t_id);
           let amount = this.meal_tot + this.flight_price;
-          localStorage.setItem('amount', amount+'');
+          localStorage.setItem('amount', amount + '');
           localStorage.setItem('current_page_type', 'payment');
           window.location.reload();
         } else {
@@ -421,18 +421,26 @@ export class HomePage {
       this.card_cvv == ''
     ) {
       this.presentAlert('Fill in all required fields!');
-    }else if (String(this.card_number).length<16 || String(this.card_number).length>16) {
+    } else if (String(this.card_number).length < 16 || String(this.card_number).length > 16) {
       this.presentAlert('card number should be 16 digits long!');
-    }
-     else if (this.api.validateName(this.card_holder)) {
+    }else if (this.api.validateName(this.card_holder)) {
       this.presentAlert('Invalid card holders name!');
-     } if (String(this.card_cvv).length >4 || String(this.card_cvv).length <2) {
+    }else if (String(this.card_cvv).length > 4 || String(this.card_cvv).length < 2) {
       this.presentAlert('CVV number should be atleast 3 digits long in length and not greater than 4!');
-     }
-     else  {
+    }else {
       this.doPay();
     }
   }
+
+  downloadMyFile(){
+    const link = document.createElement('a');
+    link.setAttribute('target', '_self');
+    link.setAttribute('href', 'https://kohaku-b.herokuapp.com/download/'+localStorage.getItem('uuid')+localStorage.getItem('t_id') +'.pdf');
+    link.setAttribute('download', `Ticket.pdf`);
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+}
 
 
   async doPay() {
@@ -456,6 +464,7 @@ export class HomePage {
           this.toaster.successToast(data.msg);
           localStorage.setItem('current_page_type', 'payment');
           localStorage.removeItem('current_page_type');
+          this.downloadMyFile();
           this.router.navigateByUrl('tickets');
         } else {
           loading.dismiss();
