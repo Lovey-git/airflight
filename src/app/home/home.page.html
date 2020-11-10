@@ -22,7 +22,7 @@
 
           <ion-item>
             <ion-label>To:</ion-label>
-            <ion-select ion-item [class.highlight]="item" formControlName="to" value="select" okText="Okay" cancelText="Dismiss">
+            <ion-select formControlName="to" value="select" okText="Okay" cancelText="Dismiss">
               <ion-select-option *ngFor="let item of destination_list;">{{item}}</ion-select-option>
             </ion-select>
           </ion-item>

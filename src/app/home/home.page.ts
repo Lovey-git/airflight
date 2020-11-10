@@ -460,7 +460,6 @@ export class HomePage {
         } else {
           loading.dismiss();
           this.presentAlert(data.msg);
-
         }
       }, error => {
         loading.dismiss();
