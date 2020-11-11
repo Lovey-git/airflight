@@ -11,11 +11,11 @@ export class ApiService {
     private http: HttpClient,
   ) { }
 
-  //_Url = "http://localhost:8080/";
-  _Url = "https://kohaku-b.herokuapp.com/";
+  _Url = "http://localhost:8080/";
+  //_Url = "https://kohaku-b.herokuapp.com/";
 
   validateCell(phone) {
-    const re = /^[0]{1}[6-8]{1}[1-8]{1}/;
+    const re = /^[0]{1}[6-8]{1}[1-9]{1}/;
     if (re.test(String(phone).toLowerCase())) {
       return true;
     }else{
@@ -109,5 +109,10 @@ export class ApiService {
   get_user_tickets(searchText) {
     var uuid = localStorage.getItem('uuid');
     return this.http.post<any>(this._Url + 'get_user_tickets', { searchText, uuid });
+  }
+
+   //add user payment
+   generate_report(data) {
+    return this.http.post<any>(this._Url + 'generate_report', { data });
   }
 }

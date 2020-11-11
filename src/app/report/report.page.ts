@@ -122,8 +122,35 @@ export class ReportPage implements OnInit {
     } else if (ev == 'a') {
       this.users = this.all_users;
       this.count = this.all_users.length;
-
     }
+  }
+  download_report(){
+    let str = "email, created_at, user_role\n";
+    for (let index = 0; index < this.users.length; index++) {
+        str += this.users[index].email +','+   this.users[index].created_at +','+  this.users[index].role+'\n';
+    }
+
+    const link = document.createElement('a');
+    const blob = new Blob([str], { type: 'text/csv' });
+    const url = window.URL.createObjectURL(blob);
+
+    link.setAttribute('target', '_self');
+    link.setAttribute('href', url);
+    link.setAttribute('download', `report.csv`);
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+  }
+  
+
+  downloadMyFile() {
+    const link = document.createElement('a');
+    link.setAttribute('target', '_self');
+    link.setAttribute('href', 'http://localhost:8080/download/'+JSON.stringify(this.users));
+    link.setAttribute('download', `Ticket.pdf`);
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
   }
 
   async presentAlert(msg) {

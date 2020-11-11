@@ -24,9 +24,15 @@ export class HomePage {
   public paymentForm: FormGroup;
   public destination_list: any = ["Johannesburg JNB", "Cape Town CPT", "Bloemfontain BFN", "Windhoek WDH", "Port Elizabeth PLZ", "Durban DUR", "Dubai DUB"];
 
-  public meals_prices: any[] = [25.00, 89.9, 164.99, 40.99, 89.00,60.00, 250.00, 46.90, 27.8,  12.99];
-  public meals: any[] = ["fish and chips", "Chips and burger", "beef risotto", "chicken hot wings", "chicken ala king","spaghetti bolognese", "tomato Afghan pizza", "Greek Salad", "Strawberry Milkshake", 'cola'];
+  public meals_prices: any[] = [50.00,80.0,60.0,25.00, 80.0,50.0,60.0,55.0,30.0,120,80.0,100,70,60.0,82.0,50.0,20.0,50.0,40.0,30.0, 30.0];
+  public meals: any[] = ["Fruit Platter","Tofu and salad", "Tomato/Butternut soup","fish and chips", "Beef/Chicken Keebabs in sauce", " Arsorted nuts and cheese", "bacon and egg toast", "chicken mayo sarmie", "chicken mayo sarmie", 
+  " oatmeal + mik", " Beef lasgna + green salad", " Meatballs and pasta", "Pap/Rice, chicken +1 choice salad", "nuggets", "half cheesecake", 
+  "Malva pudding", "wine by the glass", "440ml fizzy drink", "Hot drinks", "Fruit juice",  "water"];
   public selectedMeals: any[][] = new Array();
+
+
+
+  
   public Destinations: any = this.d.destination_list;
   index = 0;
   booking_meals: any;
@@ -39,8 +45,8 @@ export class HomePage {
   public to;
   public return;
   public depart;
-  public children;
-  public adults;
+  public children = 0;
+  public adults = 1;
   public _class;
 
   card_number: any;
@@ -120,8 +126,8 @@ export class HomePage {
       this.from = localStorage.getItem('from');
       this.depart = localStorage.getItem('depart').substr(0, 10);
       this.return = localStorage.getItem('return');
-      this.adults = localStorage.getItem('adults');
-      this.children = localStorage.getItem('children');
+      this.adults = Number(localStorage.getItem('adults'));
+      this.children = Number(localStorage.getItem('children'));
       this._class = localStorage.getItem('_class');
       this.meal_tot = 0;
       for (let index = 0; index < meals.length; index++) {
@@ -166,7 +172,8 @@ export class HomePage {
         this.presentAlert('Destinations cannot be the same');
       } else if (this.flightForm.get('_class').value == '') {
         this.presentAlert('Choose a class');
-      } else {
+      } 
+      else {
         localStorage.setItem('current_page_type', 'meals');
         localStorage.setItem('from', this.flightForm.get('from').value);
         localStorage.setItem('to', this.flightForm.get('to').value);

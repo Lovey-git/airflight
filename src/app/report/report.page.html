@@ -19,7 +19,14 @@
   </ion-row>
 
   <div class="booking-form">
-    <ion-list-header>Users ({{count}})</ion-list-header>
+    <ion-list-header>
+      <ion-item lines="none">
+        Users ({{count}})
+        <ion-icon (click)="download_report()" name="save-outline" slot="end"></ion-icon>
+      </ion-item>
+      
+
+    </ion-list-header>
     <ion-row (click) = "userAlert(item.email, item.uuid)" style="border-bottom: groove;" *ngFor="let item of users;">
       <ion-col >
         <ion-item lines="none">
