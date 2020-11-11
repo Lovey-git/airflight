@@ -8,10 +8,16 @@ ion-menu {
     ion-content{
         --background: var(--ion-color-light);
     }
+
+   
   
     ion-list {/* optional, but it needs when you use gradient as a background color.*/
       background: transparent;
     }
+
+    
 }
+
+
 
 

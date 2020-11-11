@@ -22,7 +22,7 @@ export class HomePage {
   public mealsForm: FormGroup;
   public bookingForm: FormGroup;
   public paymentForm: FormGroup;
-  public destination_list: any = ["Johannesburg JNB", "Cape Town CPT", "Bloemfontain BFN", "Windhoek WDH", "Port Elizabeth PLZ", "Durban DUR", "Dubai DUB"];
+  public destination_list: any = ["Johannesburg JNB", "Cape Town CPT", "Bloemfontain BFN", "George GEO", "Port Elizabeth PLZ", "Durban DUR", "East London EAS"];
 
   public meals_prices: any[] = [50.00,80.0,60.0,25.00, 80.0,50.0,60.0,55.0,30.0,120,80.0,100,70,60.0,82.0,50.0,20.0,50.0,40.0,30.0, 30.0];
   public meals: any[] = ["Fruit Platter","Tofu and salad", "Tomato/Butternut soup","fish and chips", "Beef/Chicken Keebabs in sauce", " Arsorted nuts and cheese", "bacon and egg toast", "chicken mayo sarmie", "chicken mayo sarmie", 

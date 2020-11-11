@@ -39,7 +39,7 @@
             <ion-label>Return:</ion-label>
             <ion-item>
               <ion-datetime formControlName="return" displayFormat="MMMM/DD/YYYY" [min]="minDate" [max]="maxDate"
-                placeholder="One Way"></ion-datetime>
+               style="color: primary;" placeholder="One Way"></ion-datetime>
             </ion-item>
           </ion-item>
 
@@ -96,7 +96,7 @@
         </div>
         <form [formGroup]="flightForm" (ngSubmit)="proceed()">
 
-          <ion-button class="txt-center" (click)="showPicker()" color="light">Choose a Meal or beverage</ion-button>
+          <ion-button class="txt-center" (click)="showPicker()" color="secondary">Choose a Meal or beverage</ion-button>
           <ion-list-header>
             <ion-label><strong>Selected Meals</strong></ion-label>
           </ion-list-header>
@@ -113,7 +113,7 @@
           </ion-list>
 
           <ion-button class="txt-center" type="submit" routerLink="/home" color="primary">Proceed</ion-button>
-          <ion-button (click)="restMeals()" class="txt-center" color="light">Reset</ion-button>
+          <ion-button (click)="restMeals()" class="txt-center" color="secondary">Reset</ion-button>
         </form>
       </ion-col>
     </div>
@@ -207,7 +207,7 @@
           </ion-button>
         </ion-col>
         <ion-col>
-          <ion-button (click)="cancelOrder()" color="light">
+          <ion-button (click)="cancelOrder()" color="secondary">
             Cancel Booking
           </ion-button>
         </ion-col>
