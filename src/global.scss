@@ -248,7 +248,7 @@ editor{
     ion-input[type=text]{
         height: 100%;
         text-align: center; 
-        border: 1px solid ;@extend .color-primary;
+        border: 1px solid --ion-color-secondary;
         border-radius: 5px;
     }
 

@@ -76,6 +76,30 @@ export class ProfilePage implements OnInit {
     await alert.present();
   }
 
+  async deactivate() {
+    const alert = await this.alertCtrl.create({
+      cssClass: 'my-custom-class',
+      header: 'Confirm!',
+      message: '<strong>Deactivate account?  ⚠️</strong>!!!\nYou can always re-activate your account again at a later stage',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+          }
+        }, {
+          text: 'Okay',
+          handler: () => {
+            this.doDeactivateUser();
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
   async changePass() {
     const alert = await this.alertCtrl.create({
       cssClass: 'my-custom-class',
@@ -163,7 +187,31 @@ export class ProfilePage implements OnInit {
         if (data.status == 0) {
           loading.dismiss();
           this.toaster.successToast(data.msg);
-          localStorage.clear();
+          this.authService.logout();
+        } else {
+          loading.dismiss();
+          this.presentAlert(data.msg);
+        }
+      }, error => {
+        loading.dismiss();
+        this.presentAlert(error.message);
+      }
+    );
+  }
+
+  async doDeactivateUser() {
+    const loading = await this.loadingCtrl.create({
+      cssClass: 'my-custom-class',
+      message: 'Please wait...',
+    });
+
+    await loading.present();
+    this.api.deactivate_user().subscribe(
+      data => {
+        if (data.status == 0) {
+          loading.dismiss();
+          this.toaster.successToast(data.msg);
+          this.authService.logout();
         } else {
           loading.dismiss();
           this.presentAlert(data.msg);
@@ -194,7 +242,7 @@ export class ProfilePage implements OnInit {
             'gender': data.data[0].gender,
             'dob': data.data[0].date_of_birth,
           });
-          this.profileForm.controls['dob'].disable();
+          this.profileForm.controls['email'].disable();
           loading.dismiss();
         } else {
           loading.dismiss();

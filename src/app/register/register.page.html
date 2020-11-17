@@ -21,13 +21,25 @@
           <br>
           <ion-input formControlName="cell" type="tel" required placeholder="Phone Number"></ion-input>
           <br>
-            <ion-datetime style="text-align: center;border: 1px solid #3880ff;color:  #3880ff; border-radius: 5px;" formControlName="dob"
-              placeholder="Date Of Birth" displayFormat="YYYY-MM-DD" max="2002">
-            </ion-datetime>
-            <br>
-          <ion-input formControlName="password" type="password" required placeholder="Password"></ion-input>
+          <ion-datetime style="text-align: center;border: 1px solid #3880ff;color:  #3880ff; border-radius: 5px;"
+            formControlName="dob" placeholder="Date Of Birth" displayFormat="YYYY-MM-DD" max="2002">
+          </ion-datetime>
           <br>
-          <ion-input formControlName="password1" type="password" required placeholder="Confirm Password"></ion-input>
+          <ion-input formControlName="password" class="tooltip" type="password" required placeholder="Password">
+            <span class="tooltiptext">
+              <ol>
+                Password requirements:
+                <li>Use a minimum password length of 8</li>
+                <li>atleast one lowercase and uppercase alphabetic characters</li>
+                <li>atleast one number </li>
+                <li>atleast one special characters e.g. !@#$%^&* </li>
+              </ol>
+            </span>
+          </ion-input>
+          <br>
+          <br>
+          <ion-input style="position: relative;"  formControlName="password1"  type="password" required
+            placeholder="Confirm Password"></ion-input>
           <br>
 
           <ion-button class="txt-center" type="submit" (click)="register()" color="primary">Register</ion-button>

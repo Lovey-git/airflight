@@ -1,6 +1,6 @@
 <ion-content fullscreen>
   <ion-grid>
-    <div class="login-form">
+    <div class="booking-form">
       <ion-col>
 
         <div class="txt-center">
@@ -16,23 +16,30 @@
         </div>
         <form [formGroup]="profileForm">
           <ion-row>
-            <ion-input formControlName="names" type="text" required placeholder="Names"></ion-input>
-            <ion-input formControlName="surname" type="text" required placeholder="Surname"></ion-input>
+            <ion-col>
+              <ion-input formControlName="names" type="text" required placeholder="Names"></ion-input>
+            </ion-col>
+            <ion-col>
+              <ion-input formControlName="surname" type="text" required placeholder="Surname"></ion-input>
+            </ion-col>
           </ion-row>
 
-          <ion-col>
-            <ion-input formControlName="email" type="text" required placeholder="Email"></ion-input>
-          </ion-col>
+          <ion-row>
+            <ion-col>
+              <ion-input formControlName="email" type="text" required placeholder="Email"></ion-input>
+            </ion-col>
+            <ion-col>
+              <ion-input formControlName="cell" type="text" required placeholder="Phone Number"></ion-input>
+            </ion-col>
+          </ion-row>
 
-          <ion-col>
-            <ion-input formControlName="cell" type="text" required placeholder="Phone Number"></ion-input>
-          </ion-col>
-
-          <ion-col>
-            <ion-datetime class="txt-center" style="text-align: center;border: 1px solid #3880ff;border-radius: 5px;" formControlName="dob"
-              placeholder="Date Of Birth" displayFormat="YYYY-MM-DD" max="2020">
-            </ion-datetime>
-          </ion-col>
+          <ion-row>
+            <ion-col>
+              <ion-datetime class="txt-center" style="text-align: center;border: 1px solid #3880ff;border-radius: 5px;"
+                formControlName="dob" placeholder="Date Of Birth" displayFormat="YYYY-MM-DD" max="2002">
+              </ion-datetime>
+            </ion-col>
+          </ion-row>
 
           <ion-row>
             <ion-col>
@@ -58,11 +65,19 @@
             </ion-col>
           </ion-row>
 
-          <ion-button class="txt-center" type="submit" (click)="doUpdatetUser()" color="primary">Update profile
-          </ion-button>
-          <ion-button class="txt-center" type="submit" (click)="changePass()" color="primary">Change Password
-          </ion-button>
-          <ion-button class="txt-center" type="submit" (click)="deregister()" color="danger">Delete Account</ion-button>
+
+            <ion-col>
+              <ion-button class="txt-center" (click)="doUpdatetUser()" color="primary">Update profile</ion-button>
+            </ion-col>
+            <ion-col>
+              <ion-button class="txt-center" (click)="changePass()" color="secondary">Change Password</ion-button>
+            </ion-col>
+            <ion-col>
+              <ion-button class="txt-center" (click)="deactivate()" color="warning">Deactivate Account</ion-button>
+            </ion-col>
+            <ion-col>
+              <ion-button class="txt-center" (click)="deregister()" color="danger">Delete Account</ion-button>
+            </ion-col>
 
         </form>
       </ion-col>

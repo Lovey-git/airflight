@@ -6,9 +6,9 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 
-import {ActivatedRoute} from '@angular/router';
-import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
+import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { PopoverController } from '@ionic/angular';
 import { MenuController } from '@ionic/angular';
@@ -28,13 +28,14 @@ export class AppComponent {
   isLoggedIn;
   email = "email@mail.com";
   title = "Air Food ✈️";
-  header = "home";
+  header = localStorage.getItem('page');
+
 
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
-    private auth : AuthService,
+    private auth: AuthService,
     route: ActivatedRoute,
     public popoverController: PopoverController,
     private menu: MenuController,
@@ -44,21 +45,22 @@ export class AppComponent {
     this.initializeApp();
     this.role = localStorage.getItem('ur');
     this.isLoggedIn = auth.isLoggedin();
-    const url: string = route.snapshot.url.join('home');
+    const url: Observable<string> = route.url.pipe(map(segments => segments.join('profile')));
     console.log(url);
   }
 
-  ionViewWillEnter(){
+  ionViewWillEnter() {
     this.closeMenu();
-    this.role=localStorage.getItem('ur');
+    this.role = localStorage.getItem('ur');
     this.isLoggedIn = this.auth.isLoggedin();
+    this.header = localStorage.getItem('page');
   }
-  
-  async  openMenu() {
+
+  async openMenu() {
     await this.menu.open();
   }
 
-  async  closeMenu() {
+  async closeMenu() {
     await this.menu.close();
   }
 
@@ -77,6 +79,10 @@ export class AppComponent {
     this.menu.open('custom');
   }
 
+  openPage(title) {
+    localStorage.setItem('page', title);
+  }
+
   async adminOptions() {
     const actionSheet = await this.actionSheetController.create({
       header: 'Options',
@@ -92,7 +98,7 @@ export class AppComponent {
         text: 'Reports',
         icon: 'document-text-outline',
         handler: () => {
-          
+
           this.router.navigateByUrl('report');
         }
       },
@@ -104,7 +110,7 @@ export class AppComponent {
           window.location.reload();
         }
       }
-      , {
+        , {
         text: 'Cancel',
         icon: 'close',
         role: 'cancel',
@@ -133,14 +139,14 @@ export class AppComponent {
         handler: () => {
           this.router.navigateByUrl('tickets');
         }
-      },{
+      }, {
         text: 'Flights',
         icon: 'airplane-outline',
         handler: () => {
           this.router.navigateByUrl('home');
         }
       }
-      ,
+        ,
       {
         text: 'Logout',
         icon: 'log-out-outline',
@@ -149,7 +155,7 @@ export class AppComponent {
           window.location.reload();
         }
       }
-      , {
+        , {
         text: 'Cancel',
         icon: 'close',
         role: 'cancel',
@@ -166,41 +172,40 @@ export class AppComponent {
       header: 'Options',
       cssClass: 'my-custom-class',
       buttons: [
-      {
-        text: 'Login',
-        icon: 'log-out-outline',
-        handler: () => {
-          localStorage.clear();
-          this.router.navigateByUrl('login');
+        {
+          text: 'Login',
+          icon: 'log-out-outline',
+          handler: () => {
+            localStorage.clear();
+            this.router.navigateByUrl('login');
+          }
+        },
+        {
+          text: 'Register',
+          icon: 'log-in-outline',
+          handler: () => {
+            localStorage.clear();
+            this.router.navigateByUrl('register');
+          }
         }
-      },
-      {
-        text: 'Register',
-        icon: 'log-in-outline',
-        handler: () => {
-          localStorage.clear();
-          this.router.navigateByUrl('register');
-        }
-      }
-      , {
-        text: 'Cancel',
-        icon: 'close',
-        role: 'cancel',
-        handler: () => {
-          console.log('Cancel clicked');
-        }
-      }]
+        , {
+          text: 'Cancel',
+          icon: 'close',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        }]
     });
     await actionSheet.present();
   }
 
-  logout(){
+  logout() {
     this.auth.logout();
     window.location.reload();
   }
 
-  ngAfterViewInit(){
-
+  ngAfterViewInit() {
   }
 
 

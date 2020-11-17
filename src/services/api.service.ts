@@ -18,17 +18,17 @@ export class ApiService {
     const re = /^[0]{1}[6-8]{1}[1-9]{1}/;
     if (re.test(String(phone).toLowerCase())) {
       return true;
-    }else{
+    } else {
       return false;
     }
   }
 
   validateName(name) {
-    var format =  /^[0-9!@#$%^&*()_+\=\[\]{};':"\\|,.<>\/?]*$/;
+    var format = /^[0-9!@#$%^&*()_+\=\[\]{};':"\\|,.<>\/?]*$/;
     var re = /.*[0-9].*/;
-    if( name.match(format) ||  name.match(re)){
+    if (name.match(format) || name.match(re)) {
       return true;
-    }else{
+    } else {
       return false;
     }
   }
@@ -111,8 +111,14 @@ export class ApiService {
     return this.http.post<any>(this._Url + 'get_user_tickets', { searchText, uuid });
   }
 
-   //add user payment
-   generate_report(data) {
+  //add user payment
+  generate_report(data) {
     return this.http.post<any>(this._Url + 'generate_report', { data });
+  }
+
+  //add user payment
+  deactivate_user() {
+    var uuid = localStorage.getItem('uuid');
+    return this.http.post<any>(this._Url + 'deactivate_user', { uuid });
   }
 }
