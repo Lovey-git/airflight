@@ -34,11 +34,6 @@
 
       <ion-list style="padding-top: 70px;">
 
-        <ion-item>
-          <ion-icon slot="start" (click)="closeMenu()" name="close-outline"></ion-icon>
-          <ion-label slot="end">Menu</ion-label>
-        </ion-item>
-
         <ion-item *ngIf="role!='normal' && role!='admin'">
           Guest
         </ion-item>
