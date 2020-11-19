@@ -1,6 +1,6 @@
 <ion-content fullscreen>
   <ion-grid>
-    <div class="login-form">
+    <div class="login-form" style="position: relative;">
       <ion-col>
 
         <div class="txt-center">
@@ -10,8 +10,8 @@
           <br>
           <ion-label color="dark">Great adventures begin here!</ion-label>
           <br>
-          <br>
         </div>
+        <!-- register form -->
         <form [formGroup]="registerForm">
           <ion-input formControlName="names" type="text" required placeholder="Names"></ion-input>
           <br>
@@ -38,15 +38,19 @@
           </ion-input>
           <br>
           <br>
-          <ion-input style="position: relative;"  formControlName="password1"  type="password" required
+          <ion-input style="position: relative;" formControlName="password1" type="password" required
             placeholder="Confirm Password"></ion-input>
           <br>
 
           <ion-button class="txt-center" type="submit" (click)="register()" color="primary">Register</ion-button>
+          <div class="txt-center">
+            <a color="primary" style="cursor: pointer;text-decoration: underline;" (click)="openTermsModal();">By
+              proceeding you agree to Air-Food T&C's</a>
+          </div>
         </form>
         <ion-footer class="txt-center">
-          <br>
-          <a color="primary" routerLink="/login">already have an accout? sign in here.</a>
+          <a color="primary" routerLink="/login" (click)="app.openPage('Login');">already have an accout? sign in
+            here.</a>
         </ion-footer>
       </ion-col>
     </div>

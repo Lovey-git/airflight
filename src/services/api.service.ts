@@ -76,9 +76,9 @@ export class ApiService {
   }
 
   //add ticket
-  add_ticket(from, to, depart, Return, adults, children, adult_price, child_price, meals, Class, totalAmt) {
+  add_ticket(from, to, depart, Return, adults, children, adult_price, child_price, meals, Class, totalAmt, time_slot) {
     var uuid = localStorage.getItem('uuid');
-    return this.http.post<any>(this._Url + 'add_ticket', { uuid, from, to, depart, Return, adults, children, adult_price, child_price, meals, Class, totalAmt });
+    return this.http.post<any>(this._Url + 'add_ticket', { uuid, from, to, depart, Return, adults, children, adult_price, child_price, meals, Class, totalAmt, time_slot });
   }
 
   //get all users
@@ -120,5 +120,10 @@ export class ApiService {
   deactivate_user() {
     var uuid = localStorage.getItem('uuid');
     return this.http.post<any>(this._Url + 'deactivate_user', { uuid });
+  }
+
+  //activate user 
+  activate_user(email) {
+    return this.http.post<any>(this._Url + 'activate_user', { email });
   }
 }

@@ -5,7 +5,7 @@ import { ApiService } from '../../services/api.service';
 import { ToasterService } from '../../services/toaster.service';
 import { AuthService } from '../../services/auth.service';
 import { AlertController, ToastController, LoadingController, MenuController, NavController } from '@ionic/angular';
-import { invalid } from '@angular/compiler/src/render3/view/util';
+import { AppComponent } from '../app.component';
 
 @Component({
   selector: 'app-login',
@@ -25,6 +25,7 @@ export class LoginPage implements OnInit {
     private alertCtrl: AlertController,
     public loadingCtrl: LoadingController,
     public navCtrl: NavController,
+    public app: AppComponent,
   ) {
     this.loginForm = this.fb.group({
       email: ['', Validators.required],
@@ -36,14 +37,14 @@ export class LoginPage implements OnInit {
 
   }
 
-  ionViewWillEnter(){
-    if(this.authService.isLoggedin()){
-      if(localStorage.getItem('ur') == 'admin'){
+  ionViewWillEnter() {
+    if (this.authService.isLoggedin()) {
+      if (localStorage.getItem('ur') == 'admin') {
         this.router.navigateByUrl('report');
-      }else{
-        if(localStorage.getItem('current_page_type') == 'flight'){
+      } else {
+        if (localStorage.getItem('current_page_type') == 'flight') {
           this.router.navigateByUrl('home');
-        }else {
+        } else {
           this.router.navigateByUrl('tickets');
         }
       }
@@ -59,14 +60,14 @@ export class LoginPage implements OnInit {
       message: 'Please wait...',
     });
 
-    if( email == '' ){
+    if (email == '') {
       this.presentAlert('Email is required ⚠️');
-    }else if(password == ''){
+    } else if (password == '') {
       this.presentAlert('Password is required ⚠️');
-    }else if (!this.api.validateEmail(email)) {
+    } else if (!this.api.validateEmail(email)) {
       this.presentAlert('Invalid email entered ❌');
     }
-    else{
+    else {
       await loading.present();
       this.authService.login(
         email,
@@ -77,7 +78,11 @@ export class LoginPage implements OnInit {
             loading.dismiss();
             localStorage.setItem('uuid', data.data[0].uuid);
             localStorage.setItem('ur', data.data[0].role);
+            this.app.isLoggedIn = true;
             window.location.reload();
+          } else if (data.status == 1) {
+            loading.dismiss();
+            this.do_activate_user(data.msg);
           } else {
             loading.dismiss();
             this.presentAlert(data.msg);
@@ -132,9 +137,9 @@ export class LoginPage implements OnInit {
               cssClass: 'my-custom-class',
               message: 'Please wait...',
             });
-            if(data.email.length < 3) {
+            if (data.email.length < 3) {
               this.presentAlert('Email Required');
-            }else {
+            } else {
               await loading.present();
               this.api.reset_password(
                 email
@@ -154,7 +159,7 @@ export class LoginPage implements OnInit {
                   this.presentAlert(error.message);
                 }
               )
-            } 
+            }
           }
         }
       ]
@@ -162,7 +167,56 @@ export class LoginPage implements OnInit {
     await alert.present();
   }
 
-  
+  async do_activate_user(msg) {
+    let email = this.loginForm.get('email').value;
+    console.log(email);
+    const alert = await this.alertCtrl.create({
+      cssClass: 'my-custom-class',
+      header: 'Re-activate',
+      message:msg,
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+          }
+        }, {
+          text: 'Re-activate',
+          handler: async (data) => {
+            const loading = await this.loadingCtrl.create({
+              cssClass: 'my-custom-class',
+              message: 'Please wait...',
+            });
+
+            await loading.present();
+            this.api.activate_user(
+              email
+            ).subscribe(
+              data => {
+                if (data.status == 0) {
+                  loading.dismiss();
+                  this.toaster.successToast(data.msg);
+                  this.presentAlert('Re-activation in process, check your emails for further instructions!')
+                  console.log(data);
+                } else {
+                  loading.dismiss();
+                  this.presentAlert(data.msg);
+                }
+              }, error => {
+                loading.dismiss();
+                this.presentAlert(error.message);
+              }
+            )
+
+          }
+        }
+      ]
+    });
+    await alert.present();
+  }
+
+
 
 
 

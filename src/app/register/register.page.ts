@@ -4,8 +4,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from '../../services/api.service';
 import { ToasterService } from '../../services/toaster.service';
 import { AuthService } from '../../services/auth.service';
-import { AlertController, ToastController, LoadingController, MenuController, NavController } from '@ionic/angular';
+import { AlertController, ToastController, LoadingController, MenuController, NavController, ModalController } from '@ionic/angular';
 import * as moment from 'moment';
+import { AppComponent } from '../app.component';
+import { TermsPage } from '../terms/terms.page';
 
 @Component({
   selector: 'app-register',
@@ -27,6 +29,8 @@ export class RegisterPage implements OnInit {
     private alertCtrl: AlertController,
     public loadingCtrl: LoadingController,
     public navCtrl: NavController,
+    public app: AppComponent,
+    private modalCtrl: ModalController
   ) {
     this.registerForm = this.fb.group({
       email: ['', Validators.required],
@@ -43,6 +47,16 @@ export class RegisterPage implements OnInit {
 
   }
 
+  async openTermsModal() {
+    const modal = await this.modalCtrl.create({
+      component: TermsPage,
+      cssClass: 'my-custom-class'
+    });
+
+    return await modal.present();
+  }
+
+
   ionViewWillEnter() {
     if (this.authService.isLoggedin()) {
       if (localStorage.getItem('ur') == 'admin') {
@@ -56,6 +70,10 @@ export class RegisterPage implements OnInit {
       }
     }
   }
+
+
+
+
 
   async presentAlert(msg) {
     const alert = await this.alertCtrl.create({
@@ -81,7 +99,7 @@ export class RegisterPage implements OnInit {
       cssClass: 'my-custom-class',
       message: 'Please wait...',
     });
-    
+
     if (email == null || password == '' || password1 == '' || names == '' || surname == '' || cell == '') {
       this.presentAlert('All fields are required! ⚠️');
     } else if (password != password1) {
@@ -92,14 +110,14 @@ export class RegisterPage implements OnInit {
       this.presentAlert('names and surname should consist of only characters and no special symbols ❌');
     } else if (!this.api.validateEmail(email)) {
       this.presentAlert('Invalid email entered ❌');
-    }else if (this.dob.substr(0,10) == this.minDate.substr(0, 10)) {
+    } else if (this.dob.substr(0, 10) == this.minDate.substr(0, 10)) {
       this.presentAlert('You might just be a very smart 👶 infant to even use a computer!');
-    }else if ( parseInt(this.minDate.substr(0, 4)) - (parseInt(this.dob.substr(0,4))) <=17 ) {
+    } else if (parseInt(this.minDate.substr(0, 4)) - (parseInt(this.dob.substr(0, 4))) <= 17) {
       this.presentAlert('You must be atleast 18 years old to register! 🔞');
-      console.log((parseInt(this.dob.substr(0,4)) - parseInt(this.minDate.substr(0, 4))));
-    }else if(!this.api.validateCell(cell)){
+      console.log((parseInt(this.dob.substr(0, 4)) - parseInt(this.minDate.substr(0, 4))));
+    } else if (!this.api.validateCell(cell)) {
       this.presentAlert('Invalid Phone number ❌');
-    }else if (this.api.validatePass(password) < 4) {
+    } else if (this.api.validatePass(password) < 4) {
       this.presentAlert('Weak Password detected 👎❌');
     } else {
       await loading.present();

@@ -1,7 +1,6 @@
 <ion-content fullscreen>
   <ion-grid>
-    <div class="booking-form">
-      <ion-col>
+    <div class="login-form">
 
         <div class="txt-center">
 
@@ -14,11 +13,15 @@
           <br>
           <br>
         </div>
+        <!-- profile form -->
         <form [formGroup]="profileForm">
           <ion-row>
             <ion-col>
               <ion-input formControlName="names" type="text" required placeholder="Names"></ion-input>
             </ion-col>
+          </ion-row>
+
+          <ion-row>
             <ion-col>
               <ion-input formControlName="surname" type="text" required placeholder="Surname"></ion-input>
             </ion-col>
@@ -57,7 +60,7 @@
             <ion-col>
               <ion-item>
                 <ion-label>Province:</ion-label>
-                <ion-select formControlName="province" value="select" okText="Okay" cancelText="Dismiss">
+                <ion-select style="text-align: left;" formControlName="province" value="select" okText="Okay" cancelText="Dismiss">
                   <ion-select-option *ngFor='let province of Province' value='{{province}}'>{{province}}
                   </ion-select-option>
                 </ion-select>
@@ -65,22 +68,28 @@
             </ion-col>
           </ion-row>
 
-
+          <ion-row>
             <ion-col>
               <ion-button class="txt-center" (click)="doUpdatetUser()" color="primary">Update profile</ion-button>
             </ion-col>
+          </ion-row>
+
+          <ion-row>
             <ion-col>
               <ion-button class="txt-center" (click)="changePass()" color="secondary">Change Password</ion-button>
             </ion-col>
+          </ion-row>
+
+          <ion-row>
             <ion-col>
               <ion-button class="txt-center" (click)="deactivate()" color="warning">Deactivate Account</ion-button>
             </ion-col>
             <ion-col>
               <ion-button class="txt-center" (click)="deregister()" color="danger">Delete Account</ion-button>
             </ion-col>
+          </ion-row>
 
         </form>
-      </ion-col>
     </div>
   </ion-grid>
 </ion-content>

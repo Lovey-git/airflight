@@ -6,6 +6,7 @@ import { ToasterService } from '../../services/toaster.service';
 import { AuthService } from '../../services/auth.service';
 import { AlertController, ToastController, LoadingController, MenuController, NavController } from '@ionic/angular';
 import { ProvinceList } from '../../providers/lists/province';
+import { AppComponent } from '../app.component';
 
 @Component({
   selector: 'app-profile',
@@ -16,7 +17,6 @@ export class ProfilePage implements OnInit {
 
   public profileForm: FormGroup;
   public Province: any = this.p.Province_list;
-  private User: any;
 
   constructor(
     private router: Router,
@@ -28,6 +28,7 @@ export class ProfilePage implements OnInit {
     public loadingCtrl: LoadingController,
     public navCtrl: NavController,
     private p: ProvinceList,
+    private app: AppComponent
   ) {
     this.profileForm = this.fb.group({
       email: ['', Validators.required],
@@ -153,7 +154,7 @@ export class ProfilePage implements OnInit {
       this.presentAlert('Password fields required ⚠️');
     } else if (password1 != password) {
       this.presentAlert('Passwords do not match! ❌');
-    }else if (this.api.validatePass(password)) {
+    } else if (this.api.validatePass(password)) {
       this.presentAlert('Weak Password detected 👎❌');
     }
     else {
@@ -194,7 +195,7 @@ export class ProfilePage implements OnInit {
         }
       }, error => {
         loading.dismiss();
-        this.presentAlert(error.message);
+        this.presentAlert("Could not connect to server 🖥️, check your internet connection!");
       }
     );
   }
@@ -212,13 +213,15 @@ export class ProfilePage implements OnInit {
           loading.dismiss();
           this.toaster.successToast(data.msg);
           this.authService.logout();
+          this.app.openPage('Booking');
+          location.reload();
         } else {
           loading.dismiss();
           this.presentAlert(data.msg);
         }
       }, error => {
         loading.dismiss();
-        this.presentAlert(error.message);
+        this.presentAlert("Could not connect to server 🖥️, check your internet connection!");
       }
     );
   }
@@ -250,7 +253,7 @@ export class ProfilePage implements OnInit {
         }
       }, error => {
         loading.dismiss();
-        this.presentAlert(error.message);
+        this.presentAlert("Could not connect to server 🖥️, check your internet connection!");
       }
     );
   }

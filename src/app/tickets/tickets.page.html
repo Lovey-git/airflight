@@ -8,29 +8,27 @@
   <div  class="booking-form">
     <ion-list-header>Tickets ({{count}})</ion-list-header>
 
+    <!-- data table -->
     <ion-row style="border-bottom: groove;" *ngFor="let item of users;">
       <ion-col >
         <ion-item lines="none">
           <ion-icon  color="success" slot="" name="airplane-outline"></ion-icon>
-          <ion-title style="text-align: left;">{{item.airport_name}}</ion-title>
+          <ion-title style="text-align: left;font-size: medium;">Destination: {{item.airport_name}}</ion-title>
         </ion-item>
       </ion-col>
 
       <ion-col >
         <ion-item lines="none">
-          <ion-title style="text-align: center;">{{item.boarding_time}}</ion-title>
+          <ion-title style="text-align: center;font-size: medium;">Boarding time:{{item.boarding_time}}</ion-title>
         </ion-item>
       </ion-col>
 
-      <ion-col >
-        <ion-item lines="none">
-          <ion-title style="text-align: right;">{{item.flight_no}}</ion-title>
-        </ion-item>
-      </ion-col>
+      
 
+      
       <ion-col >
         <ion-item lines="none">
-          <ion-title slot="start" style="text-align: right;">Seat :{{item.seat}}</ion-title>
+          <ion-title slot="start" style="text-align: right;font-size: medium;">Ticket no :#AF{{item.ticket_id}}</ion-title>
           <ion-icon slot="end" (click)="downloadMyFile(item.ticket_id)" name="save-outline"></ion-icon>
         </ion-item>
       </ion-col>

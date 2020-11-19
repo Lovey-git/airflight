@@ -135,7 +135,6 @@ div{
     ion-list-header{
         background: var(--ion-color-light);
     }
-    
   }
 ion-item{
 --background: var(--ion-color-light);
@@ -286,7 +285,6 @@ ion-header{
       }
 }
 
-
 @media only screen and (min-width: 320px) {
     .login-form{
         width: 100%;
@@ -297,6 +295,7 @@ ion-header{
     .booking-form{
         width: 100%;
     }
+    
 }
 
 @media only screen and (min-width:500px) and (max-width:2468px) {
@@ -309,10 +308,46 @@ ion-header{
         width: 900px;
         border-radius: 5px;
         box-shadow: 0 4px 8px 0 #3171e0, 0 6px 20px 0 #3171e0;
-
     }
 }
 
 .bg-primary{
     background-color:#3171e0;
 }
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+  }
+  
+  .tooltip .tooltiptext {
+    visibility: hidden;
+    width: 93%;
+    text-align: left;
+    background-color: var(--ion-color-dark);
+    color: var(--ion-color-light);
+    text-align: left;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 150%;
+    left: 21%;
+    margin-left: -60px;
+  }
+  
+  .tooltip .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: var(--ion-color-dark) transparent transparent transparent;
+  }
+  
+  .tooltip:hover .tooltiptext {
+    visibility: visible;
+  }

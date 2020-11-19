@@ -8,7 +8,7 @@ import { AlertController, PickerController, LoadingController, MenuController, N
 import * as moment from 'moment';
 import { PickerOptions } from "@ionic/core";
 import { DestinationList } from '../../providers/lists/destination'
-// import { PayPal, PayPalPayment, PayPalConfiguration } from '@ionic-native/paypal/ngx';
+import { AppComponent } from '../app.component';
 
 
 @Component({
@@ -24,15 +24,15 @@ export class HomePage {
   public paymentForm: FormGroup;
   public destination_list: any = ["Johannesburg JNB", "Cape Town CPT", "Bloemfontain BFN", "George GEO", "Port Elizabeth PLZ", "Durban DUR", "East London EAS"];
 
-  public meals_prices: any[] = [50.00,80.0,60.0,25.00, 80.0,50.0,60.0,55.0,30.0,120,80.0,100,70,60.0,82.0,50.0,20.0,50.0,40.0,30.0, 30.0];
-  public meals: any[] = ["Fruit Platter","Tofu and salad", "Tomato/Butternut soup","fish and chips", "Beef/Chicken Keebabs in sauce", " Arsorted nuts and cheese", "bacon and egg toast", "chicken mayo sarmie", "chicken mayo sarmie", 
-  " oatmeal + mik", " Beef lasgna + green salad", " Meatballs and pasta", "Pap/Rice, chicken +1 choice salad", "nuggets", "half cheesecake", 
-  "Malva pudding", "wine by the glass", "440ml fizzy drink", "Hot drinks", "Fruit juice",  "water"];
+  public meals_prices: any[] = [50.00, 80.0, 60.0, 25.00, 80.0, 50.0, 60.0, 55.0, 30.0, 120, 80.0, 100, 70, 60.0, 82.0, 50.0, 20.0, 50.0, 40.0, 30.0, 30.0];
+  public meals: any[] = ["Fruit Platter", "Tofu and salad", "Tomato/Butternut soup", "fish and chips", "Beef/Chicken Keebabs in sauce", " Arsorted nuts and cheese", "bacon and egg toast", "chicken mayo sarmie", "chicken mayo sarmie",
+    " oatmeal + mik", " Beef lasgna + green salad", " Meatballs and pasta", "Pap/Rice, chicken +1 choice salad", "nuggets", "half cheesecake",
+    "Malva pudding", "wine by the glass", "440ml fizzy drink", "Hot drinks", "Fruit juice", "water"];
   public selectedMeals: any[][] = new Array();
 
 
 
-  
+
   public Destinations: any = this.d.destination_list;
   index = 0;
   booking_meals: any;
@@ -48,17 +48,19 @@ export class HomePage {
   public children = 0;
   public adults = 1;
   public _class;
+  public time_slot;
 
   card_number: any;
   card_holder: any;
   card_expMonth: any;
   card_expYear: string;
   card_cvv: any;
-  
+
 
 
   public minDate = moment().add(0, 'd').format().toString();
   public maxDate = moment().add(60, 'd').format().toString();
+  public day = this.minDate;
   public current_page = localStorage.getItem('current_page');
   public current_page_type = localStorage.getItem('current_page_type');
 
@@ -73,8 +75,7 @@ export class HomePage {
     public navCtrl: NavController,
     private pickerController: PickerController,
     private d: DestinationList,
-    //private payPal: PayPal,
-  ) {
+    private app: AppComponent) {
     this.flightForm = this.fb.group({
       from: ['', Validators.required],
       to: ['', Validators.required],
@@ -82,7 +83,9 @@ export class HomePage {
       return: ['One Way Trip', Validators.required],
       children: ['0', Validators.required],
       adults: ['1', Validators.required],
-      _class: ['Economy Class', Validators.required]
+      _class: ['Economy Class', Validators.required],
+      time_slot: ['', Validators.required]
+
     });
     this.mealsForm = this.fb.group({
       from: ['', Validators.required],
@@ -129,6 +132,7 @@ export class HomePage {
       this.adults = Number(localStorage.getItem('adults'));
       this.children = Number(localStorage.getItem('children'));
       this._class = localStorage.getItem('_class');
+      this.time_slot = localStorage.getItem('time_slot');
       this.meal_tot = 0;
       for (let index = 0; index < meals.length; index++) {
         this.meal_tot += meals[index].meal.value * meals[index].qty.value;
@@ -150,8 +154,11 @@ export class HomePage {
       if (this.to == "Durban DUR") {
         this.flight_price = 948;
       }
-      if (this.to == "Dubai DUB") {
-        this.flight_price = 6529;
+      if (this.to == "George GEO") {
+        this.flight_price = 1529;
+      }
+      if (this.to == "East London EAS") {
+        this.flight_price = 1948;
       }
       if (this._class == 'Business') {
         this.flight_price = (this.flight_price * this.adults) + this.flight_price * this.children * .8;
@@ -172,7 +179,16 @@ export class HomePage {
         this.presentAlert('Destinations cannot be the same');
       } else if (this.flightForm.get('_class').value == '') {
         this.presentAlert('Choose a class');
-      } 
+      } else if (this.flightForm.get('time_slot').value == '') {
+        this.presentAlert('Choose a time slot');
+      } else if (this.flightForm.get('time_slot').value == '08H00 am' && String(this.flightForm.get('depart').value).substr(0, 10) == this.day.substr(0, 10) && Number(this.day.substr(11, 2)) >= 8) {
+        this.presentAlert('flight for 08:00 am is nolonger available, Choose another time slot');
+      } else if (this.flightForm.get('time_slot').value == '12:00 am' && String(this.flightForm.get('depart').value).substr(0, 10) == this.day.substr(0, 10) && Number(this.day.substr(11, 2)) >= 12) {
+        this.presentAlert('flight for 12H00 am is nolonger available, Choose another time slot');
+      }
+      else if (this.flightForm.get('time_slot').value == '16:00 pm' && String(this.flightForm.get('depart').value).substr(0, 10) == this.day.substr(0, 10) && Number(this.day.substr(11, 2)) >= 16) {
+        this.presentAlert('All flights for today are nolonger available, Choose another Departure Date');
+      }
       else {
         localStorage.setItem('current_page_type', 'meals');
         localStorage.setItem('from', this.flightForm.get('from').value);
@@ -182,6 +198,7 @@ export class HomePage {
         localStorage.setItem('_class', this.flightForm.get('_class').value);
         localStorage.setItem('adults', this.flightForm.get('adults').value);
         localStorage.setItem('children', this.flightForm.get('children').value);
+        localStorage.setItem('time_slot', this.flightForm.get('time_slot').value);
         window.location.reload();
       }
     if (this.current_page_type == 'meals') {
@@ -195,8 +212,8 @@ export class HomePage {
   async presentAlert(msg) {
     const alert = await this.alertCtrl.create({
       cssClass: 'my-custom-class',
-      header: 'Caution',
-      subHeader: 'Fill requred field',
+      header: 'Air Food ✈️',
+      subHeader: 'Caution',
       message: msg,
       buttons: ['OK']
     });
@@ -282,6 +299,10 @@ export class HomePage {
     localStorage.removeItem('adults');
     localStorage.removeItem('children');
     localStorage.removeItem('meals');
+    localStorage.removeItem('_class');
+    localStorage.removeItem('time_slot');
+    localStorage.removeItem('amount');
+    this.app.openPage('Booking');
     window.location.reload();
   }
 
@@ -340,8 +361,11 @@ export class HomePage {
 
   async booking() {
     if (this.authService.isLoggedin()) {
-      //this.paymentAlert();
-      this.doBook();
+      localStorage.setItem('current_page_type', 'payment');
+      let amount = this.meal_tot + this.flight_price;
+      localStorage.setItem('amount', amount + '');
+      this.app.openPage('Payment');
+      window.location.reload();
     } else {
       this.loginAlert()
     }
@@ -390,21 +414,20 @@ export class HomePage {
       0,
       localStorage.getItem('meals'),
       localStorage.getItem('_class'),
-      this.meal_tot + this.flight_price
+      this.meal_tot + this.flight_price,
+      String(localStorage.getItem('time_slot')).substr(0, 5)
+
     ).subscribe(
       data => {
         if (data.status == 0) {
           loading.dismiss();
           this.toaster.successToast(data.msg);
           localStorage.setItem('t_id', data.t_id);
-          let amount = this.meal_tot + this.flight_price;
-          localStorage.setItem('amount', amount + '');
-          localStorage.setItem('current_page_type', 'payment');
-          window.location.reload();
+
+          this.doPay();
         } else {
           loading.dismiss();
           this.presentAlert(data.msg);
-
         }
       }, error => {
         loading.dismiss();
@@ -430,24 +453,25 @@ export class HomePage {
       this.presentAlert('Fill in all required fields!');
     } else if (String(this.card_number).length < 16 || String(this.card_number).length > 16) {
       this.presentAlert('card number should be 16 digits long!');
-    }else if (this.api.validateName(this.card_holder)) {
+    } else if (this.api.validateName(this.card_holder)) {
       this.presentAlert('Invalid card holders name!');
-    }else if (String(this.card_cvv).length > 4 || String(this.card_cvv).length < 2) {
+    } else if (String(this.card_cvv).length > 4 || String(this.card_cvv).length < 2) {
       this.presentAlert('CVV number should be atleast 3 digits long in length and not greater than 4!');
-    }else {
-      this.doPay();
+    } else {
+      this.doBook()
+
     }
   }
 
-  downloadMyFile(){
+  downloadMyFile() {
     const link = document.createElement('a');
     link.setAttribute('target', '_self');
-    link.setAttribute('href', 'https://kohaku-b.herokuapp.com/download/'+localStorage.getItem('uuid')+localStorage.getItem('t_id') +'.pdf');
+    link.setAttribute('href', 'https://kohaku-b.herokuapp.com/download/' + localStorage.getItem('uuid') + localStorage.getItem('t_id') + '.pdf');
     link.setAttribute('download', `Ticket.pdf`);
     document.body.appendChild(link);
     link.click();
     link.remove();
-}
+  }
 
 
   async doPay() {
@@ -471,8 +495,20 @@ export class HomePage {
           this.toaster.successToast(data.msg);
           localStorage.setItem('current_page_type', 'payment');
           localStorage.removeItem('current_page_type');
+          localStorage.removeItem('current_page_type');
+          localStorage.removeItem('to');
+          localStorage.removeItem('from');
+          localStorage.removeItem('depart');
+          localStorage.removeItem('return');
+          localStorage.removeItem('adults');
+          localStorage.removeItem('children');
+          localStorage.removeItem('meals');
+          localStorage.removeItem('_class');
+          localStorage.removeItem('time_slot');
+          localStorage.removeItem('amount');
           this.downloadMyFile();
           this.router.navigateByUrl('tickets');
+          this.app.openPage('Tickets');
         } else {
           loading.dismiss();
           this.presentAlert(data.msg);
@@ -483,49 +519,6 @@ export class HomePage {
       }
     );
   }
-
-
-  // pay( amount ){
-  //   this.payPal.init({
-  //     PayPalEnvironmentProduction: 'YOUR_PRODUCTION_CLIENT_ID',
-  //     PayPalEnvironmentSandbox: 'YOUR_SANDBOX_CLIENT_ID'
-  //   }).then(() => {
-  //     // Environments: PayPalEnvironmentNoNetwork, PayPalEnvironmentSandbox, PayPalEnvironmentProduction
-  //     this.payPal.prepareToRender('PayPalEnvironmentSandbox', new PayPalConfiguration({
-  //       // Only needed if you get an "Internal Service Error" after PayPal login!
-  //       //payPalShippingAddressOption: 2 // PayPalShippingAddressOptionPayPal
-  //     })).then(() => {
-  //       let payment = new PayPalPayment('amount', 'ZAR', 'Air-Food flight', 'sale');
-  //       this.payPal.renderSinglePaymentUI(payment).then(() => {
-  //         // Successfully paid
-
-  //         // Example sandbox response
-  //         //
-  //         // {
-  //         //   "client": {
-  //         //     "environment": "sandbox",
-  //         //     "product_name": "PayPal iOS SDK",
-  //         //     "paypal_sdk_version": "2.16.0",
-  //         //     "platform": "iOS"
-  //         //   },
-  //         //   "response_type": "payment",
-  //         //   "response": {
-  //         //     "id": "PAY-1AB23456CD789012EF34GHIJ",
-  //         //     "state": "approved",
-  //         //     "create_time": "2016-10-03T13:33:33Z",
-  //         //     "intent": "sale"
-  //         //   }
-  //         // }
-  //       }, () => {
-  //         // Error or render dialog closed without being successful
-  //       });
-  //     }, () => {
-  //       // Error in configuration
-  //     });
-  //   }, () => {
-  //     // Error in initialization, maybe PayPal isn't supported or something else
-  //   });
-  // }
 
 }
 

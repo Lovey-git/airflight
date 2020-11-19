@@ -9,6 +9,7 @@
           <br>
           <ion-label color="dark">You don't Always need wings to fly!, we got that covered </ion-label>
           <br>
+          <br>
         </div>
         <form [formGroup]="flightForm" (ngSubmit)="proceed()">
 
@@ -38,8 +39,17 @@
             <ion-label>Return:</ion-label>
             <ion-item>
               <ion-datetime formControlName="return" displayFormat="MMMM/DD/YYYY" [min]="minDate" [max]="maxDate"
-               style="color: primary;" placeholder="One Way"></ion-datetime>
+                style="color: primary;" placeholder="One Way"></ion-datetime>
             </ion-item>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>Time Slot:</ion-label>
+            <ion-select formControlName="time_slot" value="select" okText="Okay" cancelText="Dismiss">
+              <ion-select-option>08:00 am</ion-select-option>
+              <ion-select-option>12:00 am</ion-select-option>
+              <ion-select-option>16:00 pm</ion-select-option>
+            </ion-select>
           </ion-item>
 
           <ion-item>
@@ -52,7 +62,7 @@
           </ion-item>
 
           <ion-item>
-            <ion-label >
+            <ion-label>
               Adults:
             </ion-label>
             <ion-label>{{adults}}</ion-label>
@@ -64,19 +74,16 @@
           </ion-item>
 
           <ion-item>
-            <ion-label >
+            <ion-label>
               Children :
             </ion-label>
             <ion-label>{{children}}</ion-label>
-            <ion-range  [(ngModel)]="children" formControlName="children" min="0" max="10" step="1" snaps="true"
+            <ion-range [(ngModel)]="children" formControlName="children" min="0" max="10" step="1" snaps="true"
               color="secondary">
               <ion-icon size="small" slot="start" name="remove"></ion-icon>
               <ion-icon slot="end" name="add"></ion-icon>
             </ion-range>
           </ion-item>
-
-
-
           <ion-button type="submit" color="primary">Proceed</ion-button>
         </form>
       </ion-col>
@@ -94,8 +101,14 @@
           <br>
         </div>
         <form [formGroup]="flightForm" (ngSubmit)="proceed()">
-
-          <ion-button class="txt-center" (click)="showPicker()" color="secondary">Choose a Meal or beverage</ion-button>
+          <ion-row>
+            <ion-col>
+              <ion-button class="txt-center" (click)="showPicker()" color="secondary">
+                <ion-icon name="add"></ion-icon>
+                Choose a Meal or beverage
+              </ion-button>
+            </ion-col>
+          </ion-row>
           <ion-list-header>
             <ion-label><strong>Selected Meals</strong></ion-label>
           </ion-list-header>
@@ -106,13 +119,27 @@
                 <ion-label>
                   Qty: {{item.qty.value}}
                 </ion-label>
-                <!-- <ion-icon (click)="removeItem(i)" style="font-size: 30px;" name="close-outline"></ion-icon> -->
               </ion-item>
             </ion-item>
           </ion-list>
 
-          <ion-button class="txt-center" type="submit" routerLink="/home" color="primary">Proceed</ion-button>
-          <ion-button (click)="restMeals()" class="txt-center" color="secondary">Reset</ion-button>
+          <ion-row>
+            <ion-col>
+              <ion-button class="txt-center" type="submit" routerLink="/home" color="primary">Proceed</ion-button>
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>
+              <ion-button (click)="restMeals()" class="txt-center" color="warning">Reset</ion-button>
+            </ion-col>
+            <ion-col>
+              <ion-button (click)="cancelOrder()" color="danger">
+                Cancel Booking
+              </ion-button>
+            </ion-col>
+          </ion-row>
+
         </form>
       </ion-col>
     </div>
@@ -160,6 +187,9 @@
               <ion-item lines='full'>
                 <ion-label slot="start">Children (under 12): </ion-label>
                 <ion-label slot="">{{children}}</ion-label>
+              </ion-item><ion-item lines='full'>
+                <ion-label slot="start">Departure Time: </ion-label>
+                <ion-label slot="">{{time_slot}}</ion-label>
               </ion-item>
             </ion-list>
           </form>
@@ -199,6 +229,7 @@
           </div>
         </ion-col>
       </ion-row>
+
       <ion-row>
         <ion-col>
           <ion-button (click)="booking()">
@@ -206,14 +237,11 @@
           </ion-button>
         </ion-col>
         <ion-col>
-          <ion-button (click)="cancelOrder()" color="secondary">
+          <ion-button (click)="cancelOrder()" color="danger">
             Cancel Booking
           </ion-button>
         </ion-col>
       </ion-row>
-
-
-
     </div>
 
 
@@ -265,8 +293,14 @@
             </ion-col>
           </ion-row>
 
-          <ion-button class="txt-center" (click)="pay()" color="primary">Submit</ion-button>
-
+          <ion-col>
+            <ion-button class="txt-center" (click)="pay()" color="primary">Submit</ion-button>
+          </ion-col>
+          <ion-col>
+            <ion-button (click)="cancelOrder()" color="danger">
+              Cancel Booking
+            </ion-button>
+          </ion-col>
         </form>
       </ion-col>
     </div>

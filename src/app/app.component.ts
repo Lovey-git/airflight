@@ -21,11 +21,9 @@ import { Content } from '@angular/compiler/src/render3/r3_ast';
   styleUrls: ['app.component.scss']
 })
 
-
-
 export class AppComponent {
-  role;
-  isLoggedIn;
+  role = '';
+  isLoggedIn ;
   email = "email@mail.com";
   title = "Air Food ✈️";
   header = localStorage.getItem('page');
@@ -45,15 +43,17 @@ export class AppComponent {
     this.initializeApp();
     this.role = localStorage.getItem('ur');
     this.isLoggedIn = auth.isLoggedin();
-    const url: Observable<string> = route.url.pipe(map(segments => segments.join('profile')));
-    console.log(url);
+    this.header = localStorage.getItem('page');
   }
 
   ionViewWillEnter() {
     this.closeMenu();
     this.role = localStorage.getItem('ur');
     this.isLoggedIn = this.auth.isLoggedin();
-    this.header = localStorage.getItem('page');
+  }
+
+  ionViewDidEnter(){
+    
   }
 
   async openMenu() {
@@ -80,6 +80,7 @@ export class AppComponent {
   }
 
   openPage(title) {
+    this.header = title;
     localStorage.setItem('page', title);
   }
 
@@ -211,9 +212,7 @@ export class AppComponent {
 
   initializeApp() {
     this.platform.ready().then(() => {
-      this.statusBar.overlaysWebView(true);
-      this.statusBar.backgroundColorByHexString('#33000000');
-      this.splashScreen.hide();
+      this.statusBar.backgroundColorByHexString('#3880ff'); this.splashScreen.hide();
     });
   }
 }

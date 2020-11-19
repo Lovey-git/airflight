@@ -1,19 +1,24 @@
 <ion-app>
+  <!-- toolbar -->
   <ion-header>
     <ion-toolbar>
       <ion-item lines="none">
         <ion-item lines="none" slot="start">
           <ion-title>
-            <a routerLink="/home">{{title}}</a>
+            <a routerLink="/home" style="text-decoration: wavy;" (click)="openPage('Booking')">{{title}}</a>
           </ion-title>
         </ion-item>
-        <ion-item slot="end">{{header}} 
-          <ion-icon slot="end" name="menu" (click)="openMenu()"></ion-icon>
+        <ion-item slot="end" lines="none">
+          <strong>
+            {{header}}
+          </strong>
+          <ion-icon style="margin-left: 5px;" name="menu" (click)="openMenu()"></ion-icon>
         </ion-item>
       </ion-item>
     </ion-toolbar>
   </ion-header>
 
+  <!-- side menu navigation -->
   <ion-menu side="end" contentId="main">
     <ion-header>
       <ion-toolbar color="">
@@ -23,69 +28,88 @@
         </ion-item>
       </ion-toolbar>
     </ion-header>
-    <ion-content style="background: blue;">
-      <ion-list>
-        <ion-item *ngIf="role==='admin'">
-          <ion-label>(Admin)</ion-label>
+    <ion-content >
+
+      
+
+      <ion-list style="padding-top: 70px;">
+        
+        <ion-item > 
+          <ion-icon slot="start" (click)="closeMenu()" name="close-outline"></ion-icon>
+          <ion-label slot="end">Menu</ion-label>
         </ion-item>
 
-        <ion-item *ngIf="!isLoggedIn">
-          <ion-label>(Guest)</ion-label>
+        <ion-item *ngIf="role!='normal' && role!='admin'"> 
+          Guest
         </ion-item>
 
-        <ion-item *ngIf="isLoggedIn" routerLink="/profile" (click)="closeMenu();openPage('profile')">
+        <ion-item *ngIf="role=='admin'"> 
+          Admin
+        </ion-item>
+
+        <ion-item *ngIf="role==='normal' || role==='admin'" routerLink="/profile"
+          (click)="closeMenu();openPage('Profile');">
           <ion-icon name="person" slot="start"></ion-icon>
           <ion-label>
             Profile
           </ion-label>
         </ion-item>
 
-        <ion-item *ngIf="role==='admin'" routerLink="/report" (click)="closeMenu();openPage('report')">
+        <ion-item *ngIf="role==='admin'" routerLink="/report" (click)="closeMenu();openPage('Report');">
           <ion-icon name="people" slot="start"></ion-icon>
           <ion-label>
             Reports
           </ion-label>
         </ion-item>
 
-        <ion-item *ngIf="role!='admin'" routerLink="/home" (click)="closeMenu();openPage('home')">
+        <ion-item *ngIf="role!='admin'" routerLink="/home" (click)="closeMenu();openPage('Booking');">
           <ion-icon name="airplane" slot="start"></ion-icon>
           <ion-label>
             Book Flight
           </ion-label>
         </ion-item>
 
-        <ion-item *ngIf="role==='normal'" routerLink="/tickets" (click)="closeMenu();openPage('tickets')">
+        <ion-item *ngIf="role==='normal'" routerLink="/tickets" (click)="closeMenu();openPage('Tickets');">
           <ion-icon name="ticket" slot="start"></ion-icon>
           <ion-label>
             Tickets
           </ion-label>
         </ion-item>
 
-        <ion-item *ngIf="!isLoggedIn" routerLink="/register" (click)="closeMenu();openPage('register')">
+
+        <ion-item *ngIf="!auth.isLoggedin()" routerLink="/register" (click)="closeMenu();openPage('Register');">
           <ion-icon name="person-add" slot="start"></ion-icon>
           <ion-label>
             Register
           </ion-label>
         </ion-item>
 
-        <ion-item *ngIf="!isLoggedIn" routerLink="/login" (click)="closeMenu();openPage('login')">
+        <ion-item *ngIf="!auth.isLoggedin()" routerLink="/login" (click)="closeMenu();openPage('Login');">
           <ion-icon name="log-in" slot="start"></ion-icon>
           <ion-label>
             Login
           </ion-label>
         </ion-item>
 
-        <ion-item *ngIf="isLoggedIn" (click)="logout();closeMenu();openPage('home')">
+        <ion-item *ngIf="auth.isLoggedin()" (click)="logout();closeMenu();openPage('Booking');">
           <ion-icon name="log-out" slot="start"></ion-icon>
-          <ion-label>
+          <ion-label style="cursor: pointer;">
             Logout
           </ion-label>
         </ion-item>
 
       </ion-list>
+      <ion-item lines="none">
+        <ion-label>Useful links:</ion-label>
+      </ion-item>
+      <ion-item lines="none" href="https://play.google.com/store/apps/details?id=za.gov.health.covidconnect" target="_blank">
+        <img src="../assets/Screenshot_20201118-103408_My Vodacom.png" width="100%%" style="border-radius: 8px;" />
+      </ion-item>
     </ion-content>
   </ion-menu>
 
+  <!-- navigated pagges -->
+  <ion-router-outlet  id="main">
 
-  <ion-router-outlet id="main"></ion-router-outlet>
+  </ion-router-outlet>
 </ion-app>

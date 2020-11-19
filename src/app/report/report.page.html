@@ -1,4 +1,4 @@
-<ion-content class="layer">
+<ion-content class="layer" push->
 
   <ion-row  class="booking-form ">
     <ion-header>
@@ -22,7 +22,7 @@
     <ion-list-header>
       <ion-item lines="none">
         Users ({{count}})
-        <ion-icon (click)="download_report()" name="save-outline" slot="end"></ion-icon>
+        <ion-icon (click)="download_report_alert()" name="save-outline" slot="end"></ion-icon>
       </ion-item>
       
 
@@ -32,19 +32,19 @@
         <ion-item lines="none">
           <ion-icon *ngIf="item.isVerified == 1" color="success" slot="" name="checkmark-circle-outline"></ion-icon>
           <ion-icon *ngIf="item.isVerified == 0" color="danger" slot="" name="close-circle-outline"></ion-icon>
-          <ion-title style="text-align: left;">{{item.email}}</ion-title>
+          <ion-title style="text-align: left;font-size: medium;">{{item.email}}</ion-title>
         </ion-item>
       </ion-col>
 
       <ion-col >
         <ion-item lines="none">
-          <ion-title style="text-align: center;">{{item.created_at}}</ion-title>
+          <ion-title style="text-align: center;font-size: medium;">{{item.created_at}}</ion-title>
         </ion-item>
       </ion-col>
 
       <ion-col >
         <ion-item lines="none">
-          <ion-title style="text-align: right;">{{item.role}}</ion-title>
+          <ion-title style="text-align: right;font-size: medium;">{{item.role}}</ion-title>
         </ion-item>
       </ion-col>
     </ion-row>

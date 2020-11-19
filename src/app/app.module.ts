@@ -21,6 +21,7 @@ import { environment } from '../environments/environment'
 
 import { NgxMaskModule, IConfig } from 'ngx-mask';
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
+import { ExcelService } from '../services/excel.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -43,7 +44,8 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
     ToasterService,
     AuthService,
     ProvinceList,
-    DestinationList
+    DestinationList,
+    ExcelService
   ],
   bootstrap: [AppComponent]
 })

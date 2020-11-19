@@ -4,6 +4,7 @@ import { ToasterService } from '../../services/toaster.service';
 import { AuthService } from '../../services/auth.service';
 import { AlertController, PickerController, LoadingController, MenuController, NavController } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { ExcelService } from '../../services/excel.service';
 
 @Component({
   selector: 'app-report',
@@ -19,8 +20,8 @@ export class ReportPage implements OnInit {
     public loadingCtrl: LoadingController,
     public navCtrl: NavController,
     private router: Router,
-    private toaster: ToasterService
-
+    private toaster: ToasterService,
+    private excelService: ExcelService
   ) { }
 
   verifiedUsers: any[];
@@ -124,10 +125,11 @@ export class ReportPage implements OnInit {
       this.count = this.all_users.length;
     }
   }
-  download_report(){
+
+  download_report() {
     let str = "email, created_at, user_role\n";
     for (let index = 0; index < this.users.length; index++) {
-        str += this.users[index].email +','+   this.users[index].created_at +','+  this.users[index].role+'\n';
+      str += this.users[index].email + ',' + this.users[index].created_at + ',' + this.users[index].role + '\n';
     }
 
     const link = document.createElement('a');
@@ -141,12 +143,43 @@ export class ReportPage implements OnInit {
     link.click();
     link.remove();
   }
-  
+
+  download_xlsx() {
+    let data: any = this.users;
+    this.excelService.exportAsExcelFile(data, 'report');
+  }
+
+  async download_report_alert() {
+    const alert = await this.alertCtrl.create({
+      cssClass: 'my-custom-class',
+      header: 'Air Food ✈️',
+      subHeader: 'Download Report',
+      message: 'Save Report as ?',
+      buttons: [
+        {
+          text: 'csv',
+          handler: () => {
+            this.download_report();
+          }
+        },
+        {
+          text: 'xlsx',
+          handler: () => {
+            this.download_xlsx();
+          }
+        },
+       
+
+      ]
+    });
+    await alert.present();
+  }
+
 
   downloadMyFile() {
     const link = document.createElement('a');
     link.setAttribute('target', '_self');
-    link.setAttribute('href', 'http://localhost:8080/download/'+JSON.stringify(this.users));
+    link.setAttribute('href', 'http://localhost:8080/download/' + JSON.stringify(this.users));
     link.setAttribute('download', `Ticket.pdf`);
     document.body.appendChild(link);
     link.click();
@@ -221,7 +254,7 @@ export class ReportPage implements OnInit {
         if (data.status == 0) {
           this.toaster.successToast(data.msg);
           this.init();
-          this.count-=1;
+          this.count -= 1;
         } else {
           this.presentAlert(data.msg);
         }
