@@ -49,6 +49,14 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
         "pugin.pdf",
         "pdf"
       ]
+    },
+    {
+      "id": "cordova-plugin-theme-detection.ThemeDetection",
+      "file": "plugins/cordova-plugin-theme-detection/www/ThemeDetection.js",
+      "pluginId": "cordova-plugin-theme-detection",
+      "clobbers": [
+        "cordova.plugins.ThemeDetection"
+      ]
     }
   ];
   module.exports.metadata = {
@@ -58,6 +66,7 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
     "cordova-plugin-splashscreen": "5.0.2",
     "cordova-plugin-ionic-webview": "4.2.1",
     "cordova-plugin-ionic-keyboard": "2.2.0",
-    "cordova-pdf-generator": "2.1.1"
+    "cordova-pdf-generator": "2.1.1",
+    "cordova-plugin-theme-detection": "1.3.0"
   };
 });
