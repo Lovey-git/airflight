@@ -41,11 +41,14 @@ export class LoginPage implements OnInit {
     if (this.authService.isLoggedin()) {
       if (localStorage.getItem('ur') == 'admin') {
         this.router.navigateByUrl('report');
+        this.app.openPage('Users');
       } else {
         if (localStorage.getItem('current_page_type') == 'flight') {
           this.router.navigateByUrl('home');
+          this.app.openPage('Booking');
         } else {
           this.router.navigateByUrl('tickets');
+          this.app.openPage('Tickets');
         }
       }
     }
@@ -79,6 +82,7 @@ export class LoginPage implements OnInit {
             localStorage.setItem('uuid', data.data[0].uuid);
             localStorage.setItem('ur', data.data[0].role);
             this.app.isLoggedIn = true;
+            // this.app.openPage('Users');
             window.location.reload();
           } else if (data.status == 1) {
             loading.dismiss();
