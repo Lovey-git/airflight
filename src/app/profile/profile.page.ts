@@ -270,8 +270,9 @@ export class ProfilePage implements OnInit {
     let gender = this.profileForm.get('gender').value;
     let province = this.profileForm.get('province').value;
     let email = this.profileForm.get('email').value;
+    let dob = this.profileForm.get('dob').value;
 
-    if (email == null || gender == '' || province == '' || names == '' || surname == '' || cell == '') {
+    if (email == null || gender == '' || province == '' || names == '' || surname == '' || cell == '' || dob == '') {
       this.presentAlert('All fields are required! ⚠️');
     } else if (isNaN(cell) || cell.length <= 9) {
       this.presentAlert('Phone number should consist of only numbers and atleast 10 digits long ❌');
@@ -283,7 +284,7 @@ export class ProfilePage implements OnInit {
       this.presentAlert('Invalid Phone number ❌');
     } else {
       await loading.present();
-      this.api.update_user(names, surname, email, cell, gender, province).subscribe(
+      this.api.update_user(names, surname, email, cell, gender, province, dob).subscribe(
         data => {
           if (data.status == 0) {
             loading.dismiss();

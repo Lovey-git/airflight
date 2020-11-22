@@ -50,10 +50,17 @@
           </ion-label>
         </ion-item>
 
-        <ion-item *ngIf="role==='admin'" routerLink="/report" (click)="closeMenu();openPage('Report');">
+        <ion-item *ngIf="role==='admin'" routerLink="/report" (click)="closeMenu();openPage('Users');">
           <ion-icon name="people" slot="start"></ion-icon>
           <ion-label>
-            Reports
+            Users
+          </ion-label>
+        </ion-item>
+
+        <ion-item *ngIf="role==='admin'" routerLink="/bookings" (click)="closeMenu();openPage('Flight Bookings');">
+          <ion-icon name="calendar-outline" slot="start"></ion-icon>
+          <ion-label>
+            Flight Bookings
           </ion-label>
         </ion-item>
 

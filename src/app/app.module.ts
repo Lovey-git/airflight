@@ -22,6 +22,7 @@ import { environment } from '../environments/environment'
 import { NgxMaskModule, IConfig } from 'ngx-mask';
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
 import { ExcelService } from '../services/excel.service';
+import { GoogleChartsModule } from 'angular-google-charts';
 
 @NgModule({
   declarations: [AppComponent],
@@ -35,6 +36,7 @@ import { ExcelService } from '../services/excel.service';
     ReactiveFormsModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     NgxMaskModule.forRoot(),
+    GoogleChartsModule.forRoot(),
   ],
   providers: [
     StatusBar,

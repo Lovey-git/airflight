@@ -53,9 +53,9 @@ export class ApiService {
   }
 
   //UPDATE USER
-  update_user(fname, lname, email, cell, gender, province) {
+  update_user(fname, lname, email, cell, gender, province, dob) {
     var uuid = localStorage.getItem('uuid');
-    return this.http.post<any>(this._Url + 'update_user', { fname, lname, email, cell, gender, province, uuid });
+    return this.http.post<any>(this._Url + 'update_user', { fname, lname, email, cell, gender, province, uuid , dob});
   }
 
   //UPDATE PASSWORD
@@ -125,5 +125,10 @@ export class ApiService {
   //activate user 
   activate_user(email) {
     return this.http.post<any>(this._Url + 'activate_user', { email });
+  }
+
+  //get_all_bookings 
+  get_all_bookings(searchText) {
+    return this.http.post<any>(this._Url + 'get_all_bookings', { searchText });
   }
 }

@@ -260,7 +260,7 @@
 
           <ion-col>
             <ion-label>Card Number:</ion-label>
-            <ion-input mask="0000 0000 0000 0000" placeholder="xxxx-xxxx-xxxx-xxxx"
+            <ion-input mask="(0000) (0000) (0000) 0000" placeholder="xxxx-xxxx-xxxx-xxxx"
               style="text-align: center;border: 1px solid #3880ff;border-radius: 5px;" formControlName="card_number"
               type="number"></ion-input>
           </ion-col>
@@ -280,12 +280,12 @@
           <ion-row>
             <ion-col>
               <ion-datetime style="text-align: center;border: 1px solid #3880ff;border-radius: 5px;"
-                formControlName="card_expYear" placeholder="YYYY" displayFormat="YYYY" min="2015" max="2026">
+                formControlName="card_expYear" placeholder="YYYY" displayFormat="YYYY" min="2020" max="2026">
               </ion-datetime>
             </ion-col>
             <ion-col>
               <ion-datetime style="text-align: center;border: 1px solid #3880ff;border-radius: 5px;"
-                formControlName="card_expMonth" placeholder="MM" displayFormat="MM"></ion-datetime>
+                formControlName="card_expMonth"  [min]="2020-12-01" placeholder="MM" displayFormat="MM"></ion-datetime>
             </ion-col>
             <ion-col>
               <ion-input style="text-align: center;border: 1px solid #3880ff;border-radius: 5px;"

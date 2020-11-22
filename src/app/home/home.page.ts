@@ -140,25 +140,28 @@ export class HomePage {
       //["Johannesburg JNB", "Cape Town CPT", "Bloemfontain BFN", "Windhoek WDH", "Port Elizabeth PLZ", "Durban DUR", "Dubai DUB"];
 
       if (this.to == "Cape Town CPT") {
-        this.flight_price = 1418;
+        this.flight_price = 1418.00;
       }
       if (this.to == "Bloemfontain BFN") {
-        this.flight_price = 1968;
+        this.flight_price = 1968.00;
       }
       if (this.to == "Windhoek WDH") {
-        this.flight_price = 1438;
+        this.flight_price = 1438.00;
       }
       if (this.to == "Port Elizabeth PLZ") {
-        this.flight_price = 1849;
+        this.flight_price = 1849.00;
       }
       if (this.to == "Durban DUR") {
-        this.flight_price = 948;
+        this.flight_price = 948.00;
       }
       if (this.to == "George GEO") {
-        this.flight_price = 1529;
+        this.flight_price = 1529.00;
       }
       if (this.to == "East London EAS") {
-        this.flight_price = 1948;
+        this.flight_price = 1948.00;
+      }
+      if (this.to == "Johannesburg JNB") {
+        this.flight_price = 1348.00;
       }
       if (this._class == 'Business') {
         this.flight_price = (this.flight_price * this.adults) + this.flight_price * this.children * .8;
@@ -170,6 +173,7 @@ export class HomePage {
   }
 
   async proceed() {
+    console.log(Number(this.day.substr(11, 2)));
     if (this.current_page_type == 'flight')
       if (this.flightForm.get('from').value == '') {
         this.presentAlert('Destination from : cannot be empty');
@@ -181,7 +185,7 @@ export class HomePage {
         this.presentAlert('Choose a class');
       } else if (this.flightForm.get('time_slot').value == '') {
         this.presentAlert('Choose a time slot');
-      } else if (this.flightForm.get('time_slot').value == '08H00 am' && String(this.flightForm.get('depart').value).substr(0, 10) == this.day.substr(0, 10) && Number(this.day.substr(11, 2)) >= 8) {
+      } else if (this.flightForm.get('time_slot').value == '08:00 am' && String(this.flightForm.get('depart').value).substr(0, 10) == this.day.substr(0, 10) && Number(this.day.substr(11, 2)) >= 8) {
         this.presentAlert('flight for 08:00 am is nolonger available, Choose another time slot');
       } else if (this.flightForm.get('time_slot').value == '12:00 am' && String(this.flightForm.get('depart').value).substr(0, 10) == this.day.substr(0, 10) && Number(this.day.substr(11, 2)) >= 12) {
         this.presentAlert('flight for 12H00 am is nolonger available, Choose another time slot');
@@ -367,7 +371,7 @@ export class HomePage {
       this.app.openPage('Payment');
       window.location.reload();
     } else {
-      this.loginAlert()
+      this.loginAlert();
     }
   }
 
@@ -402,6 +406,7 @@ export class HomePage {
     });
 
     await loading.present();
+    console.log('do book');
 
     this.api.add_ticket(
       localStorage.getItem('from'),
@@ -414,7 +419,7 @@ export class HomePage {
       0,
       localStorage.getItem('meals'),
       localStorage.getItem('_class'),
-      this.meal_tot + this.flight_price,
+      localStorage.getItem('amount'),
       String(localStorage.getItem('time_slot')).substr(0, 5)
 
     ).subscribe(
@@ -437,6 +442,7 @@ export class HomePage {
   }
 
   pay() {
+    console.log(Number(String(this.card_expMonth).substr(5,2)));
     this.card_number = this.paymentForm.get('card_number').value;
     this.card_holder = this.paymentForm.get('card_holder').value;
     this.card_expMonth = this.paymentForm.get('card_expMonth').value;
@@ -457,9 +463,10 @@ export class HomePage {
       this.presentAlert('Invalid card holders name!');
     } else if (String(this.card_cvv).length > 4 || String(this.card_cvv).length < 2) {
       this.presentAlert('CVV number should be atleast 3 digits long in length and not greater than 4!');
+    } else if (String(this.card_expYear).substr(0,4) == '2020' && Number(String(this.card_expMonth).substr(5,2)) < Number(this.minDate.substr(5,2))) {
+      this.presentAlert('card already expired!')
     } else {
-      this.doBook()
-
+      this.doBook();
     }
   }
 
@@ -481,7 +488,7 @@ export class HomePage {
     });
 
     await loading.present();
-
+    console.log('do pay');
     this.api.add_user_payment(
       localStorage.getItem('t_id'),
       localStorage.getItem('amount'),
@@ -494,6 +501,7 @@ export class HomePage {
           loading.dismiss();
           this.toaster.successToast(data.msg);
           localStorage.setItem('current_page_type', 'payment');
+
           localStorage.removeItem('current_page_type');
           localStorage.removeItem('current_page_type');
           localStorage.removeItem('to');
@@ -506,6 +514,7 @@ export class HomePage {
           localStorage.removeItem('_class');
           localStorage.removeItem('time_slot');
           localStorage.removeItem('amount');
+
           this.downloadMyFile();
           this.router.navigateByUrl('tickets');
           this.app.openPage('Tickets');
