@@ -8,12 +8,15 @@ import { ReportPageRoutingModule } from './report-routing.module';
 
 import { ReportPage } from './report.page';
 
+import { GoogleChartsModule } from 'angular-google-charts';
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ReportPageRoutingModule
+    ReportPageRoutingModule,
+    GoogleChartsModule
   ],
   declarations: [ReportPage]
 })

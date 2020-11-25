@@ -6,6 +6,8 @@ import { AlertController, PickerController, LoadingController, MenuController, N
 import { Router } from '@angular/router';
 import { ExcelService } from '../../services/excel.service';
 
+
+
 @Component({
   selector: 'app-report',
   templateUrl: './report.page.html',
@@ -24,6 +26,15 @@ export class ReportPage implements OnInit {
     private excelService: ExcelService
   ) { }
 
+  
+  public chartType: string = 'line';
+  public chartData: any[];
+  public chartLabels: any[];
+  public chartColors: any[];
+  public chartOptions: any;
+  public chartTitle:any = 'Report'
+  
+
   verifiedUsers: any[];
   nonVerifiedUsers: any[];
   searchUsers: any[];
@@ -33,6 +44,17 @@ export class ReportPage implements OnInit {
   count = 0;
 
   ngOnInit() {
+    this.chartData = [{
+      data: [3, 1, 4, 2, 5],
+      label: 'Anthracnose',
+      fill: false
+    }];
+
+    this.chartLabels = ['Jan', 'Feb', 'Mar', 'Apr', 'May'];
+    this.chartColors = [{
+      backgroundColor: 'rgba(0, 0, 0, 0.2)',
+         borderColor: 'rgba(0, 0, 0, 1)'
+    }];
 
   }
 

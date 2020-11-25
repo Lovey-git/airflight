@@ -1,6 +1,10 @@
 <ion-content class="layer">
 
   <ion-row  class="booking-form ">
+
+    <google-chart [title]="chartTitle" [type]="chartType" [data]="chartData" [columns]="chartLabels">
+    </google-chart>
+
     <ion-header>
       <ion-segment>
         <ion-segment-button (click)="filterBy('v')" value="Verified">
