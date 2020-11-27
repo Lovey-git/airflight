@@ -24,6 +24,7 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
 import { ExcelService } from '../services/excel.service';
 import { GoogleChartsModule } from 'angular-google-charts';
 
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -37,6 +38,7 @@ import { GoogleChartsModule } from 'angular-google-charts';
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     NgxMaskModule.forRoot(),
     GoogleChartsModule.forRoot(),
+    
   ],
   providers: [
     StatusBar,

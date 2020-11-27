@@ -6,8 +6,6 @@ import { AlertController, PickerController, LoadingController, MenuController, N
 import { Router } from '@angular/router';
 import { ExcelService } from '../../services/excel.service';
 
-
-
 @Component({
   selector: 'app-report',
   templateUrl: './report.page.html',
@@ -119,7 +117,6 @@ export class ReportPage implements OnInit {
 
 
   async searcher() {
-    console.log(this.searchText);
     this.api.get_all_users_by_search(this.searchText).subscribe(
       data => {
         if (data.status == 0) {

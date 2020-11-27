@@ -25,14 +25,11 @@ export class HomePage {
   public destination_list: any = ["Johannesburg JNB", "Cape Town CPT", "Bloemfontein BFN", "George GEO", "Port Elizabeth PLZ", "Durban DUR", "East London EAS"];
 
   public meals_prices: any[] = [50.00, 80.0, 60.0, 80.0, 50.0, 55.0, 30.0, 120, 80.0, 100, 70, 60.0, 82.0, 50.0, 20.0, 50.0, 40.0, 30.0, 30.0];
-  public meals: any[] = ["Fruit Platter", "Tofu and salad", "Tomato/Butternut soup",  "Beef/Chicken Keebabs in sauce", " Arsorted nuts and cheese", "bacon and egg toast", "chicken mayo sarmie",
-    " oatmeal + mik", " Beef lasgna + green salad", " Meatballs and pasta", "Pap/Rice, chicken +1 choice salad", "nuggets", "half cheesecake",
-    "Malva pudding", "wine by the glass", "440ml fizzy drink", "Hot drinks", "Fruit juice", "water"];
+  public meals: any[] = ["Fruit Platter", "Tofu and salad", "Tomato/Butternut soup",  "Beef/Chicken Keebabs in sauce", "Assorted nuts and cheese", "Bacon and egg toast", "Chicken mayo sarmie",
+    "Oatmeal + mik", " Beef lasgna + green salad", " Meatballs and pasta", "Pap/Rice, chicken +1 choice salad", "Nuggets", "Half cheesecake",
+    "Malva pudding", "Wine by the glass", "440ml fizzy drink", "Hot drinks", "Fruit juice", "Water"];
+  
   public selectedMeals: any[][] = new Array();
-
-
-
-
   public Destinations: any = this.d.destination_list;
   index = 0;
   booking_meals: any;
@@ -63,6 +60,12 @@ export class HomePage {
   public day = this.minDate;
   public current_page = localStorage.getItem('current_page');
   public current_page_type = localStorage.getItem('current_page_type');
+
+  public mask = {
+    guide: true,
+    showMask: true,
+    mask: [/\d/, /\d/, /\d/, /\d/, " ", /\d/, /\d/, /\d/, /\d/, " ", /\d/, /\d/, /\d/, /\d/, " ", /\d/, /\d/, /\d/, /\d/]
+  };
 
   constructor(
     private router: Router,
@@ -173,7 +176,11 @@ export class HomePage {
   }
 
   async proceed() {
-    console.log(Number(this.day.substr(11, 2)));
+    var d1 = new Date(String(this.flightForm.get('depart').value).substr(0,10));
+    var d2 = new Date(String(this.flightForm.get('return').value).substr(0,10));
+    console.log(d2);
+
+
     if (this.current_page_type == 'flight')
       if (this.flightForm.get('from').value == '') {
         this.presentAlert('Destination from : cannot be empty');
@@ -192,6 +199,9 @@ export class HomePage {
       }
       else if (this.flightForm.get('time_slot').value == '16:00 pm' && String(this.flightForm.get('depart').value).substr(0, 10) == this.day.substr(0, 10) && Number(this.day.substr(11, 2)) >= 16) {
         this.presentAlert('All flights for today are nolonger available, Choose another Departure Date');
+      }
+      else if (this.flightForm.get('depart').value && d1 > d2) {
+        this.presentAlert('Return date cannot be less than the depart date ');
       }
       else {
         localStorage.setItem('current_page_type', 'meals');
@@ -226,6 +236,7 @@ export class HomePage {
 
   async showPicker() {
     let options: PickerOptions = {
+      
       buttons: [
         {
           text: "Cancel",
@@ -442,7 +453,7 @@ export class HomePage {
   }
 
   pay() {
-    console.log(Number(String(this.card_expMonth).substr(5,2)));
+    console.log(String(this.card_cvv).length);
     this.card_number = this.paymentForm.get('card_number').value;
     this.card_holder = this.paymentForm.get('card_holder').value;
     this.card_expMonth = this.paymentForm.get('card_expMonth').value;
@@ -461,14 +472,16 @@ export class HomePage {
       this.presentAlert('card number should be 16 digits long!');
     } else if (this.api.validateName(this.card_holder)) {
       this.presentAlert('Invalid card holders name!');
-    } else if (String(this.card_cvv).length > 4 || String(this.card_cvv).length < 2) {
+    } else if (String(this.card_cvv).length > 4 || String(this.card_cvv).length < 3) {
       this.presentAlert('CVV number should be atleast 3 digits long in length and not greater than 4!');
     } else if (String(this.card_expYear).substr(0,4) == '2020' && Number(String(this.card_expMonth).substr(5,2)) < Number(this.minDate.substr(5,2))) {
       this.presentAlert('card already expired!')
     } else {
+      console.log('do book');
       this.doBook();
     }
   }
+
 
   downloadMyFile() {
     const link = document.createElement('a');

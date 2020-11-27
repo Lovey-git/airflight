@@ -262,14 +262,14 @@
 
           <ion-col>
             <ion-label>Card Number:</ion-label>
-            <ion-input mask="(0000) (0000) (0000) 0000" placeholder="xxxx-xxxx-xxxx-xxxx"
+            <ion-input  mask="(999) 999-9999" placeholder="xxxx-xxxx-xxxx-xxxx"
               style="text-align: center;border: 1px solid #3880ff;border-radius: 5px;" formControlName="card_number"
-              type="number"></ion-input>
+              type="text"></ion-input>
           </ion-col>
 
           <ion-col>
-            <ion-label>Card Holders:</ion-label>
-            <ion-input formControlName="card_holder" type="text"></ion-input>
+            <ion-label>Card holders name:</ion-label>
+            <ion-input autocomplete="cc-name" formControlName="card_holder" type="text"></ion-input>
           </ion-col>
 
           <ion-col>
