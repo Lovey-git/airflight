@@ -530,7 +530,7 @@ export class HomePage {
 
           this.downloadMyFile();
 
-          this.router.navigateByUrl('tickets');
+          this.router.navigateByUrl('tickets'); 
           this.app.openPage('Tickets');
         } else {
           loading.dismiss();
