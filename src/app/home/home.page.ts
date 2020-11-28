@@ -526,10 +526,10 @@ export class HomePage {
           localStorage.removeItem('_class');
           localStorage.removeItem('time_slot');
           localStorage.removeItem('amount');
-          localStorage.removeItem('t_id');
 
 
           this.downloadMyFile();
+
           this.router.navigateByUrl('tickets');
           this.app.openPage('Tickets');
         } else {
