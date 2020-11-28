@@ -514,9 +514,7 @@ export class HomePage {
         if (data.status == 0) {
           loading.dismiss();
           this.toaster.successToast(data.msg);
-          localStorage.setItem('current_page_type', 'payment');
-
-          localStorage.removeItem('current_page_type');
+          localStorage.setItem('current_page_type', 'flight');
           localStorage.removeItem('current_page_type');
           localStorage.removeItem('to');
           localStorage.removeItem('from');
@@ -528,6 +526,8 @@ export class HomePage {
           localStorage.removeItem('_class');
           localStorage.removeItem('time_slot');
           localStorage.removeItem('amount');
+          localStorage.removeItem('t_id');
+
 
           this.downloadMyFile();
           this.router.navigateByUrl('tickets');
