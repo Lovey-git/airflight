@@ -81,6 +81,7 @@ export class LoginPage implements OnInit {
             loading.dismiss();
             localStorage.setItem('uuid', data.data[0].uuid);
             localStorage.setItem('ur', data.data[0].role);
+            localStorage.setItem('username', data.data[0].surname + ' ' + data.data[0].name);
             this.app.isLoggedIn = true;
             // this.app.openPage('Users');
             window.location.reload();

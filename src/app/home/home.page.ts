@@ -46,6 +46,7 @@ export class HomePage {
   public adults = 1;
   public _class;
   public time_slot;
+  public username;
 
   card_number: any;
   card_holder: any;
@@ -79,6 +80,8 @@ export class HomePage {
     private pickerController: PickerController,
     private d: DestinationList,
     private app: AppComponent) {
+      
+
     this.flightForm = this.fb.group({
       from: ['', Validators.required],
       to: ['', Validators.required],
@@ -114,6 +117,8 @@ export class HomePage {
       card_cvv: ['', Validators.required],
     });
   }
+
+
 
   ngOnInit() {
     this.isLogged = this.authService.isLoggedin();
@@ -172,6 +177,8 @@ export class HomePage {
       } else {
         this.flight_price = (this.flight_price * this.adults) + this.flight_price * this.children * .8;
       }
+
+      
     }
   }
 
@@ -431,8 +438,8 @@ export class HomePage {
       localStorage.getItem('meals'),
       localStorage.getItem('_class'),
       localStorage.getItem('amount'),
-      String(localStorage.getItem('time_slot')).substr(0, 5)
-
+      String(localStorage.getItem('time_slot')).substr(0, 5),
+      localStorage.getItem('username')
     ).subscribe(
       data => {
         if (data.status == 0) {
