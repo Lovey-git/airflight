@@ -150,7 +150,7 @@ export class HomePage {
       if (this.to == "Cape Town CPT") {
         this.flight_price = 1418.00;
       }
-      if (this.to == "Bloemfontain BFN") {
+      if (this.to == "Bloemfontein BFN") {
         this.flight_price = 1968.00;
       }
       if (this.to == "Windhoek WDH") {
@@ -454,7 +454,7 @@ export class HomePage {
         }
       }, error => {
         loading.dismiss();
-        this.presentAlert(error);
+        this.presentAlert("Could not connect to server 🖥️, check your internet connection!");
       }
     );
   }
@@ -484,7 +484,6 @@ export class HomePage {
     } else if (String(this.card_expYear).substr(0,4) == '2020' && Number(String(this.card_expMonth).substr(5,2)) < Number(this.minDate.substr(5,2))) {
       this.presentAlert('card already expired!')
     } else {
-      console.log('do book');
       this.doBook();
     }
   }
@@ -544,7 +543,7 @@ export class HomePage {
         }
       }, error => {
         loading.dismiss();
-        this.presentAlert(error);
+        this.presentAlert("Could not connect to server 🖥️, check your internet connection!");
       }
     );
   }
