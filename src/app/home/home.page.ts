@@ -54,8 +54,6 @@ export class HomePage {
   card_expYear: string;
   card_cvv: any;
 
-
-
   public minDate = moment().add(0, 'd').format().toString();
   public maxDate = moment().add(60, 'd').format().toString();
   public day = this.minDate;
@@ -81,7 +79,6 @@ export class HomePage {
     private d: DestinationList,
     private app: AppComponent) {
       
-
     this.flightForm = this.fb.group({
       from: ['', Validators.required],
       to: ['', Validators.required],
@@ -91,7 +88,6 @@ export class HomePage {
       adults: ['1', Validators.required],
       _class: ['Economy Class', Validators.required],
       time_slot: ['', Validators.required]
-
     });
     this.mealsForm = this.fb.group({
       from: ['', Validators.required],
@@ -117,8 +113,6 @@ export class HomePage {
       card_cvv: ['', Validators.required],
     });
   }
-
-
 
   ngOnInit() {
     this.isLogged = this.authService.isLoggedin();
@@ -451,6 +445,7 @@ export class HomePage {
         } else {
           loading.dismiss();
           this.presentAlert(data.msg);
+          console.log(data.err);
         }
       }, error => {
         loading.dismiss();
