@@ -76,9 +76,9 @@ export class ApiService {
   }
 
   //add ticket
-  add_ticket(from, to, depart, Return, adults, children, adult_price, child_price, meals, Class, totalAmt, time_slot, username) {
+  add_ticket(from, to, flight_type, depart, Return, adults, children, adult_price, child_price, meals, Class, totalAmt, time_slot, username) {
     var uuid = localStorage.getItem('uuid');
-    return this.http.post<any>(this._Url + 'add_ticket', { uuid, from, to, depart, Return, adults, children, adult_price, child_price, meals, Class, totalAmt, time_slot , username});
+    return this.http.post<any>(this._Url + 'add_ticket', { uuid, from, to, flight_type, depart, Return, adults, children, adult_price, child_price, meals, Class, totalAmt, time_slot , username});
   }
 
   //get all users
@@ -91,7 +91,7 @@ export class ApiService {
   get_all_users_by_search(searchText) {
     return this.http.post<any>(this._Url + 'get_all_users_by_search', { searchText });
   }
-  get_all_users() {
+  get_all_users() { 
     return this.http.post<any>(this._Url + 'get_all_users', {});
   }
 

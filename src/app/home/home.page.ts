@@ -22,7 +22,7 @@ export class HomePage {
   public mealsForm: FormGroup;
   public bookingForm: FormGroup;
   public paymentForm: FormGroup;
-  public destination_list: any = ["Johannesburg JNB", "Cape Town CPT", "Bloemfontein BFN", "George GEO", "Port Elizabeth PLZ", "Durban DUR", "East London EAS"];
+  public destination_list: any = ["OR Tambo", "PE International", "Cape Town International", "King Shaka"];
 
   public meals_prices: any[] = [50.00, 80.0, 60.0, 80.0, 50.0, 55.0, 30.0, 120, 80.0, 100, 70, 60.0, 82.0, 50.0, 20.0, 50.0, 40.0, 30.0, 30.0];
   public meals: any[] = ["Fruit Platter", "Tofu and salad", "Tomato/Butternut soup",  "Beef/Chicken Keebabs in sauce", "Assorted nuts and cheese", "Bacon and egg toast", "Chicken mayo sarmie",
@@ -41,12 +41,16 @@ export class HomePage {
   public from;
   public to;
   public return;
+  //flight type
+  public flight_type;
+
   public depart;
   public children = 0;
   public adults = 1;
   public _class;
   public time_slot;
   public username;
+  public hours;
 
   card_number: any;
   card_holder: any;
@@ -78,16 +82,21 @@ export class HomePage {
     private pickerController: PickerController,
     private d: DestinationList,
     private app: AppComponent) {
+    
+
+    //check if time slot is available
+    
       
     this.flightForm = this.fb.group({
       from: ['', Validators.required],
       to: ['', Validators.required],
       depart: [this.minDate, Validators.required],
-      return: ['One Way Trip', Validators.required],
+      return: (this.flight_type == 'Round Trip') ? ['-', Validators.required] : ['One Way Trip', Validators.required],
       children: ['0', Validators.required],
       adults: ['1', Validators.required],
       _class: ['Economy Class', Validators.required],
-      time_slot: ['', Validators.required]
+      time_slot: ['', Validators.required],
+      flight_type: ['', Validators.required]
     });
     this.mealsForm = this.fb.group({
       from: ['', Validators.required],
@@ -115,6 +124,11 @@ export class HomePage {
   }
 
   ngOnInit() {
+
+    this.hours = new Date().getHours();
+
+    
+    
     this.isLogged = this.authService.isLoggedin();
     if (!localStorage.getItem('current_page')) {
       this.current_page = 'flight';
@@ -135,34 +149,23 @@ export class HomePage {
       this.children = Number(localStorage.getItem('children'));
       this._class = localStorage.getItem('_class');
       this.time_slot = localStorage.getItem('time_slot');
+      this.flight_type = localStorage.getItem('flight_type');
       this.meal_tot = 0;
       for (let index = 0; index < meals.length; index++) {
         this.meal_tot += meals[index].meal.value * meals[index].qty.value;
       }
       //["Johannesburg JNB", "Cape Town CPT", "Bloemfontain BFN", "Windhoek WDH", "Port Elizabeth PLZ", "Durban DUR", "Dubai DUB"];
 
-      if (this.to == "Cape Town CPT") {
+      if (this.to == "Cape Town International") {
         this.flight_price = 1418.00;
       }
-      if (this.to == "Bloemfontein BFN") {
-        this.flight_price = 1968.00;
-      }
-      if (this.to == "Windhoek WDH") {
-        this.flight_price = 1438.00;
-      }
-      if (this.to == "Port Elizabeth PLZ") {
+      if (this.to == "PE International") {
         this.flight_price = 1849.00;
       }
-      if (this.to == "Durban DUR") {
+      if (this.to == "King Shaka") {
         this.flight_price = 948.00;
       }
-      if (this.to == "George GEO") {
-        this.flight_price = 1529.00;
-      }
-      if (this.to == "East London EAS") {
-        this.flight_price = 1948.00;
-      }
-      if (this.to == "Johannesburg JNB") {
+      if (this.to == "OR Tambo") {
         this.flight_price = 1348.00;
       }
       if (this._class == 'Business') {
@@ -214,6 +217,7 @@ export class HomePage {
         localStorage.setItem('adults', this.flightForm.get('adults').value);
         localStorage.setItem('children', this.flightForm.get('children').value);
         localStorage.setItem('time_slot', this.flightForm.get('time_slot').value);
+        localStorage.setItem('flight_type', this.flightForm.get('flight_type').value);
         window.location.reload();
       }
     if (this.current_page_type == 'meals') {
@@ -277,6 +281,22 @@ export class HomePage {
     picker.present()
   }
 
+  public selectedTo;
+  public selectedFrom;
+
+  getSelectedFromLocation(dest) {
+    //return localStorage.getItem('from');
+    //return 'PE International';
+    this.selectedFrom = dest;
+    console.log(this.selectedFrom);
+  }
+
+  getSelectedToDestination(dest) {
+    //return localStorage.getItem('to');
+    this.selectedTo = dest;
+    console.log(this.selectedTo);
+  }
+
   getMealsOptions() {
     let options = [];
     for (let x = 0; x < this.meals.length; x++) {
@@ -310,6 +330,7 @@ export class HomePage {
     localStorage.removeItem('current_page_type');
     localStorage.removeItem('to');
     localStorage.removeItem('from');
+    localStorage.removeItem('flight_type');
     localStorage.removeItem('depart');
     localStorage.removeItem('return');
     localStorage.removeItem('adults');
@@ -423,7 +444,9 @@ export class HomePage {
     this.api.add_ticket(
       localStorage.getItem('from'),
       localStorage.getItem('to'),
+      localStorage.getItem('flight_type'),
       localStorage.getItem('depart'),
+      
       localStorage.getItem('return'),
       localStorage.getItem('adults'),
       localStorage.getItem('children'),
@@ -520,6 +543,7 @@ export class HomePage {
           localStorage.removeItem('from');
           localStorage.removeItem('depart');
           localStorage.removeItem('return');
+          localStorage.removeItem('flight_type');
           localStorage.removeItem('adults');
           localStorage.removeItem('children');
           localStorage.removeItem('meals');

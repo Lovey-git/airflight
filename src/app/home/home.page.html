@@ -16,14 +16,22 @@
           <ion-item>
             <ion-label>From:</ion-label>
             <ion-select formControlName="from" value="select" okText="Okay" cancelText="Dismiss">
-              <ion-select-option *ngFor="let item of destination_list;">{{item}}</ion-select-option>
+              <ion-select-option *ngFor="let item of destination_list;" [disabled]="item == selectedTo" (click)="getSelectedFromLocation(item)">{{item}}</ion-select-option>
             </ion-select>
           </ion-item>
 
           <ion-item>
             <ion-label>To:</ion-label>
             <ion-select formControlName="to" value="select" okText="Okay" cancelText="Dismiss">
-              <ion-select-option *ngFor="let item of destination_list;">{{item}}</ion-select-option>
+              <ion-select-option *ngFor="let item of destination_list;" [disabled]="item == selectedFrom" (click)="getSelectedToDestination(item)">{{item}}</ion-select-option>
+            </ion-select>
+          </ion-item>
+
+          <ion-item>  
+            <ion-label>Flight Type:</ion-label>
+            <ion-select formControlName="flight_type" value="select" okText="Okay" cancelText="Dismiss">
+              <ion-select-option [disabled]="">Round Trip</ion-select-option>
+              <ion-select-option [disabled]="">One Way Trip</ion-select-option>
             </ion-select>
           </ion-item>
 
@@ -35,7 +43,7 @@
             </ion-item>
           </ion-item>
 
-          <ion-item>
+          <ion-item [disabled]="flight_type == 'One Way Trip'">
             <ion-label>Return:</ion-label>
             <ion-item>
               <ion-datetime formControlName="return" displayFormat="MMMM/DD/YYYY" [min]="minDate" [max]="maxDate"
@@ -46,9 +54,9 @@
           <ion-item>
             <ion-label>Time Slot:</ion-label>
             <ion-select formControlName="time_slot" value="select" okText="Okay" cancelText="Dismiss">
-              <ion-select-option>08:00 am</ion-select-option>
-              <ion-select-option>12:00 am</ion-select-option>
-              <ion-select-option>16:00 pm</ion-select-option>
+              <ion-select-option [disabled]="hours >= 8 ">08:00 am</ion-select-option>
+              <ion-select-option [disabled]="hours >= 12 ">12:00 am</ion-select-option>
+              <ion-select-option [disabled]="hours >= 16 ">16:00 pm</ion-select-option>
             </ion-select>
           </ion-item>
 
