@@ -270,7 +270,7 @@ module.exports = webpackAsyncContext;
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-app>\n  <!-- toolbar -->\n  <ion-header>\n    <ion-toolbar>\n      <ion-item lines=\"none\">\n        <ion-item lines=\"none\" slot=\"start\">\n          <ion-title>\n            <a routerLink=\"/home\" style=\"text-decoration: wavy;\" (click)=\"openPage('Booking')\">{{title}}</a>\n          </ion-title>\n        </ion-item>\n        <ion-item slot=\"end\" lines=\"none\">\n          <strong>\n            {{header}}\n          </strong>\n          <ion-icon style=\"margin-left: 5px;\" name=\"menu\" (click)=\"openMenu()\"></ion-icon>\n        </ion-item>\n      </ion-item>\n    </ion-toolbar>\n  </ion-header>\n\n  <!-- side menu navigation -->\n  <ion-menu side=\"end\" contentId=\"main\">\n    <ion-header>\n      <ion-toolbar color=\"\">\n        <ion-item lines=\"none\">\n          <ion-label>Menu</ion-label>\n          <ion-icon slot=\"end\" name=\"close\" (click)=\"closeMenu()\"></ion-icon>\n        </ion-item>\n      </ion-toolbar>\n    </ion-header>\n    <ion-content>\n\n\n\n      <ion-list style=\"padding-top: 70px;\">\n\n        <ion-item *ngIf=\"role!='normal' && role!='admin'\">\n          Guest\n        </ion-item>\n\n        <ion-item *ngIf=\"role=='admin'\">\n          Admin\n        </ion-item>\n\n        <ion-item *ngIf=\"role==='normal' || role==='admin'\" routerLink=\"/profile\"\n          (click)=\"closeMenu();openPage('Profile');\">\n          <ion-icon name=\"person\" slot=\"start\"></ion-icon>\n          <ion-label>\n            Profile\n          </ion-label>\n        </ion-item>\n\n        <ion-item *ngIf=\"role==='admin'\" routerLink=\"/report\" (click)=\"closeMenu();openPage('Report');\">\n          <ion-icon name=\"people\" slot=\"start\"></ion-icon>\n          <ion-label>\n            Reports\n          </ion-label>\n        </ion-item>\n\n        <ion-item *ngIf=\"role!='admin'\" routerLink=\"/home\" (click)=\"closeMenu();openPage('Booking');\">\n          <ion-icon name=\"airplane\" slot=\"start\"></ion-icon>\n          <ion-label>\n            Book Flight\n          </ion-label>\n        </ion-item>\n\n        <ion-item *ngIf=\"role==='normal'\" routerLink=\"/tickets\" (click)=\"closeMenu();openPage('Tickets');\">\n          <ion-icon name=\"ticket\" slot=\"start\"></ion-icon>\n          <ion-label>\n            Tickets\n          </ion-label>\n        </ion-item>\n\n\n        <ion-item *ngIf=\"!auth.isLoggedin()\" routerLink=\"/register\" (click)=\"closeMenu();openPage('Register');\">\n          <ion-icon name=\"person-add\" slot=\"start\"></ion-icon>\n          <ion-label>\n            Register\n          </ion-label>\n        </ion-item>\n\n        <ion-item *ngIf=\"!auth.isLoggedin()\" routerLink=\"/login\" (click)=\"closeMenu();openPage('Login');\">\n          <ion-icon name=\"log-in\" slot=\"start\"></ion-icon>\n          <ion-label>\n            Login\n          </ion-label>\n        </ion-item>\n\n        <ion-item *ngIf=\"auth.isLoggedin()\" (click)=\"logout();closeMenu();openPage('Booking');\">\n          <ion-icon name=\"log-out\" slot=\"start\"></ion-icon>\n          <ion-label style=\"cursor: pointer;\">\n            Logout\n          </ion-label>\n        </ion-item>\n\n      </ion-list>\n      <ion-item lines=\"none\">\n        <ion-label>Useful links:</ion-label>\n      </ion-item>\n      <ion-item lines=\"none\" href=\"https://play.google.com/store/apps/details?id=za.gov.health.covidconnect\"\n        target=\"_blank\">\n        <img src=\"../assets/Screenshot_20201118-103408_My Vodacom.png\" width=\"100%%\" style=\"border-radius: 8px;\" />\n      </ion-item>\n      <ion-item lines=\"none\">\n        <ion-label>Social links:</ion-label>\n      </ion-item>\n      <ion-card>\n        <ion-card-content>\n          <ion-button href=\"https://www.instagram.com/airfood_sa/\" target=\"_blank\">\n            <ion-icon slot=\"icon-only\" color=\"light\"  style=\"font-size: 30px;\"\n              name='logo-instagram'></ion-icon>\n          </ion-button>\n          <ion-button href=\"https://twitter.com/airfood_sa/\" target=\"_blank\">\n            <ion-icon slot=\"icon-only\" color=\"light\"  style=\"font-size: 30px;\"\n              name='logo-twitter'></ion-icon>\n          </ion-button>\n        </ion-card-content>\n      </ion-card>\n\n\n    </ion-content>\n  </ion-menu>\n\n  <!-- navigated pagges -->\n  <ion-router-outlet id=\"main\">\n\n  </ion-router-outlet>\n</ion-app>");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-app>\r\n  <!-- toolbar -->\r\n  <ion-header>\r\n    <ion-toolbar>\r\n      <ion-item lines=\"none\">\r\n        <ion-item lines=\"none\" slot=\"start\">\r\n          <ion-title>\r\n            <a routerLink=\"/home\" style=\"text-decoration: wavy;\" (click)=\"openPage('Booking')\">{{title}}</a>\r\n          </ion-title>\r\n        </ion-item>\r\n        <ion-item slot=\"end\" lines=\"none\">\r\n          <strong>\r\n            {{header}}\r\n          </strong>\r\n          <ion-icon style=\"margin-left: 5px;\" name=\"menu\" (click)=\"openMenu()\"></ion-icon>\r\n        </ion-item>\r\n      </ion-item>\r\n    </ion-toolbar>\r\n  </ion-header>\r\n\r\n  <!-- side menu navigation -->\r\n  <ion-menu side=\"end\" contentId=\"main\">\r\n    <ion-header>\r\n      <ion-toolbar color=\"\">\r\n        <ion-item lines=\"none\">\r\n          <ion-label>Menu</ion-label>\r\n          <ion-icon slot=\"end\" name=\"close\" (click)=\"closeMenu()\"></ion-icon>\r\n        </ion-item>\r\n      </ion-toolbar>\r\n    </ion-header>\r\n    <ion-content>\r\n\r\n\r\n\r\n      <ion-list style=\"padding-top: 70px;\">\r\n\r\n        <ion-item *ngIf=\"role!='normal' && role!='admin'\">\r\n          Guest\r\n        </ion-item>\r\n\r\n        <ion-item *ngIf=\"role=='admin'\">\r\n          Admin\r\n        </ion-item>\r\n\r\n        <ion-item *ngIf=\"role==='normal' || role==='admin'\" routerLink=\"/profile\"\r\n          (click)=\"closeMenu();openPage('Profile');\">\r\n          <ion-icon name=\"person\" slot=\"start\"></ion-icon>\r\n          <ion-label>\r\n            Profile\r\n          </ion-label>\r\n        </ion-item>\r\n\r\n        <ion-item *ngIf=\"role==='admin'\" routerLink=\"/report\" (click)=\"closeMenu();openPage('Users');\">\r\n          <ion-icon name=\"people\" slot=\"start\"></ion-icon>\r\n          <ion-label>\r\n            Users\r\n          </ion-label>\r\n        </ion-item>\r\n\r\n        <ion-item *ngIf=\"role==='admin'\" routerLink=\"/bookings\" (click)=\"closeMenu();openPage('Flight Bookings');\">\r\n          <ion-icon name=\"calendar-outline\" slot=\"start\"></ion-icon>\r\n          <ion-label>\r\n            Flight Bookings\r\n          </ion-label>\r\n        </ion-item>\r\n\r\n        <ion-item *ngIf=\"role!='admin'\" routerLink=\"/home\" (click)=\"closeMenu();openPage('Booking');\">\r\n          <ion-icon name=\"airplane\" slot=\"start\"></ion-icon>\r\n          <ion-label>\r\n            Book Flight\r\n          </ion-label>\r\n        </ion-item>\r\n\r\n        <ion-item *ngIf=\"role==='normal'\" routerLink=\"/tickets\" (click)=\"closeMenu();openPage('Tickets');\">\r\n          <ion-icon name=\"ticket\" slot=\"start\"></ion-icon>\r\n          <ion-label>\r\n            Tickets\r\n          </ion-label>\r\n        </ion-item>\r\n\r\n\r\n        <ion-item *ngIf=\"!auth.isLoggedin()\" routerLink=\"/register\" (click)=\"closeMenu();openPage('Register');\">\r\n          <ion-icon name=\"person-add\" slot=\"start\"></ion-icon>\r\n          <ion-label>\r\n            Register\r\n          </ion-label>\r\n        </ion-item>\r\n\r\n        <ion-item *ngIf=\"!auth.isLoggedin()\" routerLink=\"/login\" (click)=\"closeMenu();openPage('Login');\">\r\n          <ion-icon name=\"log-in\" slot=\"start\"></ion-icon>\r\n          <ion-label>\r\n            Login\r\n          </ion-label>\r\n        </ion-item>\r\n\r\n        <ion-item *ngIf=\"auth.isLoggedin()\" (click)=\"logout();closeMenu();openPage('Booking');\">\r\n          <ion-icon name=\"log-out\" slot=\"start\"></ion-icon>\r\n          <ion-label style=\"cursor: pointer;\">\r\n            Logout\r\n          </ion-label>\r\n        </ion-item>\r\n\r\n        <ion-item routerLink=\"about\" (click)=\"closeMenu();openPage('About');\">\r\n          <ion-icon name=\"information-circle\" slot=\"start\"></ion-icon>\r\n          <ion-label style=\"cursor: pointer;\">\r\n            About\r\n          </ion-label>\r\n        </ion-item>\r\n\r\n      </ion-list>\r\n      <ion-item lines=\"none\">\r\n        <ion-label>Useful links:</ion-label>\r\n      </ion-item>\r\n      <ion-item lines=\"none\" href=\"https://play.google.com/store/apps/details?id=za.gov.health.covidconnect\"\r\n        target=\"_blank\">\r\n        <img src=\"../assets/Screenshot_20201118-103408_My Vodacom.png\" width=\"100%%\" style=\"border-radius: 8px;\" />\r\n      </ion-item>\r\n      <ion-item lines=\"none\">\r\n        <ion-label>Social links:</ion-label>\r\n      </ion-item>\r\n      <ion-card>\r\n        <ion-card-content>\r\n\r\n          <ion-button href=\"https://www.instagram.com/airfood_sa/\" target=\"_blank\">\r\n            <ion-icon slot=\"icon-only\" color=\"light\"  style=\"font-size: 30px;\"\r\n              name='logo-instagram'></ion-icon>\r\n          </ion-button>\r\n\r\n          <ion-button href=\"https://twitter.com/AirfoodSa\" target=\"_blank\">\r\n            <ion-icon slot=\"icon-only\" color=\"light\"  style=\"font-size: 30px;\"\r\n              name='logo-twitter'></ion-icon>\r\n          </ion-button>\r\n\r\n          <ion-button href=\"https://www.linkedin.com/in/airfood-sa-8912bb200/\" target=\"_blank\">\r\n            <ion-icon slot=\"icon-only\" color=\"light\"  style=\"font-size: 30px;\"\r\n              name='logo-linkedin'></ion-icon>\r\n          </ion-button>\r\n\r\n        </ion-card-content>\r\n      </ion-card>\r\n\r\n\r\n    </ion-content>\r\n  </ion-menu>\r\n\r\n  <!-- navigated pagges -->\r\n  <ion-router-outlet id=\"main\">\r\n\r\n  </ion-router-outlet>\r\n</ion-app>");
 
 /***/ }),
 
@@ -320,6 +320,14 @@ const routes = [
         path: 'tickets',
         loadChildren: () => __webpack_require__.e(/*! import() | tickets-tickets-module */ "tickets-tickets-module").then(__webpack_require__.bind(null, /*! ./tickets/tickets.module */ "./src/app/tickets/tickets.module.ts")).then(m => m.TicketsPageModule)
     },
+    {
+        path: 'bookings',
+        loadChildren: () => __webpack_require__.e(/*! import() | bookings-bookings-module */ "bookings-bookings-module").then(__webpack_require__.bind(null, /*! ./bookings/bookings.module */ "./src/app/bookings/bookings.module.ts")).then(m => m.BookingsPageModule)
+    },
+    {
+        path: 'about',
+        loadChildren: () => __webpack_require__.e(/*! import() | about-about-module */ "about-about-module").then(__webpack_require__.bind(null, /*! ./about/about.module */ "./src/app/about/about.module.ts")).then(m => m.AboutPageModule)
+    },
 ];
 let AppRoutingModule = class AppRoutingModule {
 };
@@ -345,7 +353,7 @@ AppRoutingModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("ion-menu {\n  --ion-background-color: var(--ion-color-light);\n}\nion-menu ion-toolbar {\n  --background: var(--ion-color-light);\n}\nion-menu ion-content {\n  --background: var(--ion-color-light);\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvYXBwLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksOENBQUE7QUFDSjtBQUNJO0VBQ0Usb0NBQUE7QUFDTjtBQUVJO0VBQ0ksb0NBQUE7QUFBUiIsImZpbGUiOiJzcmMvYXBwL2FwcC5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbImlvbi1tZW51IHtcclxuICAgIC0taW9uLWJhY2tncm91bmQtY29sb3I6IHZhcigtLWlvbi1jb2xvci1saWdodCk7XHJcbiAgXHJcbiAgICBpb24tdG9vbGJhciB7XHJcbiAgICAgIC0tYmFja2dyb3VuZDogdmFyKC0taW9uLWNvbG9yLWxpZ2h0KTtcclxuICAgIH1cclxuXHJcbiAgICBpb24tY29udGVudHtcclxuICAgICAgICAtLWJhY2tncm91bmQ6IHZhcigtLWlvbi1jb2xvci1saWdodCk7XHJcbiAgICB9XHJcblxyXG4gICBcclxuICBcclxuICAgIFxyXG5cclxuICAgIFxyXG59XHJcblxyXG5cclxuXHJcblxyXG4iXX0= */");
+/* harmony default export */ __webpack_exports__["default"] = ("ion-menu {\n  --ion-background-color: var(--ion-color-light);\n}\nion-menu ion-toolbar {\n  --background: var(--ion-color-light);\n}\nion-menu ion-content {\n  --background: var(--ion-color-light);\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvYXBwLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksOENBQUE7QUFDSjtBQUNJO0VBQ0Usb0NBQUE7QUFDTjtBQUVJO0VBQ0ksb0NBQUE7QUFBUiIsImZpbGUiOiJzcmMvYXBwL2FwcC5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbImlvbi1tZW51IHtcclxuICAgIC0taW9uLWJhY2tncm91bmQtY29sb3I6IHZhcigtLWlvbi1jb2xvci1saWdodCk7XHJcbiAgXHJcbiAgICBpb24tdG9vbGJhciB7XHJcbiAgICAgIC0tYmFja2dyb3VuZDogdmFyKC0taW9uLWNvbG9yLWxpZ2h0KTtcclxuICAgIH1cclxuXHJcbiAgICBpb24tY29udGVudHtcclxuICAgICAgICAtLWJhY2tncm91bmQ6IHZhcigtLWlvbi1jb2xvci1saWdodCk7XHJcbiAgICB9XHJcblxyXG4gICBcclxuICBcclxuICAgIFxyXG5cclxuICAgIFxyXG59XHJcblxyXG5cclxuXHJcblxyXG5cclxuXHJcbiJdfQ== */");
 
 /***/ }),
 
@@ -614,6 +622,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ../environments/environment */ "./src/environments/environment.ts");
 /* harmony import */ var ngx_mask__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ngx-mask */ "./node_modules/ngx-mask/__ivy_ngcc__/fesm2015/ngx-mask.js");
 /* harmony import */ var _services_excel_service__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ../services/excel.service */ "./src/services/excel.service.ts");
+/* harmony import */ var angular_google_charts__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! angular-google-charts */ "./node_modules/angular-google-charts/__ivy_ngcc__/fesm2015/angular-google-charts.js");
 
 
 
@@ -635,6 +644,7 @@ __webpack_require__.r(__webpack_exports__);
 
 const options = null;
 
+
 let AppModule = class AppModule {
 };
 AppModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
@@ -650,6 +660,7 @@ AppModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
             _angular_forms__WEBPACK_IMPORTED_MODULE_13__["ReactiveFormsModule"],
             _angular_service_worker__WEBPACK_IMPORTED_MODULE_16__["ServiceWorkerModule"].register('ngsw-worker.js', { enabled: _environments_environment__WEBPACK_IMPORTED_MODULE_17__["environment"].production }),
             ngx_mask__WEBPACK_IMPORTED_MODULE_18__["NgxMaskModule"].forRoot(),
+            angular_google_charts__WEBPACK_IMPORTED_MODULE_20__["GoogleChartsModule"].forRoot(),
         ],
         providers: [
             _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_6__["StatusBar"],
@@ -813,7 +824,7 @@ __webpack_require__.r(__webpack_exports__);
 let ApiService = class ApiService {
     constructor(http) {
         this.http = http;
-        //_Url = "http://localhost:8080/";
+        // _Url = "http://localhost:8080/";
         this._Url = "https://kohaku-b.herokuapp.com/";
     }
     validateCell(phone) {
@@ -852,9 +863,9 @@ let ApiService = class ApiService {
         return this.http.post(this._Url + 'register', { email, password, fname, lname });
     }
     //UPDATE USER
-    update_user(fname, lname, email, cell, gender, province) {
+    update_user(fname, lname, email, cell, gender, province, dob) {
         var uuid = localStorage.getItem('uuid');
-        return this.http.post(this._Url + 'update_user', { fname, lname, email, cell, gender, province, uuid });
+        return this.http.post(this._Url + 'update_user', { fname, lname, email, cell, gender, province, uuid, dob });
     }
     //UPDATE PASSWORD
     update_password(password) {
@@ -871,9 +882,13 @@ let ApiService = class ApiService {
         return this.http.post(this._Url + 'delete_user', { uuid });
     }
     //add ticket
-    add_ticket(from, to, depart, Return, adults, children, adult_price, child_price, meals, Class, totalAmt, time_slot) {
+    add_ticket(from, to, flight_type, depart, Return, adults, children, adult_price, child_price, meals, Class, totalAmt, time_slot, username) {
         var uuid = localStorage.getItem('uuid');
-        return this.http.post(this._Url + 'add_ticket', { uuid, from, to, depart, Return, adults, children, adult_price, child_price, meals, Class, totalAmt, time_slot });
+        return this.http.post(this._Url + 'add_ticket', { uuid, from, to, flight_type, depart, Return, adults, children, adult_price, child_price, meals, Class, totalAmt, time_slot, username });
+    }
+    add_ticket2(from, to, flight_type, depart, Return, adults, children, adult_price, child_price, DepartMeals, ReturnMeals, Class, totalAmt, time_slot, return_time_slot, username) {
+        var uuid = localStorage.getItem('uuid');
+        return this.http.post(this._Url + 'add_ticket', { uuid, from, to, flight_type, depart, Return, adults, children, adult_price, child_price, DepartMeals, ReturnMeals, Class, totalAmt, time_slot, return_time_slot, username });
     }
     //get all users
     get_all_verrified_users() {
@@ -913,6 +928,10 @@ let ApiService = class ApiService {
     //activate user 
     activate_user(email) {
         return this.http.post(this._Url + 'activate_user', { email });
+    }
+    //get_all_bookings 
+    get_all_bookings(searchText) {
+        return this.http.post(this._Url + 'get_all_bookings', { searchText });
     }
 };
 ApiService.ctorParameters = () => [
@@ -1153,7 +1172,7 @@ ToasterService = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\kree\Documents\Projects\Kohaku\src\main.ts */"./src/main.ts");
+module.exports = __webpack_require__(/*! C:\Users\user\Desktop\fun apps\air-flight\src\main.ts */"./src/main.ts");
 
 
 /***/ }),

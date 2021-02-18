@@ -22,7 +22,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-content fullscreen>\n  <ion-grid>\n    <div class=\"login-form\">\n\n        <div class=\"txt-center\">\n\n          <ion-icon style=\"font-size: 55px;\" name=\"person-circle-outline\"></ion-icon>\n          <br>\n          <strong>Profile</strong>\n          <br>\n\n          <ion-label color=\"dark\">Seasons change, so does reasons to your details </ion-label>\n          <br>\n          <br>\n        </div>\n        <!-- profile form -->\n        <form [formGroup]=\"profileForm\">\n          <ion-row>\n            <ion-col>\n              <ion-input formControlName=\"names\" type=\"text\" required placeholder=\"Names\"></ion-input>\n            </ion-col>\n          </ion-row>\n\n          <ion-row>\n            <ion-col>\n              <ion-input formControlName=\"surname\" type=\"text\" required placeholder=\"Surname\"></ion-input>\n            </ion-col>\n          </ion-row>\n\n          <ion-row>\n            <ion-col>\n              <ion-input formControlName=\"email\" type=\"text\" required placeholder=\"Email\"></ion-input>\n            </ion-col>\n            <ion-col>\n              <ion-input formControlName=\"cell\" type=\"text\" required placeholder=\"Phone Number\"></ion-input>\n            </ion-col>\n          </ion-row>\n\n          <ion-row>\n            <ion-col>\n              <ion-datetime class=\"txt-center\" style=\"text-align: center;border: 1px solid #3880ff;border-radius: 5px;\"\n                formControlName=\"dob\" placeholder=\"Date Of Birth\" displayFormat=\"YYYY-MM-DD\" max=\"2002\">\n              </ion-datetime>\n            </ion-col>\n          </ion-row>\n\n          <ion-row>\n            <ion-col>\n              <ion-item>\n                <ion-label>Gender:</ion-label>\n                <ion-select formControlName=\"gender\" value=\"select\" okText=\"Okay\" cancelText=\"Dismiss\">\n                  <ion-select-option value=\"male\">male</ion-select-option>\n                  <ion-select-option value=\"female\">female</ion-select-option>\n                </ion-select>\n              </ion-item>\n            </ion-col>\n          </ion-row>\n\n          <ion-row>\n            <ion-col>\n              <ion-item>\n                <ion-label>Province:</ion-label>\n                <ion-select style=\"text-align: left;\" formControlName=\"province\" value=\"select\" okText=\"Okay\" cancelText=\"Dismiss\">\n                  <ion-select-option *ngFor='let province of Province' value='{{province}}'>{{province}}\n                  </ion-select-option>\n                </ion-select>\n              </ion-item>\n            </ion-col>\n          </ion-row>\n\n          <ion-row>\n            <ion-col>\n              <ion-button class=\"txt-center\" (click)=\"doUpdatetUser()\" color=\"primary\">Update profile</ion-button>\n            </ion-col>\n          </ion-row>\n\n          <ion-row>\n            <ion-col>\n              <ion-button class=\"txt-center\" (click)=\"changePass()\" color=\"secondary\">Change Password</ion-button>\n            </ion-col>\n          </ion-row>\n\n          <ion-row>\n            <ion-col>\n              <ion-button class=\"txt-center\" (click)=\"deactivate()\" color=\"warning\">Deactivate Account</ion-button>\n            </ion-col>\n            <ion-col>\n              <ion-button class=\"txt-center\" (click)=\"deregister()\" color=\"danger\">Delete Account</ion-button>\n            </ion-col>\n          </ion-row>\n\n        </form>\n    </div>\n  </ion-grid>\n</ion-content>";
+      __webpack_exports__["default"] = "<ion-content fullscreen>\r\n  <ion-grid>\r\n    <div class=\"login-form\">\r\n\r\n        <div class=\"txt-center\">\r\n\r\n          <ion-icon style=\"font-size: 55px;\" name=\"person-circle-outline\"></ion-icon>\r\n          <br>\r\n          <strong>Profile</strong>\r\n          <br>\r\n\r\n          <ion-label color=\"dark\">Seasons change, so does reasons to your details </ion-label>\r\n          <br>\r\n          <br>\r\n        </div>\r\n        <!-- profile form -->\r\n        <form [formGroup]=\"profileForm\">\r\n          <ion-row>\r\n            <ion-col>\r\n              <ion-input formControlName=\"names\" type=\"text\" required placeholder=\"Names\"></ion-input>\r\n            </ion-col>\r\n          </ion-row>\r\n\r\n          <ion-row>\r\n            <ion-col>\r\n              <ion-input formControlName=\"surname\" type=\"text\" required placeholder=\"Surname\"></ion-input>\r\n            </ion-col>\r\n          </ion-row>\r\n\r\n          <ion-row>\r\n            <ion-col>\r\n              <ion-input formControlName=\"email\" type=\"text\" required placeholder=\"Email\"></ion-input>\r\n            </ion-col>\r\n            <ion-col>\r\n              <ion-input formControlName=\"cell\" type=\"text\" required placeholder=\"Phone Number\"></ion-input>\r\n            </ion-col>\r\n          </ion-row>\r\n\r\n          <ion-row>\r\n            <ion-col>\r\n              <ion-datetime class=\"txt-center\" style=\"text-align: center;border: 1px solid #3880ff;border-radius: 5px;\"\r\n                formControlName=\"dob\" placeholder=\"Date Of Birth\" displayFormat=\"YYYY-MM-DD\" max=\"2002\">\r\n              </ion-datetime>\r\n            </ion-col>\r\n          </ion-row>\r\n\r\n          <ion-row>\r\n            <ion-col>\r\n              <ion-item>\r\n                <ion-label>Gender:</ion-label>\r\n                <ion-select formControlName=\"gender\" value=\"select\" okText=\"Okay\" cancelText=\"Dismiss\">\r\n                  <ion-select-option value=\"male\">male</ion-select-option>\r\n                  <ion-select-option value=\"female\">female</ion-select-option>\r\n                </ion-select>\r\n              </ion-item>\r\n            </ion-col>\r\n          </ion-row>\r\n\r\n          <ion-row>\r\n            <ion-col>\r\n              <ion-item>\r\n                <ion-label>Province:</ion-label>\r\n                <ion-select style=\"text-align: left;\" formControlName=\"province\" value=\"select\" okText=\"Okay\" cancelText=\"Dismiss\">\r\n                  <ion-select-option *ngFor='let province of Province' value='{{province}}'>{{province}}\r\n                  </ion-select-option>\r\n                </ion-select>\r\n              </ion-item>\r\n            </ion-col>\r\n          </ion-row>\r\n\r\n          <ion-row>\r\n            <ion-col>\r\n              <ion-button class=\"txt-center\" (click)=\"doUpdatetUser()\" color=\"primary\">Update profile</ion-button>\r\n            </ion-col>\r\n          </ion-row>\r\n\r\n          <ion-row>\r\n            <ion-col>\r\n              <ion-button class=\"txt-center\" (click)=\"changePass()\" color=\"secondary\">Change Password</ion-button>\r\n            </ion-col>\r\n          </ion-row>\r\n\r\n          <ion-row>\r\n            <ion-col>\r\n              <ion-button class=\"txt-center\" (click)=\"deactivate()\" color=\"warning\">Deactivate Account</ion-button>\r\n            </ion-col>\r\n            <ion-col>\r\n              <ion-button class=\"txt-center\" (click)=\"deregister()\" color=\"danger\">Delete Account</ion-button>\r\n            </ion-col>\r\n          </ion-row>\r\n\r\n        </form>\r\n        <br>\r\n    </div>\r\n  </ion-grid>\r\n</ion-content>";
       /***/
     },
 
@@ -682,7 +682,7 @@
             return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee8() {
               var _this8 = this;
 
-              var loading, names, surname, cell, gender, province, email;
+              var loading, names, surname, cell, gender, province, email, dob;
               return regeneratorRuntime.wrap(function _callee8$(_context8) {
                 while (1) {
                   switch (_context8.prev = _context8.next) {
@@ -701,62 +701,63 @@
                       gender = this.profileForm.get('gender').value;
                       province = this.profileForm.get('province').value;
                       email = this.profileForm.get('email').value;
+                      dob = this.profileForm.get('dob').value;
 
-                      if (!(email == null || gender == '' || province == '' || names == '' || surname == '' || cell == '')) {
-                        _context8.next = 13;
+                      if (!(email == null || gender == '' || province == '' || names == '' || surname == '' || cell == '' || dob == '')) {
+                        _context8.next = 14;
                         break;
                       }
 
                       this.presentAlert('All fields are required! ⚠️');
-                      _context8.next = 32;
+                      _context8.next = 33;
                       break;
 
-                    case 13:
+                    case 14:
                       if (!(isNaN(cell) || cell.length <= 9)) {
-                        _context8.next = 17;
+                        _context8.next = 18;
                         break;
                       }
 
                       this.presentAlert('Phone number should consist of only numbers and atleast 10 digits long ❌');
-                      _context8.next = 32;
+                      _context8.next = 33;
                       break;
 
-                    case 17:
+                    case 18:
                       if (!(this.api.validateName(names) || this.api.validateName(surname))) {
-                        _context8.next = 21;
+                        _context8.next = 22;
                         break;
                       }
 
                       this.presentAlert('names and surname should consist of only characters and no special symbols ❌');
-                      _context8.next = 32;
+                      _context8.next = 33;
                       break;
 
-                    case 21:
+                    case 22:
                       if (this.api.validateEmail(email)) {
-                        _context8.next = 25;
+                        _context8.next = 26;
                         break;
                       }
 
                       this.presentAlert('Invalid email entered ❌');
-                      _context8.next = 32;
+                      _context8.next = 33;
                       break;
 
-                    case 25:
+                    case 26:
                       if (this.api.validateCell(cell)) {
-                        _context8.next = 29;
+                        _context8.next = 30;
                         break;
                       }
 
                       this.presentAlert('Invalid Phone number ❌');
-                      _context8.next = 32;
+                      _context8.next = 33;
                       break;
 
-                    case 29:
-                      _context8.next = 31;
+                    case 30:
+                      _context8.next = 32;
                       return loading.present();
 
-                    case 31:
-                      this.api.update_user(names, surname, email, cell, gender, province).subscribe(function (data) {
+                    case 32:
+                      this.api.update_user(names, surname, email, cell, gender, province, dob).subscribe(function (data) {
                         if (data.status == 0) {
                           loading.dismiss();
 
@@ -772,7 +773,7 @@
                         _this8.presentAlert("Could not connect to server 🖥️, check your internet connection!");
                       });
 
-                    case 32:
+                    case 33:
                     case "end":
                       return _context8.stop();
                   }

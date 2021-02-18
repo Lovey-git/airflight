@@ -22,7 +22,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-content fullscreen>\n  <ion-grid>\n    <div class=\"login-form\">\n      <ion-col>\n\n        <div class=\"txt-center\">\n          <ion-icon style=\"font-size: 55px;\" name=\"log-in-outline\"></ion-icon>\n          <br>\n          <strong>Login</strong>\n          <br>\n          <ion-label color=\"dark\">Sign Into Your Account.</ion-label>\n          <br>\n          <br>\n        </div>\n        <!-- login form -->\n        <form [formGroup]=\"loginForm\" (ngSubmit)=\"login()\">\n          <ion-input formControlName=\"email\" type=\"text\" required placeholder=\"Email\">\n            <ion-icon name=\"at-outline\">\n            </ion-icon>\n          </ion-input>\n          <br>\n          <ion-input formControlName=\"password\" required placeholder=\"Password\" type=\"Password\">\n            <ion-icon slot=\"start\" name=\"lock-closed-outline\"></ion-icon>\n          </ion-input>\n          <br>\n          <ion-button class=\"txt-center\" type=\"submit\" color=\"primary\">Login</ion-button>\n        </form>\n        <ion-footer class=\"txt-center\">\n          <br>\n          <a color=\"primary\" routerLink=\"/register\" (click)=\"app.openPage('Register');\">No account? Sign up here.</a>\n          <br>\n          <a color=\"primary\" style=\"cursor: pointer;text-decoration: underline;\" (click)=\"resetPass()\">Forgot Password? Click here.</a>\n        </ion-footer>\n      </ion-col>\n    </div>\n  </ion-grid>\n</ion-content>";
+      __webpack_exports__["default"] = "<ion-content fullscreen>\r\n  <ion-grid>\r\n    <div class=\"login-form\">\r\n      <ion-col>\r\n\r\n        <div class=\"txt-center\">\r\n          <ion-icon style=\"font-size: 55px;\" name=\"log-in-outline\"></ion-icon>\r\n          <br>\r\n          <strong>Login</strong>\r\n          <br>\r\n          <ion-label color=\"dark\">Sign Into Your Account.</ion-label>\r\n          <br>\r\n          <br>\r\n        </div>\r\n        <!-- login form -->\r\n        <form [formGroup]=\"loginForm\" (ngSubmit)=\"login()\">\r\n          <ion-input formControlName=\"email\" type=\"text\" required placeholder=\"Email\">\r\n            <ion-icon name=\"at-outline\">\r\n            </ion-icon>\r\n          </ion-input>\r\n          <br>\r\n          <ion-input formControlName=\"password\" required placeholder=\"Password\" type=\"Password\">\r\n            <ion-icon slot=\"start\" name=\"lock-closed-outline\"></ion-icon>\r\n          </ion-input>\r\n          <br>\r\n          <ion-button class=\"txt-center\" type=\"submit\" color=\"primary\">Login</ion-button>\r\n        </form>\r\n        <ion-footer class=\"txt-center\">\r\n          <br>\r\n          <a color=\"primary\" routerLink=\"/register\" (click)=\"app.openPage('Register');\">No account? Sign up here.</a>\r\n          <br>\r\n          <a color=\"primary\" style=\"cursor: pointer;text-decoration: underline;\" (click)=\"resetPass()\">Forgot Password? Click here.</a>\r\n        </ion-footer>\r\n      </ion-col>\r\n    </div>\r\n  </ion-grid>\r\n</ion-content>";
       /***/
     },
 
@@ -281,11 +281,14 @@
             if (this.authService.isLoggedin()) {
               if (localStorage.getItem('ur') == 'admin') {
                 this.router.navigateByUrl('report');
+                this.app.openPage('Users');
               } else {
                 if (localStorage.getItem('current_page_type') == 'flight') {
                   this.router.navigateByUrl('home');
+                  this.app.openPage('Booking');
                 } else {
                   this.router.navigateByUrl('tickets');
+                  this.app.openPage('Tickets');
                 }
               }
             }
@@ -351,7 +354,9 @@
                           loading.dismiss();
                           localStorage.setItem('uuid', data.data[0].uuid);
                           localStorage.setItem('ur', data.data[0].role);
-                          _this.app.isLoggedIn = true;
+                          localStorage.setItem('username', data.data[0].surname + ' ' + data.data[0].name);
+                          _this.app.isLoggedIn = true; // this.app.openPage('Users');
+
                           window.location.reload();
                         } else if (data.status == 1) {
                           loading.dismiss();

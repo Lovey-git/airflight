@@ -9,7 +9,7 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-content class=\"layer\">\n\n  <ion-row  class=\"booking-form \">\n    <ion-header>\n      <ion-segment>\n        <ion-segment-button (click)=\"filterBy('v')\" value=\"Verified\">\n          <ion-label>Verified users</ion-label>\n        </ion-segment-button>\n        <ion-segment-button (click)=\"filterBy('n')\" value=\"Non-Verified\">\n          <ion-label>Non-Verified users</ion-label>\n        </ion-segment-button>\n        <ion-segment-button (click)=\"filterBy('a')\" value=\"all\">\n          <ion-label>All users</ion-label>\n        </ion-segment-button>\n      </ion-segment>\n      \n      <ion-searchbar [(ngModel)]=\"searchText\" (ngModelChange)=\"searcher()\" showCancelButton=\"focus\"></ion-searchbar>\n    </ion-header>\n  </ion-row>\n\n  <div class=\"booking-form\">\n    <ion-list-header>\n      <ion-item lines=\"none\">\n        Users ({{count}})\n        <ion-icon (click)=\"download_report()\" name=\"save-outline\" slot=\"end\"></ion-icon>\n      </ion-item>\n      \n\n    </ion-list-header>\n    <ion-row (click) = \"userAlert(item.email, item.uuid)\" style=\"border-bottom: groove;\" *ngFor=\"let item of users;\">\n      <ion-col >\n        <ion-item lines=\"none\">\n          <ion-icon *ngIf=\"item.isVerified == 1\" color=\"success\" slot=\"\" name=\"checkmark-circle-outline\"></ion-icon>\n          <ion-icon *ngIf=\"item.isVerified == 0\" color=\"danger\" slot=\"\" name=\"close-circle-outline\"></ion-icon>\n          <ion-title style=\"text-align: left;font-size: medium;\">{{item.email}}</ion-title>\n        </ion-item>\n      </ion-col>\n\n      <ion-col >\n        <ion-item lines=\"none\">\n          <ion-title style=\"text-align: center;font-size: medium;\">{{item.created_at}}</ion-title>\n        </ion-item>\n      </ion-col>\n\n      <ion-col >\n        <ion-item lines=\"none\">\n          <ion-title style=\"text-align: right;font-size: medium;\">{{item.role}}</ion-title>\n        </ion-item>\n      </ion-col>\n    </ion-row>\n  </div>\n\n</ion-content>");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-content class=\"layer\">\r\n\r\n  <ion-row  class=\"booking-form \">\r\n\r\n    <!-- <google-chart [title]=\"chartTitle\" [type]=\"chartType\" [data]=\"chartData\" [columns]=\"chartLabels\">\r\n    </google-chart> -->\r\n\r\n    <ion-header>\r\n      <ion-segment>\r\n        <ion-segment-button (click)=\"filterBy('v')\" value=\"Verified\">\r\n          <ion-label>Verified users</ion-label>\r\n        </ion-segment-button>\r\n        <ion-segment-button (click)=\"filterBy('n')\" value=\"Non-Verified\">\r\n          <ion-label>Non-Verified users</ion-label>\r\n        </ion-segment-button>\r\n        <ion-segment-button (click)=\"filterBy('a')\" value=\"all\">\r\n          <ion-label>All users</ion-label>\r\n        </ion-segment-button>\r\n      </ion-segment>\r\n      \r\n      <ion-searchbar  [(ngModel)]=\"searchText\" (ngModelChange)=\"searcher()\" showCancelButton=\"focus\"></ion-searchbar>\r\n    </ion-header>\r\n  </ion-row>\r\n\r\n  <div class=\"booking-form\">\r\n    <ion-list-header>\r\n      <ion-item lines=\"none\">\r\n        Users ({{count}})\r\n        <ion-icon (click)=\"download_report_alert()\" name=\"save-outline\" slot=\"end\"></ion-icon>\r\n      </ion-item>\r\n      \r\n\r\n    </ion-list-header>\r\n    <ion-row (click) = \"userAlert(item.email, item.uuid)\" style=\"border-bottom: groove;\" *ngFor=\"let item of users;\">\r\n      <ion-col >\r\n        <ion-item lines=\"none\">\r\n          <ion-icon *ngIf=\"item.isVerified == 1\" color=\"success\" slot=\"\" name=\"checkmark-circle-outline\"></ion-icon>\r\n          <ion-icon *ngIf=\"item.isVerified == 0\" color=\"danger\" slot=\"\" name=\"close-circle-outline\"></ion-icon>\r\n          <ion-title style=\"text-align: left;font-size: medium;\">{{item.email}}</ion-title>\r\n        </ion-item>\r\n      </ion-col>\r\n\r\n      <ion-col >\r\n        <ion-item lines=\"none\">\r\n          <ion-title style=\"text-align: center;font-size: medium;\">{{item.created_at}}</ion-title>\r\n        </ion-item>\r\n      </ion-col>\r\n\r\n      <ion-col >\r\n        <ion-item lines=\"none\">\r\n          <ion-title style=\"text-align: right;font-size: medium;\">{{item.role}}</ion-title>\r\n        </ion-item>\r\n      </ion-col>\r\n    </ion-row>\r\n  </div>\r\n\r\n</ion-content>");
 
 /***/ }),
 
@@ -67,6 +67,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/__ivy_ngcc__/fesm2015/ionic-angular.js");
 /* harmony import */ var _report_routing_module__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./report-routing.module */ "./src/app/report/report-routing.module.ts");
 /* harmony import */ var _report_page__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./report.page */ "./src/app/report/report.page.ts");
+/* harmony import */ var angular_google_charts__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! angular-google-charts */ "./node_modules/angular-google-charts/__ivy_ngcc__/fesm2015/angular-google-charts.js");
+
 
 
 
@@ -82,7 +84,8 @@ ReportPageModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
             _angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"],
             _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormsModule"],
             _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonicModule"],
-            _report_routing_module__WEBPACK_IMPORTED_MODULE_5__["ReportPageRoutingModule"]
+            _report_routing_module__WEBPACK_IMPORTED_MODULE_5__["ReportPageRoutingModule"],
+            angular_google_charts__WEBPACK_IMPORTED_MODULE_7__["GoogleChartsModule"]
         ],
         declarations: [_report_page__WEBPACK_IMPORTED_MODULE_6__["ReportPage"]]
     })
@@ -141,10 +144,22 @@ let ReportPage = class ReportPage {
         this.router = router;
         this.toaster = toaster;
         this.excelService = excelService;
+        this.chartType = 'line';
+        this.chartTitle = 'Report';
         this.searchText = '';
         this.count = 0;
     }
     ngOnInit() {
+        this.chartData = [{
+                data: [3, 1, 4, 2, 5],
+                label: 'Anthracnose',
+                fill: false
+            }];
+        this.chartLabels = ['Jan', 'Feb', 'Mar', 'Apr', 'May'];
+        this.chartColors = [{
+                backgroundColor: 'rgba(0, 0, 0, 0.2)',
+                borderColor: 'rgba(0, 0, 0, 1)'
+            }];
     }
     ionViewWillEnter() {
         if (this.authService.isLoggedin() == false || localStorage.getItem('ur') != 'admin') {
@@ -200,7 +215,6 @@ let ReportPage = class ReportPage {
     }
     searcher() {
         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
-            console.log(this.searchText);
             this.api.get_all_users_by_search(this.searchText).subscribe(data => {
                 if (data.status == 0) {
                     this.users = data.data;

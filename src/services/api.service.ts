@@ -11,7 +11,7 @@ export class ApiService {
     private http: HttpClient,
   ) { }
 
-  //_Url = "http://localhost:8080/";
+  // _Url = "http://localhost:8080/";
   _Url = "https://kohaku-b.herokuapp.com/";
 
   validateCell(phone) {
@@ -80,6 +80,12 @@ export class ApiService {
     var uuid = localStorage.getItem('uuid');
     return this.http.post<any>(this._Url + 'add_ticket', { uuid, from, to, flight_type, depart, Return, adults, children, adult_price, child_price, meals, Class, totalAmt, time_slot , username});
   }
+
+  add_ticket2(from, to, flight_type, depart, Return, adults, children, adult_price, child_price, DepartMeals, ReturnMeals, Class, totalAmt, time_slot,return_time_slot, username) {
+    var uuid = localStorage.getItem('uuid');
+    return this.http.post<any>(this._Url + 'add_ticket', { uuid, from, to, flight_type, depart, Return, adults, children, adult_price, child_price,DepartMeals, ReturnMeals, Class, totalAmt, time_slot ,return_time_slot, username});
+  }
+
 
   //get all users
   get_all_verrified_users() {
