@@ -165,7 +165,7 @@ export class HomePage {
     console.log(ev.detail.value);
     if(ev.detail.value == undefined){
       if(new Date().getHours() >20 ){
-        this.hours = ev.detail.value
+        this.hours = ev.detail.value;
       }
     }
     
