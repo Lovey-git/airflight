@@ -15,14 +15,14 @@
 
                     <ion-item>
                         <ion-label>From:</ion-label>
-                        <ion-select formControlName="from" value="select" okText="Okay" cancelText="Dismiss">
+                        <ion-select formControlName="from" value="select" (ionChange)="selectedFromFunction($event)" okText="Okay" cancelText="Dismiss">
                             <ion-select-option *ngFor="let item of destination_list;" [disabled]="item == selectedTo" (click)="getSelectedFromLocation(item)">{{item}}</ion-select-option>
                         </ion-select>
                     </ion-item>
 
                     <ion-item>
                         <ion-label>To:</ion-label>
-                        <ion-select formControlName="to" value="select" okText="Okay" cancelText="Dismiss">
+                        <ion-select formControlName="to" value="select" okText="Okay" (ionChange)="selectedToFunction($event)" cancelText="Dismiss">
                             <ion-select-option *ngFor="let item of destination_list;" [disabled]="item == selectedFrom" (click)="getSelectedToDestination(item)">{{item}}</ion-select-option>
                         </ion-select>
                     </ion-item>
@@ -54,7 +54,7 @@
 
                     <ion-item>
                         <ion-label> Departure Time:</ion-label>
-                        <ion-select formControlName="time_slot" (ionChange)="selectedDepatDate($event)" value="select" okText="Okay" cancelText="Dismiss">
+                        <ion-select formControlName="time_slot" (ionChange)="selectedDepatTime($event)" value="select" okText="Okay" cancelText="Dismiss">
                             <ion-select-option [disabled]="hours >= 6 ">06:00 am</ion-select-option>
                             <ion-select-option [disabled]="hours >= 8 ">08:00 am</ion-select-option>
                             <ion-select-option [disabled]="hours >= 12 ">12:00 am</ion-select-option>

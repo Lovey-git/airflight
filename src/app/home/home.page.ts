@@ -132,6 +132,13 @@ export class HomePage {
       card_cvv: ['', Validators.required],
     });
   }
+  selectedFromFunction(ev){
+    this.selectedFrom=ev.detail.value;
+  }
+
+  selectedToFunction(ev){
+    this.selectedTo=ev.detail.value;
+  }
 
   selectedFlightType(ev: any) {
     this.flight_type = ev.detail.value;
@@ -145,10 +152,25 @@ export class HomePage {
   }
 
   selectedDepatDate(ev) {
-    this.hours = ev.detail.value
-    console.log(ev.detail.value);
 
+    if((new Date().toLocaleDateString() !=new Date(ev.detail.value).toLocaleDateString())){
+      this.hours = ev.detail.value
+    }
+    if((new Date().toLocaleDateString() ==new Date(ev.detail.value).toLocaleDateString())){
+      this.hours = new Date().getHours()      
+    }
   }
+
+  selectedDepatTime(ev){
+    console.log(ev.detail.value);
+    if(ev.detail.value == undefined){
+      if(new Date().getHours() >20 ){
+        this.hours = ev.detail.value
+      }
+    }
+    
+  }
+
   ngOnInit() {
 
     this.hours = new Date().getHours();
@@ -259,7 +281,7 @@ export class HomePage {
         this.presentAlert('Choose depart time slot');
       } else if (this.flightForm.get('return_time_slot').value == '' && this.flightForm.get('flight_type').value != 'One Way Trip') {
         this.presentAlert('Choose return time slot');
-      } else if (person > 11) {
+      } else if (person > 10) {
         this.presentAlert('Both adults and children combine must not exceed 10');
       }
       else if (this.flightForm.get('time_slot').value == '06:00 am' && String(this.flightForm.get('depart').value).substr(0, 10) == this.day.substr(0, 10) && Number(this.day.substr(11, 2)) >= 6) {
@@ -281,7 +303,7 @@ export class HomePage {
       }
       else if (this.flightForm.get('depart').value && (d1 > d2)) {
         this.presentAlert('Return date cannot be less than the depart date ');
-      }else if ( ((this.flightForm.get('depart').value).substr(0, 10) == (this.flightForm.get('return').value).substr(0, 10)) && (this.flightForm.get('return_time_slot').value <this.flightForm.get('time_slot').value )) {
+      }else if ( ((this.flightForm.get('depart').value).substr(0, 10) == (this.flightForm.get('return').value).substr(0, 10)) && (this.flightForm.get('return_time_slot').value <=this.flightForm.get('time_slot').value )) {
         this.presentAlert('Depart time must be less than the Return time ');
       }
 
