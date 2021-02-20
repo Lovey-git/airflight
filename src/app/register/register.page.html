@@ -1,0 +1,58 @@
+<ion-content fullscreen>
+  <ion-grid>
+    <div class="login-form" style="position: relative;">
+      <ion-col>
+
+        <div class="txt-center">
+          <ion-icon style="font-size: 55px;" name="person-add-outline"></ion-icon>
+          <br>
+          <strong>Register</strong>
+          <br>
+          <ion-label color="dark">Great adventures begin here!</ion-label>
+          <br>
+        </div>
+        <!-- register form -->
+        <form [formGroup]="registerForm">
+          <ion-input formControlName="names" type="text" required placeholder="Names"></ion-input>
+          <br>
+          <ion-input formControlName="surname" type="text" required placeholder="Surname"></ion-input>
+          <br>
+          <ion-input formControlName="email" type="text" required placeholder="Email"></ion-input>
+          <br>
+          <ion-input formControlName="cell" type="tel" required placeholder="Phone Number"></ion-input>
+          <br>
+          <ion-datetime style="text-align: center;border: 1px solid #3880ff;color:  #3880ff; border-radius: 5px;"
+            formControlName="dob" placeholder="Date Of Birth" displayFormat="YYYY-MM-DD" max="2002">
+          </ion-datetime>
+          <br>
+          <ion-input formControlName="password" class="tooltip" type="password" required placeholder="Password">
+            <span class="tooltiptext">
+              <ol>
+                Password requirements:
+                <li>Use a minimum password length of 8</li>
+                <li>atleast one lowercase and uppercase alphabetic characters</li>
+                <li>atleast one number </li>
+                <li>atleast one special characters e.g. !@#$%^&* </li>
+              </ol>
+            </span>
+          </ion-input>
+          <br>
+          <br>
+          <ion-input style="position: relative;" formControlName="password1" type="password" required
+            placeholder="Confirm Password"></ion-input>
+          <br>
+
+          <ion-button class="txt-center" type="submit" (click)="register()" color="primary">Register</ion-button>
+          <div class="txt-center">
+            <a color="primary" style="cursor: pointer;text-decoration: underline;" (click)="openTermsModal();">By
+              proceeding you agree to Air-Food T&C's</a>
+          </div>
+        </form>
+        <ion-footer class="txt-center">
+          <a color="primary" routerLink="/login" (click)="app.openPage('Login');">already have an account? sign in
+            here.</a>
+        </ion-footer>
+      </ion-col>
+    </div>
+  </ion-grid>
+</ion-content>
