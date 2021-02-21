@@ -201,6 +201,7 @@ export class HomePage {
       this.return_time_slot = localStorage.getItem('return_time_slot');
 
 
+
       this.meal_tot = 0;
       for (let index = 0; index < DepartMeals.length; index++) {
         this.meal_tot += DepartMeals[index].meal.value * DepartMeals[index].qty.value;
@@ -509,6 +510,7 @@ export class HomePage {
     console.log(this.isLogged);
     this.isLogged = this.authService.isLoggedin();
     console.log(this.isLogged);
+    this.flight_type = localStorage.getItem('flight_type');
   }
 
 
@@ -602,8 +604,9 @@ export class HomePage {
 
     await loading.present();
     console.log('do book');
+console.log(localStorage.getItem('return'),);
 
-    this.api.add_ticket(
+    this.api.add_ticket2(
       localStorage.getItem('from'),
       localStorage.getItem('to'),
       localStorage.getItem('flight_type'),
@@ -615,11 +618,11 @@ export class HomePage {
       0,
       0,
       localStorage.getItem('DepartMeals'),
-      //  localStorage.getItem('ReturnMeals'),
+       localStorage.getItem('ReturnMeals'),
       localStorage.getItem('_class'),
       localStorage.getItem('amount'),
-      String(localStorage.getItem('time_slot')).substr(0, 5),
-      // String(localStorage.getItem('return_time_slot')),
+      String(localStorage.getItem('time_slot')),
+      String(localStorage.getItem('return_time_slot')),
       localStorage.getItem('username')
     ).subscribe(
       data => {
@@ -674,7 +677,7 @@ export class HomePage {
   downloadMyFile() {
     const link = document.createElement('a');
     link.setAttribute('target', '_self');
-    link.setAttribute('href', 'https://kohaku-b.herokuapp.com/download/' + localStorage.getItem('uuid') + localStorage.getItem('t_id') + '.pdf');
+    link.setAttribute('href', 'https://console.clever-cloud.com/download/' + localStorage.getItem('uuid') + localStorage.getItem('t_id') + '.pdf');
     link.setAttribute('download', `Ticket.pdf`);
     document.body.appendChild(link);
     link.click();

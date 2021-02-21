@@ -144,27 +144,30 @@
                         </ion-item>
                     </ion-list>
 
-                    <ion-row>
-                        <ion-col>
-                            <ion-button class="txt-center" (click)="showPickerReturn()" color="secondary">
-                                <ion-icon name="add"></ion-icon>
-                                Choose a Meal or beverage
-                            </ion-button>
-                        </ion-col>
-                    </ion-row>
-                    <ion-list-header>
-                        <ion-label><strong>Selected Return Meals</strong></ion-label>
-                    </ion-list-header>
-                    <ion-list *ngFor="let item of selectedMealsReturn;let i = index">
-                        <ion-item lines="none" slot="start">
-                            <ion-label slot="start" readonly>{{item.meal.text}}</ion-label>
-                            <ion-item lines="none" slot="end">
-                                <ion-label>
-                                    Qty: {{item.qty.value}}
-                                </ion-label>
+                    <div *ngIf="flight_type == 'Round Trip'">
+                        <ion-row>
+                            <ion-col>
+                                <ion-button class="txt-center" (click)="showPickerReturn()" color="secondary">
+                                    <ion-icon name="add"></ion-icon>
+                                    Choose a Meal or beverage
+                                </ion-button>
+                            </ion-col>
+                        </ion-row>
+                        <ion-list-header>
+                            <ion-label><strong>Selected Return Meals</strong></ion-label>
+                        </ion-list-header>
+                        <ion-list *ngFor="let item of selectedMealsReturn;let i = index">
+                            <ion-item lines="none" slot="start">
+                                <ion-label slot="start" readonly>{{item.meal.text}}</ion-label>
+                                <ion-item lines="none" slot="end">
+                                    <ion-label>
+                                        Qty: {{item.qty.value}}
+                                    </ion-label>
+                                </ion-item>
                             </ion-item>
-                        </ion-item>
-                    </ion-list>
+                        </ion-list>
+                    </div>
+
 
                     <ion-row>
                         <ion-col>
@@ -242,8 +245,8 @@
                         </ion-list>
                     </form>
                 </ion-col>
-                <ion-col *ngIf="booking_Depart_Meals || booking_Return_Meals">
-                    <form [formGroup]="bookingForm" (ngSubmit)="proceed()">
+                <ion-col *ngIf="booking_Depart_Meals.length != 0 || booking_Return_Meals.length != 0">
+                    <form [formGroup]="bookingForm" (ngSubmit)="proceed()" *ngIf="booking_Depart_Meals.length != 0">
                         <ion-list-header>
                             <ion-label><strong>Selected Depart Meals</strong></ion-label>
                         </ion-list-header>
@@ -260,7 +263,7 @@
                         </ion-list>
                     </form>
 
-                    <form [formGroup]="bookingForm" (ngSubmit)="proceed()">
+                    <form [formGroup]="bookingForm" (ngSubmit)="proceed()" *ngIf="booking_Return_Meals.length != 0">
                         <ion-list-header>
                             <ion-label><strong>Selected  Return Meals</strong></ion-label>
                         </ion-list-header>

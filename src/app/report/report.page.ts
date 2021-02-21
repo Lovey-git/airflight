@@ -5,7 +5,8 @@ import { AuthService } from '../../services/auth.service';
 import { AlertController, PickerController, LoadingController, MenuController, NavController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { ExcelService } from '../../services/excel.service';
-
+import jsPDF from 'jspdf';
+import autoTable from 'jspdf-autotable'
 @Component({
   selector: 'app-report',
   templateUrl: './report.page.html',
@@ -24,14 +25,14 @@ export class ReportPage implements OnInit {
     private excelService: ExcelService
   ) { }
 
-  
+
   public chartType: string = 'line';
   public chartData: any[];
   public chartLabels: any[];
   public chartColors: any[];
   public chartOptions: any;
-  public chartTitle:any = 'Report'
-  
+  public chartTitle: any = 'Report'
+
 
   verifiedUsers: any[];
   nonVerifiedUsers: any[];
@@ -51,7 +52,7 @@ export class ReportPage implements OnInit {
     this.chartLabels = ['Jan', 'Feb', 'Mar', 'Apr', 'May'];
     this.chartColors = [{
       backgroundColor: 'rgba(0, 0, 0, 0.2)',
-         borderColor: 'rgba(0, 0, 0, 1)'
+      borderColor: 'rgba(0, 0, 0, 1)'
     }];
 
   }
@@ -163,6 +164,47 @@ export class ReportPage implements OnInit {
     link.remove();
   }
 
+
+  download_report_pdf() {
+    import("jspdf").then(jsPDF => {
+      import("jspdf-autotable").then(x => {
+        //@ts-ignore
+        const doc = new jsPDF.default('p', 'mm');
+
+        var col = ["uuid","created_at", "email", "gender", "province", "role", "isVerified"];
+        var rows = [];
+        doc.text("Number of Users: " + this.users.length, 14, 10);
+
+        this.users.forEach((element: any) => {
+
+          const temp = [element.uuid ,element.created_at, element.email, element.gender, element.province, element.role, element.isVerified];
+          rows.push(temp)
+        });
+
+        //@ts-ignore
+
+        doc.autoTable(col, rows);
+        doc.save('tests.pdf');
+      })
+    })
+  }
+
+
+  download_report_json() {
+   
+
+    const link = document.createElement('a');
+    const blob = new Blob([JSON.stringify(this.users)], { type: 'data:text/json;charset=utf-8' });
+    const url = window.URL.createObjectURL(blob);
+
+    link.setAttribute('target', '_self');
+    link.setAttribute('href', url);
+    link.setAttribute('download', `report.json`);
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+  }
+
   download_xlsx() {
     let data: any = this.users;
     this.excelService.exportAsExcelFile(data, 'report');
@@ -187,8 +229,20 @@ export class ReportPage implements OnInit {
             this.download_xlsx();
           }
         },
-       
+        {
+          text: 'pdf',
+          handler: () => {
+            this.download_report_pdf
+          }
+        },
+        {
+          text: 'json',
+          handler: () => {
+            this. download_report_json()
+          }
+        },
 
+       
       ]
     });
     await alert.present();
