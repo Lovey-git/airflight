@@ -677,7 +677,7 @@ console.log(localStorage.getItem('return'),);
   downloadMyFile() {
     const link = document.createElement('a');
     link.setAttribute('target', '_self');
-    link.setAttribute('href', 'https://console.clever-cloud.com/download/' + localStorage.getItem('uuid') + localStorage.getItem('t_id') + '.pdf');
+    link.setAttribute('href', 'https://kohaku-air.herokuapp.com/download/' + localStorage.getItem('uuid') + localStorage.getItem('t_id') + '.pdf');
     link.setAttribute('download', `Ticket.pdf`);
     document.body.appendChild(link);
     link.click();
