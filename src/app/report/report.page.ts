@@ -232,13 +232,13 @@ export class ReportPage implements OnInit {
         {
           text: 'pdf',
           handler: () => {
-            this.download_report_pdf
+            this.download_report_pdf();
           }
         },
         {
           text: 'json',
           handler: () => {
-            this. download_report_json()
+            this.download_report_json();
           }
         },
 
