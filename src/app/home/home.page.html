@@ -13,7 +13,7 @@
                     <br>
                 </div>
 
-                <form [formGroup]="flightForm" (ngSubmit)="proceed()">
+                <form [formGroup]="flightForm" (ngSubmit)="proceed($event)">
                     <div class="segment1">
                         <ion-segment [(ngModel)]="flight_type" formControlName="flight_type" scrollable>
 
@@ -247,7 +247,7 @@
                     <br>
                     <br>
                 </div>
-                <form [formGroup]="flightForm" (ngSubmit)="proceed()">
+                <form [formGroup]="flightForm" (ngSubmit)="proceed($event)">
                     <ion-row>
                         <ion-col>
                             <ion-button class="txt-center" (click)="showPickerDepart()" color="secondary">
@@ -324,7 +324,7 @@
             </div>
             <ion-row>
                 <ion-col>
-                    <form [formGroup]="bookingForm" (ngSubmit)="proceed()">
+                    <form [formGroup]="bookingForm" (ngSubmit)="proceed($event)">
                         <ion-list-header>
                             <ion-label><strong>Flight Details</strong></ion-label>
                         </ion-list-header>
@@ -369,7 +369,7 @@
                     </form>
                 </ion-col>
                 <ion-col *ngIf="booking_Depart_Meals.length != 0 || booking_Return_Meals.length != 0">
-                    <form [formGroup]="bookingForm" (ngSubmit)="proceed()" *ngIf="booking_Depart_Meals.length != 0">
+                    <form [formGroup]="bookingForm" (ngSubmit)="proceed($event)" *ngIf="booking_Depart_Meals.length != 0">
                         <ion-list-header>
                             <ion-label><strong>Selected Depart Meals</strong></ion-label>
                         </ion-list-header>
@@ -386,7 +386,7 @@
                         </ion-list>
                     </form>
 
-                    <form [formGroup]="bookingForm" (ngSubmit)="proceed()" *ngIf="booking_Return_Meals.length != 0">
+                    <form [formGroup]="bookingForm" (ngSubmit)="proceed($event)" *ngIf="booking_Return_Meals.length != 0">
                         <ion-list-header>
                             <ion-label><strong>Selected  Return Meals</strong></ion-label>
                         </ion-list-header>
