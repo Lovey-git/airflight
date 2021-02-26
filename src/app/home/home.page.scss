@@ -1,33 +1,162 @@
-#container {
-  text-align: center;
+:host {
+    .segment1 {
+        padding-left: 17px;
+        ion-segment {
+            width: 259px !important;
+            ion-segment-button {
+                --padding-start: 0px;
+                color: black !important;
+            }
+        }
+    }
+}
 
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
+.ts-itin,
+.ts-itin-line,
+.ts-itin__airport,
+.ts-itin__extras,
+.ts-itin__info,
+.ts-itin__odo,
+.ts-itin__price,
+.ts-itin__time {
+    display: block;
+}
+
+.card-info-wrapper {
+    padding: 5px;
+}
+
+.ts-itin__routes {
+    display: -ms-flexbox;
+    display: flex;
+}
+
+.return_color {
+    background: #c2c6d4;
+}
+
+.avilablie {
+    ion-card {
+        color: black;
+    }
+}
+
+.ts-itin__odo {
+    -ms-flex: 1;
+    flex: 1;
+    padding: 0;
+}
+
+.ts-itin__airport {
+    font-size: 1em;
+}
+
+.ts-itin__time {
+    font-size: .75em;
+    color: #829198;
+}
+
+.ts-itin__extras {
+    color: #829198;
+    -ms-flex: 4;
+    flex: 4;
+    padding: 0 .4375em;
+}
+
+.ts-itin-extra__duration {
+    font-size: .75em;
+    text-align: center !important;
+}
+
+.ts-itin-extra__wrapper {
+    text-align: center;
+}
+
+.card-info-wrapper_return {
+    border-top: 1px solid #e6e9ea;
+}
+
+.ts-itin-line {
+    position: relative;
+    border-top: 2px solid black;
+    margin-top: 0.6375em;
+    margin-bottom: 0.5em;
+}
+
+.ts-itin__odo--arrival {
+    text-align: right;
+}
+
+//@at-root
+.ts-card--oneway .ts-card__actions {
+    margin-top: 0;
+}
+
+.ts-card__actions--line-top {
+    border-top: 1px solid #e6e9ea;
+}
+
+.ts-card__action--price {
+    color: #15c4a1;
+    font-size: 1em;
+    padding: .5em .5em .75em;
+    margin-right: .5em;
+}
+
+.ts-card__action {
+    color: #3880ff;
+    cursor: pointer;
+}
+
+.ts-card__action,
+.ts-card__label {
+    display: inline-block;
+    font-size: .975em;
+    ;
+    line-height: 1;
+    padding: .71429em .57143em .85714em;
+    margin-right: .57143em;
+    border: none;
+    background: transparent;
+    min-width: 0;
+}
+
+.align-end,
+.rtl .align-start {
+    float: right;
+}
+
+ion-col {
+    ion-text {
+        width: 60PX;
+    }
+}
+
+#container {
+    text-align: center;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 #container strong {
-  font-size: 20px;
-  line-height: 26px;
+    font-size: 20px;
+    line-height: 26px;
 }
 
 #container p {
-  font-size: 16px;
-  line-height: 22px;
-
-  color: #8c8c8c;
-
-  margin: 0;
+    font-size: 16px;
+    line-height: 22px;
+    color: #8c8c8c;
+    margin: 0;
 }
 
 #container a {
-  text-decoration: none;
+    text-decoration: none;
 }
 
 .highlight {
-  background-color: #FFFF33 !important;
+    background-color: #FFFF33 !important;
 }
-
-

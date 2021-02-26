@@ -22,8 +22,113 @@ export class HomePage {
   public mealsForm: FormGroup;
   public bookingForm: FormGroup;
   public paymentForm: FormGroup;
-  public destination_list: any = ["OR Tambo", "PE International", "Cape Town International", "King Shaka"];
+  public destination_list: any =
+    [
+      "OR Tambo", "PE International", "Cape Town International", "King Shaka"
+    ];
 
+  public destionation_list_abb: any =
+    [
+      { name: "OR Tambo", abb: "JNB" },
+      { name: "PE International", abb: "PLZ" },
+      { name: "Cape Town International", abb: "CPT" },
+      { name: "King Shaka", abb: "DUR" },
+      // "JNB","PLZ","CPT","DUR"
+    ]
+
+  // 06: 00 am
+  // 08: 00 am
+  // 12: 00 am
+  // 16: 00 pm
+  // 18: 00 pm
+  // 20: 00 '
+
+  oneWayAvailableFlights: any = []
+  oneWayFlights = [
+    { flight_no: 'A909', depart: "2021-02-26", from: 'OR Tambo', from_abbr: 'JNB', to: 'PE International', to_abbr: 'PLZ', time_slot: '06:00 am', time_slot_land: '10:00 am' },
+    { flight_no: 'A906', depart: "2021-02-26", from: 'OR Tambo', from_abbr: 'JNB', to: 'Cape Town International', to_abbr: 'CPT', time_slot: '16:00 pm', time_slot_land: '19:00 pm' },
+    { flight_no: 'A903', depart: "2021-02-26", from: 'OR Tambo', from_abbr: 'JNB', to: 'Cape Town International', to_abbr: 'CPT', time_slot: '20:00 pm', time_slot_land: '22:00 pm' },
+  ]
+  returnAvailableFlights: any = []
+  returnFilghts = [
+    { flight_no: 'A409', depart: "2021-02-26", return: '2021-02-27', from: 'OR Tambo', from_abbr: 'JNB', to: 'PE International', to_abbr: 'PLZ', time_slot: '14:00 pm', time_slot_land: '16:00 pm', return_time_slot: "14:40 pm", return_time_slot_land: "16:20" },
+    { flight_no: 'A503', depart: "2021-02-26", return: '2021-02-27', from: 'OR Tambo', from_abbr: 'JNB', to: 'PE International', to_abbr: 'PLZ', time_slot: '14:00 pm', time_slot_land: '16:00 pm', return_time_slot: "14:40 pm", return_time_slot_land: "16:20" },
+
+  ]
+
+  selectedDepatDate(ev) {
+    if ((new Date().toLocaleDateString() != new Date(ev.detail.value).toLocaleDateString())) {
+      this.hours = ev.detail.value
+    }
+    if ((new Date().toLocaleDateString() == new Date(ev.detail.value).toLocaleDateString())) {
+      this.hours = new Date().getHours()
+    }
+  }
+
+  test(item) {
+    console.log(item.time_slot);
+    console.log(item.return_time_slot);
+
+
+  }
+  search() {
+    this.returnAvailableFlights = []
+    this.oneWayAvailableFlights = []
+    localStorage.removeItem('oneWayAvailableFlights');
+    localStorage.removeItem('returnAvailableFlights');
+    localStorage.setItem('current_page_type', 'flight');
+    this.current_page_type = "flight";
+
+  }
+  checkAvailableFlights() {
+    var departDate = this.flightForm.get('depart').value.substr(0, 10)
+    var returnDate = this.flightForm.get('return').value.substr(0, 10)
+    var time = Number(this.flightForm.get('depart').value.substr(11, 2))
+    var from = this.flightForm.get('from').value
+    var to = this.flightForm.get('to').value
+
+
+   
+    if (new Date().toLocaleDateString() != new Date(this.flightForm.get('depart').value).toLocaleDateString()) {
+      if (this.flight_type == "One Way Trip") {
+        for (let i = 0; i < this.oneWayFlights.length; i++) {
+          if (this.oneWayFlights[i].depart == departDate && this.oneWayFlights[i].from == from && this.oneWayFlights[i].to == to ) {
+            this.oneWayAvailableFlights.push(this.oneWayFlights[i]);
+          }
+        }
+      }
+
+      if (this.flight_type == "Round Trip") {
+        for (let i = 0; i < this.returnFilghts.length; i++) {
+          if (this.returnFilghts[i].depart == departDate && this.returnFilghts[i].return == returnDate && this.returnFilghts[i].from == from ) {
+            this.returnAvailableFlights.push(this.returnFilghts[i]);
+          }
+        }
+  
+      }
+    }
+    if (new Date().toLocaleDateString() == new Date(this.flightForm.get('depart').value).toLocaleDateString()) {
+      if (this.flight_type == "Round Trip") {
+        for (let i = 0; i < this.returnFilghts.length; i++) {
+          if (this.returnFilghts[i].depart == departDate && this.returnFilghts[i].return == returnDate && this.returnFilghts[i].from == from && this.returnFilghts[i].to == to && Number(this.returnFilghts[i].time_slot.substr(0, 2)) > time) {
+            this.returnAvailableFlights.push(this.returnFilghts[i]);
+          }
+        }
+  
+      }
+
+      if (this.flight_type == "One Way Trip") {
+        for (let i = 0; i < this.oneWayFlights.length; i++) {
+          if (this.oneWayFlights[i].depart == departDate && this.oneWayFlights[i].from == from && this.oneWayFlights[i].to == to && Number(this.oneWayFlights[i].time_slot.substr(0, 2)) > time) {
+            this.oneWayAvailableFlights.push(this.oneWayFlights[i]);
+          }
+        }
+      }
+    }
+  
+
+  }
+  public flight_no: any;
   public meals_prices: any[] = [50.00, 80.0, 60.0, 80.0, 50.0, 55.0, 30.0, 120, 80.0, 100, 70, 60.0, 82.0, 50.0, 20.0, 50.0, 40.0, 30.0, 30.0];
   public meals: any[] = ["Fruit Platter", "Tofu and salad", "Tomato/Butternut soup", "Beef/Chicken Keebabs in sauce", "Assorted nuts and cheese", "Bacon and egg toast", "Chicken mayo sarmie",
     "Oatmeal + mik", " Beef lasgna + green salad", " Meatballs and pasta", "Pap/Rice, chicken +1 choice salad", "Nuggets", "Half cheesecake",
@@ -73,6 +178,7 @@ export class HomePage {
     showMask: true,
     mask: [/\d/, /\d/, /\d/, /\d/, " ", /\d/, /\d/, /\d/, /\d/, " ", /\d/, /\d/, /\d/, /\d/, " ", /\d/, /\d/, /\d/, /\d/]
   };
+
 
   constructor(
     private router: Router,
@@ -132,12 +238,12 @@ export class HomePage {
       card_cvv: ['', Validators.required],
     });
   }
-  selectedFromFunction(ev){
-    this.selectedFrom=ev.detail.value;
+  selectedFromFunction(ev) {
+    this.selectedFrom = ev.detail.value;
   }
 
-  selectedToFunction(ev){
-    this.selectedTo=ev.detail.value;
+  selectedToFunction(ev) {
+    this.selectedTo = ev.detail.value;
   }
 
   selectedFlightType(ev: any) {
@@ -151,24 +257,16 @@ export class HomePage {
     }
   }
 
-  selectedDepatDate(ev) {
 
-    if((new Date().toLocaleDateString() !=new Date(ev.detail.value).toLocaleDateString())){
-      this.hours = ev.detail.value
-    }
-    if((new Date().toLocaleDateString() ==new Date(ev.detail.value).toLocaleDateString())){
-      this.hours = new Date().getHours()      
-    }
-  }
 
-  selectedDepatTime(ev){
+  selectedDepatTime(ev) {
     console.log(ev.detail.value);
-    if(ev.detail.value == undefined){
-      if(new Date().getHours() >20 ){
+    if (ev.detail.value == undefined) {
+      if (new Date().getHours() > 20) {
         this.hours = ev.detail.value;
       }
     }
-    
+
   }
 
   ngOnInit() {
@@ -184,6 +282,17 @@ export class HomePage {
       this.current_page_type = 'flight';
       localStorage.setItem('current_page_type', this.current_page_type);
     }
+    if (this.current_page_type == 'availableFlights') {
+      this.current_page_type = 'availableFlights';
+
+      this.oneWayAvailableFlights = JSON.parse(localStorage.getItem('oneWayAvailableFlights'));
+
+      console.log(this.oneWayAvailableFlights);
+
+      this.returnAvailableFlights = JSON.parse(localStorage.getItem('returnAvailableFlights'));
+      console.log(this.returnAvailableFlights);
+    }
+
     if (this.current_page_type == 'booking') {
       var DepartMeals = JSON.parse(localStorage.getItem('DepartMeals'));
       var ReturnMeals = JSON.parse(localStorage.getItem('ReturnMeals'));
@@ -199,7 +308,7 @@ export class HomePage {
       this.time_slot = localStorage.getItem('time_slot');
       this.flight_type = localStorage.getItem('flight_type');
       this.return_time_slot = localStorage.getItem('return_time_slot');
-
+      this.flight_no = localStorage.getItem('flight_no');
 
 
       this.meal_tot = 0;
@@ -257,7 +366,7 @@ export class HomePage {
       this.children -= 1;
     }
   }
-  async proceed() {
+  async proceed(item) {
     var d1 = new Date(String(this.flightForm.get('depart').value).substr(0, 10));
     var d2 = new Date(String(this.flightForm.get('return').value).substr(0, 10));
 
@@ -278,46 +387,57 @@ export class HomePage {
       }
       else if (this.flightForm.get('return').value == '' && this.flightForm.get('flight_type').value != 'One Way Trip') {
         this.presentAlert('Choose return date');
-      } else if (this.flightForm.get('time_slot').value == '' || this.flightForm.get('time_slot').value == undefined) {
-        this.presentAlert('Choose depart time slot');
-      } else if (this.flightForm.get('return_time_slot').value == '' && this.flightForm.get('flight_type').value != 'One Way Trip') {
-        this.presentAlert('Choose return time slot');
-      } else if (person > 10) {
+      }
+      // else if (this.flightForm.get('time_slot').value == '' || this.flightForm.get('time_slot').value == undefined) {
+      //   this.presentAlert('Choose depart time slot');
+      // } else if (this.flightForm.get('return_time_slot').value == '' && this.flightForm.get('flight_type').value != 'One Way Trip') {
+      //   this.presentAlert('Choose return time slot');
+      // } 
+      else if (person > 10) {
         this.presentAlert('Both adults and children combine must not exceed 10');
       }
-      else if (this.flightForm.get('time_slot').value == '06:00 am' && String(this.flightForm.get('depart').value).substr(0, 10) == this.day.substr(0, 10) && Number(this.day.substr(11, 2)) >= 6) {
-        this.presentAlert('flight for 06:00 am is nolonger available, Choose another time slot');
-      }
-      else if (this.flightForm.get('time_slot').value == '08:00 am' && String(this.flightForm.get('depart').value).substr(0, 10) == this.day.substr(0, 10) && Number(this.day.substr(11, 2)) >= 8) {
-        this.presentAlert('flight for 08:00 am is nolonger available, Choose another time slot');
-      } else if (this.flightForm.get('time_slot').value == '12:00 am' && String(this.flightForm.get('depart').value).substr(0, 10) == this.day.substr(0, 10) && Number(this.day.substr(11, 2)) >= 12) {
-        this.presentAlert('flight for 12H00 am is nolonger available, Choose another time slot');
-      }
-      else if (this.flightForm.get('time_slot').value == '16:00 am' && String(this.flightForm.get('depart').value).substr(0, 10) == this.day.substr(0, 10) && Number(this.day.substr(11, 2)) >= 16) {
-        this.presentAlert('flight for 16H00 am is nolonger available, Choose another time slot');
-      }
-      else if (this.flightForm.get('time_slot').value == '18:00 am' && String(this.flightForm.get('depart').value).substr(0, 10) == this.day.substr(0, 10) && Number(this.day.substr(11, 2)) >= 18) {
-        this.presentAlert('flight for 18H00 am is nolonger available, Choose another time slot');
-      }
-      else if (this.flightForm.get('time_slot').value == '20:00 pm' && String(this.flightForm.get('depart').value).substr(0, 10) == this.day.substr(0, 10) && Number(this.day.substr(11, 2)) >= 20) {
-        this.presentAlert('All flights for today are nolonger available, Choose another Departure Date');
-      }
+      // else if (this.flightForm.get('time_slot').value == '06:00 am' && String(this.flightForm.get('depart').value).substr(0, 10) == this.day.substr(0, 10) && Number(this.day.substr(11, 2)) >= 6) {
+      //   this.presentAlert('flight for 06:00 am is nolonger available, Choose another time slot');
+      // }
+      // else if (this.flightForm.get('time_slot').value == '08:00 am' && String(this.flightForm.get('depart').value).substr(0, 10) == this.day.substr(0, 10) && Number(this.day.substr(11, 2)) >= 8) {
+      //   this.presentAlert('flight for 08:00 am is nolonger available, Choose another time slot');
+      // } else if (this.flightForm.get('time_slot').value == '12:00 am' && String(this.flightForm.get('depart').value).substr(0, 10) == this.day.substr(0, 10) && Number(this.day.substr(11, 2)) >= 12) {
+      //   this.presentAlert('flight for 12H00 am is nolonger available, Choose another time slot');
+      // }
+      // else if (this.flightForm.get('time_slot').value == '16:00 am' && String(this.flightForm.get('depart').value).substr(0, 10) == this.day.substr(0, 10) && Number(this.day.substr(11, 2)) >= 16) {
+      //   this.presentAlert('flight for 16H00 am is nolonger available, Choose another time slot');
+      // }
+      // else if (this.flightForm.get('time_slot').value == '18:00 am' && String(this.flightForm.get('depart').value).substr(0, 10) == this.day.substr(0, 10) && Number(this.day.substr(11, 2)) >= 18) {
+      //   this.presentAlert('flight for 18H00 am is nolonger available, Choose another time slot');
+      // }
+      // else if (this.flightForm.get('time_slot').value == '20:00 pm' && String(this.flightForm.get('depart').value).substr(0, 10) == this.day.substr(0, 10) && Number(this.day.substr(11, 2)) >= 20) {
+      //   this.presentAlert('All flights for today are nolonger available, Choose another Departure Date');
+      // }
       else if (this.flightForm.get('depart').value && (d1 > d2)) {
         this.presentAlert('Return date cannot be less than the depart date ');
-      }else if ( ((this.flightForm.get('depart').value).substr(0, 10) == (this.flightForm.get('return').value).substr(0, 10)) && (this.flightForm.get('return_time_slot').value <=this.flightForm.get('time_slot').value )) {
-        this.presentAlert('Depart time must be less than the Return time ');
       }
+      // else if (((this.flightForm.get('depart').value).substr(0, 10) == (this.flightForm.get('return').value).substr(0, 10)) && (this.flightForm.get('return_time_slot').value <= this.flightForm.get('time_slot').value)) {
+      //   this.presentAlert('Depart time must be less than the Return time ');
+      // }
 
       else {
-        localStorage.setItem('current_page_type', 'meals');
+        this.checkAvailableFlights();
+        localStorage.setItem('current_page_type', 'availableFlights');
+
 
         if (this.flight_type == 'One Way Trip') {
           localStorage.setItem('return', "One Way");
           localStorage.setItem('return_time_slot', "One Way")
+
+
+          localStorage.setItem('oneWayAvailableFlights', JSON.stringify(this.oneWayAvailableFlights));
         } else {
+          localStorage.setItem('returnAvailableFlights', JSON.stringify(this.returnAvailableFlights));
           localStorage.setItem('return', this.flightForm.get('return').value);
-          localStorage.setItem('return_time_slot', this.flightForm.get('return_time_slot').value)
+          localStorage.setItem('return_time_slot', this.flightForm.get('return_time_slot').value);
         }
+
+
         localStorage.setItem('from', this.flightForm.get('from').value);
         localStorage.setItem('to', this.flightForm.get('to').value);
         localStorage.setItem('depart', this.flightForm.get('depart').value);
@@ -326,9 +446,21 @@ export class HomePage {
         localStorage.setItem('children', this.flightForm.get('children').value);
         localStorage.setItem('time_slot', this.flightForm.get('time_slot').value);
         localStorage.setItem('flight_type', this.flightForm.get('flight_type').value);
-
+        localStorage.setItem('flight_type', this.flightForm.get('flight_type').value);
         window.location.reload();
       }
+
+    if (this.current_page_type == 'availableFlights') {
+      localStorage.setItem('flight_no', item.flight_no);
+      localStorage.setItem('current_page_type', 'meals');
+      localStorage.setItem('time_slot', item.time_slot);
+      if (this.flight_type == 'One Way Trip') {
+        localStorage.setItem('return_time_slot', "One Way");
+      } else {
+        localStorage.setItem('return_time_slot', item.return_time_slot)
+      }
+      window.location.reload();
+    }
     if (this.current_page_type == 'meals') {
       localStorage.setItem('current_page_type', 'booking');
       localStorage.setItem('DepartMeals', JSON.stringify(this.selectedMealsDepart));
@@ -364,14 +496,16 @@ export class HomePage {
             if (this.selectedMealsDepart) {
               this.selectedMealsDepart[this.indexDepart] = value;
               this.selectedMealsDepart[this.indexDepart][0] = this.meals_prices[value.id];
-              console.log(this.selectedMealsDepart[this.indexDepart]);
+              console.log(this.selectedMealsDepart);
               this.indexDepart++;
+              console.log(this.indexDepart)
             } else {
               console.log(this.indexDepart);
               console.log(value.qty.value);
               this.selectedMealsDepart[this.indexDepart] = value;
               console.log(this.selectedMealsDepart[this.indexDepart]);
               this.indexDepart++;
+              console.log(this.indexDepart)
             }
             //this.selectedMealsDepart[this.selectedMealsDepart.length]
           }
@@ -408,6 +542,7 @@ export class HomePage {
               this.selectedMealsReturn[this.indexReturn][0] = this.meals_prices[value.id];
               console.log(this.selectedMealsReturn[this.indexReturn]);
               this.indexReturn++;
+
             } else {
               console.log(this.indexReturn);
               console.log(value.qty.value);
@@ -468,20 +603,18 @@ export class HomePage {
 
 
 
-  removeItem(i) {
-    console.log(i);
-    let index: number = this.selectedMealsDepart.indexOf(i, 0);
-    this.selectedMealsDepart.splice(index, 1);
-    this.selectedMealsDepart[i] = new Array();
-    console.log(this.selectedMealsDepart);
+  removeMealsDepart(i) {
+    if (i !== -1) {
+      this.selectedMealsDepart.splice(i, 1);
+      this.indexDepart--;
+    }
   }
 
-  removeItem1(i) {
-    console.log(i);
-    let index: number = this.selectedMealsReturn.indexOf(i, 0);
-    this.selectedMealsReturn.splice(index, 1);
-    this.selectedMealsReturn[i] = new Array();
-    console.log(this.selectedMealsReturn);
+  removeMealsReturn(i) {
+    if (i !== -1) {
+      this.selectedMealsReturn.splice(i, 1);
+      this.indexReturn--;
+    }
   }
   restMeals() {
     window.location.reload();
@@ -502,6 +635,10 @@ export class HomePage {
     localStorage.removeItem('time_slot');
     localStorage.removeItem('return_time_slot')
     localStorage.removeItem('amount');
+    localStorage.removeItem('oneWayAvailableFlights');
+    localStorage.removeItem('returnAvailableFlights');
+    localStorage.removeItem('flight_no');
+
     this.app.openPage('Booking');
     window.location.reload();
   }
@@ -511,6 +648,12 @@ export class HomePage {
     this.isLogged = this.authService.isLoggedin();
     console.log(this.isLogged);
     this.flight_type = localStorage.getItem('flight_type');
+    if (this.flight_type == null) {
+      this.flight_type = "One Way Trip";
+    } else {
+      this.flight_type = localStorage.getItem('flight_type');
+    }
+
   }
 
 
@@ -603,22 +746,21 @@ export class HomePage {
     });
 
     await loading.present();
-    console.log('do book');
-console.log(localStorage.getItem('return'),);
+
 
     this.api.add_ticket2(
+      localStorage.getItem('flight_no'),
       localStorage.getItem('from'),
       localStorage.getItem('to'),
       localStorage.getItem('flight_type'),
       localStorage.getItem('depart'),
-
       localStorage.getItem('return'),
       localStorage.getItem('adults'),
       localStorage.getItem('children'),
       0,
       0,
       localStorage.getItem('DepartMeals'),
-       localStorage.getItem('ReturnMeals'),
+      localStorage.getItem('ReturnMeals'),
       localStorage.getItem('_class'),
       localStorage.getItem('amount'),
       String(localStorage.getItem('time_slot')),
@@ -677,7 +819,7 @@ console.log(localStorage.getItem('return'),);
   downloadMyFile() {
     const link = document.createElement('a');
     link.setAttribute('target', '_self');
-    link.setAttribute('href', 'https://console.clever-cloud.com/download/' + localStorage.getItem('uuid') + localStorage.getItem('t_id') + '.pdf');
+    link.setAttribute('href', 'https://kohaku-air.herokuapp.com/download/' + localStorage.getItem('uuid') + localStorage.getItem('t_id') + '.pdf');
     link.setAttribute('download', `Ticket.pdf`);
     document.body.appendChild(link);
     link.click();

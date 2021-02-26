@@ -12,7 +12,7 @@ export class ApiService {
   ) { }
 
   // _Url = "http://localhost:8080/";
-  _Url = "https://console.clever-cloud.com/";
+  _Url = "https://kohaku-air.herokuapp.com/";
 
   validateCell(phone) {
     const re = /^[0]{1}[6-8]{1}[1-9]{1}/;
@@ -81,9 +81,9 @@ export class ApiService {
     return this.http.post<any>(this._Url + 'add_ticket', { uuid, from, to, flight_type, depart, Return, adults, children, adult_price, child_price, meals, Class, totalAmt, time_slot , username});
   }
 
-  add_ticket2(from, to, flight_type, depart, Return, adults, children, adult_price, child_price, DepartMeals, ReturnMeals, Class, totalAmt, time_slot,return_time_slot, username) {
+  add_ticket2(flight_no,from, to, flight_type, depart, Return, adults, children, adult_price, child_price, DepartMeals, ReturnMeals, Class, totalAmt, time_slot,return_time_slot, username) {
     var uuid = localStorage.getItem('uuid');
-    return this.http.post<any>(this._Url + 'add_ticket', { uuid, from, to, flight_type, depart, Return, adults, children, adult_price, child_price,DepartMeals, ReturnMeals, Class, totalAmt, time_slot ,return_time_slot, username});
+    return this.http.post<any>(this._Url + 'add_ticket', { uuid, flight_no,from, to, flight_type, depart, Return, adults, children, adult_price, child_price,DepartMeals, ReturnMeals, Class, totalAmt, time_slot ,return_time_slot, username});
   }
 
 
