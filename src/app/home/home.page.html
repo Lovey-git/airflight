@@ -1,5 +1,6 @@
 <ion-content fullscreen id="main">
     <ion-grid>
+
         <div *ngIf="current_page_type=='flight'" class="login-form">
             <ion-col>
                 <div class="txt-center">
@@ -223,7 +224,7 @@
 
             <ion-row>
                 <ion-col>
-                    <ion-button (click)="search()" color="danger">
+                    <ion-button (click)="search()" color="primary">
                         Search
                     </ion-button>
                 </ion-col>
@@ -234,6 +235,7 @@
                 </ion-col>
             </ion-row>
         </div>
+
         <div *ngIf="current_page_type=='meals'" class="login-form">
             <ion-col>
                 <div class="txt-center">

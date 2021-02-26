@@ -54,6 +54,13 @@ export class TicketsPage implements OnInit {
   }
 
   async init(){
+
+    const loading = await this.loadingCtrl.create({
+      cssClass: 'my-custom-class',
+      message: 'Please wait...',
+    });
+
+    await loading.present();
     console.log(this.searchText);
     this.api.get_user_tickets(this.searchText).subscribe(
       data => {
@@ -61,10 +68,14 @@ export class TicketsPage implements OnInit {
           console.log(data);
           this.users = data.data;
           this.count = data.data.length;
+          loading.dismiss();
         } else {
+          loading.dismiss();
           this.presentAlert(data.msg);
+          
         }
       }, error => {
+        loading.dismiss();
         this.presentAlert(error.message);
       }
     );
