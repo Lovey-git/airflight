@@ -28,27 +28,22 @@
                     </div>
                     <ion-item>
                         <ion-label>From:</ion-label>
-                        <ion-select formControlName="from" value="select" (ionChange)="selectedFromFunction($event)"
-                            okText="Okay" cancelText="Dismiss">
-                            <ion-select-option *ngFor="let item of destination_list;" [disabled]="item == selectedTo"
-                                (click)="getSelectedFromLocation(item)">{{item}}</ion-select-option>
+                        <ion-select formControlName="from" value="select" (ionChange)="selectedFromFunction($event)" okText="Okay" cancelText="Dismiss">
+                            <ion-select-option *ngFor="let item of destination_list;" [disabled]="item == selectedTo" (click)="getSelectedFromLocation(item)">{{item}}</ion-select-option>
                         </ion-select>
                     </ion-item>
 
                     <ion-item>
                         <ion-label>To:</ion-label>
-                        <ion-select formControlName="to" value="select" okText="Okay"
-                            (ionChange)="selectedToFunction($event)" cancelText="Dismiss">
-                            <ion-select-option *ngFor="let item of destination_list;" [disabled]="item == selectedFrom"
-                                (click)="getSelectedToDestination(item)">{{item}}</ion-select-option>
+                        <ion-select formControlName="to" value="select" okText="Okay" (ionChange)="selectedToFunction($event)" cancelText="Dismiss">
+                            <ion-select-option *ngFor="let item of destination_list;" [disabled]="item == selectedFrom" (click)="getSelectedToDestination(item)">{{item}}</ion-select-option>
                         </ion-select>
                     </ion-item>
 
                     <ion-item>
                         <ion-label>Departure Date:</ion-label>
                         <ion-item>
-                            <ion-datetime formControlName="depart" (ionChange)="selectedDepatDate($event)"
-                                displayFormat="MMMM/DD/YYYY" [min]="minDate" [max]="maxDate">
+                            <ion-datetime formControlName="depart" (ionChange)="selectedDepatDate($event)" displayFormat="MMMM/DD/YYYY" [min]="minDate" [max]="maxDate">
                             </ion-datetime>
                         </ion-item>
                     </ion-item>
@@ -56,8 +51,7 @@
                     <ion-item *ngIf="(flight_type == 'Round Trip')">
                         <ion-label>Return Date:</ion-label>
                         <ion-item>
-                            <ion-datetime formControlName="return" displayFormat="MMMM/DD/YYYY" [min]="minDate"
-                                [max]="maxDate" style="color: primary;"></ion-datetime>
+                            <ion-datetime formControlName="return" displayFormat="MMMM/DD/YYYY" [min]="minDate" [max]="maxDate" style="color: primary;"></ion-datetime>
                         </ion-item>
                     </ion-item>
                     <ion-item>
@@ -74,8 +68,7 @@
                             Adults:
                         </ion-label>
                         <ion-label>{{adults}}</ion-label>
-                        <ion-range [(ngModel)]="adults" formControlName="adults" min="1" max="10" step="1" snaps="true"
-                            color="secondary">
+                        <ion-range [(ngModel)]="adults" formControlName="adults" min="1" max="10" step="1" snaps="true" color="secondary">
                             <ion-icon (click)="removeAdult()" size="small" slot="start" name="remove"></ion-icon>
                             <ion-icon (click)="addAdult()" slot="end" name="add"></ion-icon>
                         </ion-range>
@@ -86,8 +79,7 @@
                             Children :
                         </ion-label>
                         <ion-label>{{children}}</ion-label>
-                        <ion-range [(ngModel)]="children" formControlName="children" min="0" max="10" step="1"
-                            snaps="true" color="secondary">
+                        <ion-range [(ngModel)]="children" formControlName="children" min="0" max="10" step="1" snaps="true" color="secondary">
                             <ion-icon (click)="removeChildren()" size="small" slot="start" name="remove"></ion-icon>
                             <ion-icon (click)="addChildren()" slot="end" name="add"></ion-icon>
                         </ion-range>
@@ -109,16 +101,14 @@
 
                     <div *ngIf="flight_type == 'One Way Trip'">
                         <ion-card class="card-info-wrapper" *ngIf="oneWayAvailableFlights.length==0">
-                            <ion-icon color="warning" name="warning"></ion-icon> No flights available! This may be due
-                            to existing travel bans. Please revise your search criteria.
+                            <ion-icon color="warning" name="warning"></ion-icon> No flights available! This may be due to existing travel bans. Please revise your search criteria.
                         </ion-card>
                     </div>
 
 
                     <div *ngIf="flight_type == 'Round Trip'">
                         <ion-card class="card-info-wrapper" *ngIf="returnAvailableFlights.length==0">
-                            <ion-icon color="warning" name="warning"></ion-icon> No flights available! This may be
-                            due to existing travel bans. Please revise your search criteria.
+                            <ion-icon color="warning" name="warning"></ion-icon> No flights available! This may be due to existing travel bans. Please revise your search criteria.
                         </ion-card>
                     </div>
 
@@ -152,7 +142,7 @@
                                     <div class="ts-itin__odo ts-itin__odo--arrival">
                                         <span class="ts-itin__airport"><span> {{item.time_slot_land | slice : 0 : 5
                                                 }}</span>
-                                            <!---->
+                                        <!---->
                                         </span><span class="ts-itin__time ts-itin__time--arrival">
                                             {{item.to_abbr}}</span>
                                     </div>
@@ -162,7 +152,7 @@
                         <div class="ts-card__actions ts-card__actions--line-top">
                             <!----><span class="ts-card__action ts-card__action--price">
                                 <!----><span class="ts-card__action__amount">&nbsp;</span>
-                                <!---->
+                            <!---->
                             </span>
                             <span (click)="proceed(item)" class="ts-card__action ts-card__action--last align-end">
                                 Book
@@ -198,10 +188,12 @@
                                         </div>
                                     </div>
                                     <div class="ts-itin__odo ts-itin__odo--arrival">
-                                        <span class="ts-itin__airport"><span> {{item.time_slot_land | slice : 0 : 5
-                                                }}</span>
-                                            <!---->
-                                        </span><span class="ts-itin__time ts-itin__time--arrival">
+                                        <span class="ts-itin__airport">
+                                            <span>
+                                                {{item.time_slot_land | slice : 0 : 5}}</span>
+                                        <!---->
+                                        </span>
+                                        <span class="ts-itin__time ts-itin__time--arrival">
                                             {{item.to_abbr}}</span>
                                     </div>
                                 </div>
@@ -236,7 +228,7 @@
                                     <div class="ts-itin__odo ts-itin__odo--arrival">
                                         <span class="ts-itin__airport"><span> {{item.return_time_slot_land | slice :
                                                 0 : 5 }}</span>
-                                            <!---->
+                                        <!---->
                                         </span><span class="ts-itin__time ts-itin__time--arrival">
                                             {{item.from_abbr}}</span>
                                     </div>
@@ -247,7 +239,7 @@
                         <div class="ts-card__actions ts-card__actions--line-top">
                             <!----><span class="ts-card__action ts-card__action--price">
                                 <!----><span class="ts-card__action__amount">&nbsp;</span>
-                                <!---->
+                            <!---->
                             </span>
                             <span (click)="proceed(item)" class="ts-card__action ts-card__action--last align-end">
                                 Book
@@ -407,12 +399,7 @@
                     </form>
                 </ion-col>
                 <ion-col *ngIf="booking_Depart_Meals.length != 0 || booking_Return_Meals.length != 0">
-<<<<<<< HEAD
-                    <form [formGroup]="bookingForm" (ngSubmit)="proceed($event)"
-                        *ngIf="booking_Depart_Meals.length != 0">
-=======
                     <form [formGroup]="bookingForm" (ngSubmit)="proceed($event)" *ngIf="booking_Depart_Meals.length != 0">
->>>>>>> 2e7d3cc0964777836105d3c27b9b20fd7f1da589
                         <ion-list-header>
                             <ion-label><strong>Selected Depart Meals</strong></ion-label>
                         </ion-list-header>
@@ -429,12 +416,7 @@
                         </ion-list>
                     </form>
 
-<<<<<<< HEAD
-                    <form [formGroup]="bookingForm" (ngSubmit)="proceed($event)"
-                        *ngIf="booking_Return_Meals.length != 0">
-=======
                     <form [formGroup]="bookingForm" (ngSubmit)="proceed($event)" *ngIf="booking_Return_Meals.length != 0">
->>>>>>> 2e7d3cc0964777836105d3c27b9b20fd7f1da589
                         <ion-list-header>
                             <ion-label><strong>Selected Return Meals</strong></ion-label>
                         </ion-list-header>
@@ -503,9 +485,7 @@
 
                     <ion-col>
                         <ion-label>Card Number:</ion-label>
-                        <ion-input mask="(999) 999-9999" placeholder="xxxx-xxxx-xxxx-xxxx"
-                            style="text-align: center;border: 1px solid #3880ff;border-radius: 5px;"
-                            formControlName="card_number" type="text"></ion-input>
+                        <ion-input mask="(999) 999-9999" placeholder="xxxx-xxxx-xxxx-xxxx" style="text-align: center;border: 1px solid #3880ff;border-radius: 5px;" formControlName="card_number" type="text"></ion-input>
                     </ion-col>
 
                     <ion-col>
@@ -522,19 +502,15 @@
 
                     <ion-row>
                         <ion-col>
-                            <ion-datetime style="text-align: center;border: 1px solid #3880ff;border-radius: 5px;"
-                                formControlName="card_expYear" placeholder="YYYY" displayFormat="YYYY" min="{{minDate2}}"
-                                max="2027">
+                            <ion-datetime style="text-align: center;border: 1px solid #3880ff;border-radius: 5px;" formControlName="card_expYear" placeholder="YYYY" displayFormat="YYYY" min="{{minDate2}}" max="2027">
                             </ion-datetime>
                         </ion-col>
                         <ion-col>
-                            <ion-datetime style="text-align: center;border: 1px solid #3880ff;border-radius: 5px;"
-                                formControlName="card_expMonth" [min]="minDate3" placeholder="MM" displayFormat="MM">
+                            <ion-datetime style="text-align: center;border: 1px solid #3880ff;border-radius: 5px;" formControlName="card_expMonth" [min]="minDate3" placeholder="MM" displayFormat="MM">
                             </ion-datetime>
                         </ion-col>
                         <ion-col>
-                            <ion-input style="text-align: center;border: 1px solid #3880ff;border-radius: 5px;"
-                                formControlName="card_cvv" type="number" placeholder="CVV" max="3"></ion-input>
+                            <ion-input style="text-align: center;border: 1px solid #3880ff;border-radius: 5px;" formControlName="card_cvv" type="number" placeholder="CVV" max="3"></ion-input>
                         </ion-col>
                     </ion-row>
 
