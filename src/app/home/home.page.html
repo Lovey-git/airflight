@@ -13,7 +13,7 @@
                     <br>
                 </div>
 
-                <form [formGroup]="flightForm" (ngSubmit)="proceed()">
+                <form [formGroup]="flightForm" (ngSubmit)="proceed($event)">
                     <div class="segment1">
                         <ion-segment [(ngModel)]="flight_type" formControlName="flight_type" scrollable>
 
@@ -28,22 +28,27 @@
                     </div>
                     <ion-item>
                         <ion-label>From:</ion-label>
-                        <ion-select formControlName="from" value="select" (ionChange)="selectedFromFunction($event)" okText="Okay" cancelText="Dismiss">
-                            <ion-select-option *ngFor="let item of destination_list;" [disabled]="item == selectedTo" (click)="getSelectedFromLocation(item)">{{item}}</ion-select-option>
+                        <ion-select formControlName="from" value="select" (ionChange)="selectedFromFunction($event)"
+                            okText="Okay" cancelText="Dismiss">
+                            <ion-select-option *ngFor="let item of destination_list;" [disabled]="item == selectedTo"
+                                (click)="getSelectedFromLocation(item)">{{item}}</ion-select-option>
                         </ion-select>
                     </ion-item>
 
                     <ion-item>
                         <ion-label>To:</ion-label>
-                        <ion-select formControlName="to" value="select" okText="Okay" (ionChange)="selectedToFunction($event)" cancelText="Dismiss">
-                            <ion-select-option *ngFor="let item of destination_list;" [disabled]="item == selectedFrom" (click)="getSelectedToDestination(item)">{{item}}</ion-select-option>
+                        <ion-select formControlName="to" value="select" okText="Okay"
+                            (ionChange)="selectedToFunction($event)" cancelText="Dismiss">
+                            <ion-select-option *ngFor="let item of destination_list;" [disabled]="item == selectedFrom"
+                                (click)="getSelectedToDestination(item)">{{item}}</ion-select-option>
                         </ion-select>
                     </ion-item>
 
                     <ion-item>
                         <ion-label>Departure Date:</ion-label>
                         <ion-item>
-                            <ion-datetime formControlName="depart" (ionChange)="selectedDepatDate($event)" displayFormat="MMMM/DD/YYYY" [min]="minDate" [max]="maxDate">
+                            <ion-datetime formControlName="depart" (ionChange)="selectedDepatDate($event)"
+                                displayFormat="MMMM/DD/YYYY" [min]="minDate" [max]="maxDate">
                             </ion-datetime>
                         </ion-item>
                     </ion-item>
@@ -51,7 +56,8 @@
                     <ion-item *ngIf="(flight_type == 'Round Trip')">
                         <ion-label>Return Date:</ion-label>
                         <ion-item>
-                            <ion-datetime formControlName="return" displayFormat="MMMM/DD/YYYY" [min]="minDate" [max]="maxDate" style="color: primary;"></ion-datetime>
+                            <ion-datetime formControlName="return" displayFormat="MMMM/DD/YYYY" [min]="minDate"
+                                [max]="maxDate" style="color: primary;"></ion-datetime>
                         </ion-item>
                     </ion-item>
                     <ion-item>
@@ -68,7 +74,8 @@
                             Adults:
                         </ion-label>
                         <ion-label>{{adults}}</ion-label>
-                        <ion-range [(ngModel)]="adults" formControlName="adults" min="1" max="10" step="1" snaps="true" color="secondary">
+                        <ion-range [(ngModel)]="adults" formControlName="adults" min="1" max="10" step="1" snaps="true"
+                            color="secondary">
                             <ion-icon (click)="removeAdult()" size="small" slot="start" name="remove"></ion-icon>
                             <ion-icon (click)="addAdult()" slot="end" name="add"></ion-icon>
                         </ion-range>
@@ -79,7 +86,8 @@
                             Children :
                         </ion-label>
                         <ion-label>{{children}}</ion-label>
-                        <ion-range [(ngModel)]="children" formControlName="children" min="0" max="10" step="1" snaps="true" color="secondary">
+                        <ion-range [(ngModel)]="children" formControlName="children" min="0" max="10" step="1"
+                            snaps="true" color="secondary">
                             <ion-icon (click)="removeChildren()" size="small" slot="start" name="remove"></ion-icon>
                             <ion-icon (click)="addChildren()" slot="end" name="add"></ion-icon>
                         </ion-range>
@@ -99,12 +107,21 @@
                         <strong>Available Flights</strong>
                     </div>
 
-                    <ion-card class="card-info-wrapper" *ngIf="flight_type == 'One Way Trip' && oneWayAvailableFlights.length==0">
-                        <ion-icon color="warning" name="warning"></ion-icon> No flights available! This may be due to existing travel bans. Please revise your search criteria.
-                    </ion-card>
-                    <ion-card class="card-info-wrapper" *ngIf="flight_type == 'Round Trip' && returnAvailableFlights.length==0">
-                        <ion-icon color="warning" name="warning"></ion-icon> No flights available! This may be due to existing travel bans. Please revise your search criteria.
-                    </ion-card>
+                    <div *ngIf="flight_type == 'One Way Trip'">
+                        <ion-card class="card-info-wrapper" *ngIf="oneWayAvailableFlights.length==0">
+                            <ion-icon color="warning" name="warning"></ion-icon> No flights available! This may be due
+                            to existing travel bans. Please revise your search criteria.
+                        </ion-card>
+                    </div>
+
+
+                    <div *ngIf="flight_type == 'Round Trip'">
+                        <ion-card class="card-info-wrapper" *ngIf="returnAvailableFlights.length==0">
+                            <ion-icon color="warning" name="warning"></ion-icon> No flights available! This may be
+                            due to existing travel bans. Please revise your search criteria.
+                        </ion-card>
+                    </div>
+
                     <ion-card *ngFor="let item of oneWayAvailableFlights">
                         <div class="card-info-wrapper">
                             <div>
@@ -114,8 +131,9 @@
                             <div class="ts-itin__info ts-itin__info--extended">
                                 <div class="ts-itin__routes">
                                     <div class="ts-itin__odo ts-itin__odo--departure">
-                                        <span class="ts-itin__airport">  {{item.time_slot | slice : 0  : 5 }}</span>
-                                        <span class="ts-itin__time ts-itin__departure">  {{item.from_abbr}}</span></div>
+                                        <span class="ts-itin__airport"> {{item.time_slot | slice : 0 : 5 }}</span>
+                                        <span class="ts-itin__time ts-itin__departure"> {{item.from_abbr}}</span>
+                                    </div>
                                     <div class="ts-itin__extras">
                                         <div class="ts-itin-line">
                                             <!---->
@@ -124,21 +142,27 @@
                                         </div>
                                         <div class="container ts-itin-extra__wrapper">
                                             <span class="ts-itin-extra ts-itin-extra__stops">
-                                               
-                                            </span><span class="ts-itin-extra ts-itin-extra__duration"><!----><span></span>&nbsp;</span>
+
+                                            </span><span class="ts-itin-extra ts-itin-extra__duration">
+                                                <!----><span></span>&nbsp;
+                                            </span>
 
                                         </div>
                                     </div>
                                     <div class="ts-itin__odo ts-itin__odo--arrival">
-                                        <span class="ts-itin__airport"><span> {{item.time_slot_land | slice : 0  : 5 }}</span>
-                                        <!---->
-                                        </span><span class="ts-itin__time ts-itin__time--arrival">  {{item.to_abbr}}</span></div>
+                                        <span class="ts-itin__airport"><span> {{item.time_slot_land | slice : 0 : 5
+                                                }}</span>
+                                            <!---->
+                                        </span><span class="ts-itin__time ts-itin__time--arrival">
+                                            {{item.to_abbr}}</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div class="ts-card__actions ts-card__actions--line-top">
-                            <!----><span class="ts-card__action ts-card__action--price"><!----><span class="ts-card__action__amount">&nbsp;</span>
-                            <!---->
+                            <!----><span class="ts-card__action ts-card__action--price">
+                                <!----><span class="ts-card__action__amount">&nbsp;</span>
+                                <!---->
                             </span>
                             <span (click)="proceed(item)" class="ts-card__action ts-card__action--last align-end">
                                 Book
@@ -155,8 +179,9 @@
                             <div class="ts-itin__info ts-itin__info--extended">
                                 <div class="ts-itin__routes">
                                     <div class="ts-itin__odo ts-itin__odo--departure">
-                                        <span class="ts-itin__airport">  {{item.time_slot | slice : 0  : 5 }}</span>
-                                        <span class="ts-itin__time ts-itin__departure">  {{item.from_abbr}}</span></div>
+                                        <span class="ts-itin__airport"> {{item.time_slot | slice : 0 : 5 }}</span>
+                                        <span class="ts-itin__time ts-itin__departure"> {{item.from_abbr}}</span>
+                                    </div>
                                     <div class="ts-itin__extras">
                                         <div class="ts-itin-line">
                                             <!---->
@@ -165,15 +190,20 @@
                                         </div>
                                         <div class="container ts-itin-extra__wrapper">
                                             <span class="ts-itin-extra ts-itin-extra__stops">
-                                               
-                                            </span><span class="ts-itin-extra ts-itin-extra__duration"><!----><span>02h10m</span>&nbsp;</span>
+
+                                            </span><span class="ts-itin-extra ts-itin-extra__duration">
+                                                <!----><span></span>&nbsp;
+                                            </span>
 
                                         </div>
                                     </div>
                                     <div class="ts-itin__odo ts-itin__odo--arrival">
-                                        <span class="ts-itin__airport"><span> {{item.time_slot_land | slice : 0  : 5 }}</span>
-                                        <!---->
-                                        </span><span class="ts-itin__time ts-itin__time--arrival">  {{item.to_abbr}}</span></div>
+                                        <span class="ts-itin__airport"><span> {{item.time_slot_land | slice : 0 : 5
+                                                }}</span>
+                                            <!---->
+                                        </span><span class="ts-itin__time ts-itin__time--arrival">
+                                            {{item.to_abbr}}</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -185,8 +215,9 @@
                             <div class="ts-itin__info ts-itin__info--extended">
                                 <div class="ts-itin__routes">
                                     <div class="ts-itin__odo ts-itin__odo--departure">
-                                        <span class="ts-itin__airport">  {{item.return_time_slot | slice : 0  : 5 }}</span>
-                                        <span class="ts-itin__time ts-itin__departure">  {{item.to_abbr}}</span></div>
+                                        <span class="ts-itin__airport"> {{item.return_time_slot | slice : 0 : 5}}</span>
+                                        <span class="ts-itin__time ts-itin__departure"> {{item.to_abbr}}</span>
+                                    </div>
                                     <div class="ts-itin__extras">
                                         <div class="ts-itin-line">
                                             <!---->
@@ -195,23 +226,28 @@
                                         </div>
                                         <div class="container ts-itin-extra__wrapper">
                                             <span class="ts-itin-extra ts-itin-extra__stops">
-                                               
-                                            </span><span class="ts-itin-extra ts-itin-extra__duration"><!----><span></span>&nbsp;</span>
+
+                                            </span><span class="ts-itin-extra ts-itin-extra__duration">
+                                                <!----><span></span>&nbsp;
+                                            </span>
 
                                         </div>
                                     </div>
                                     <div class="ts-itin__odo ts-itin__odo--arrival">
-                                        <span class="ts-itin__airport"><span> {{item.return_time_slot_land | slice : 0  : 5 }}</span>
-                                        <!---->
-                                        </span><span class="ts-itin__time ts-itin__time--arrival">  {{item.from_abbr}}</span></div>
+                                        <span class="ts-itin__airport"><span> {{item.return_time_slot_land | slice :
+                                                0 : 5 }}</span>
+                                            <!---->
+                                        </span><span class="ts-itin__time ts-itin__time--arrival">
+                                            {{item.from_abbr}}</span>
+                                    </div>
                                 </div>
                             </div>
 
                         </div>
                         <div class="ts-card__actions ts-card__actions--line-top">
                             <!----><span class="ts-card__action ts-card__action--price">
-                            <!----><span class="ts-card__action__amount">&nbsp;</span>
-                            <!---->
+                                <!----><span class="ts-card__action__amount">&nbsp;</span>
+                                <!---->
                             </span>
                             <span (click)="proceed(item)" class="ts-card__action ts-card__action--last align-end">
                                 Book
@@ -247,7 +283,7 @@
                     <br>
                     <br>
                 </div>
-                <form [formGroup]="flightForm" (ngSubmit)="proceed()">
+                <form [formGroup]="flightForm" (ngSubmit)="proceed($event)">
                     <ion-row>
                         <ion-col>
                             <ion-button class="txt-center" (click)="showPickerDepart()" color="secondary">
@@ -286,7 +322,8 @@
                                 <ion-label slot="start" readonly>{{item.meal.text}}</ion-label>
                                 <ion-text slot="end">Qty: {{item.qty.value}}</ion-text>
                                 <ion-text slot="end">R {{item.qty.value *item.meal.value}}</ion-text>
-                                <ion-icon name="trash" slot="end" color="danger" (click)="removeMealsReturn(i)"></ion-icon>
+                                <ion-icon name="trash" slot="end" color="danger" (click)="removeMealsReturn(i)">
+                                </ion-icon>
                             </ion-item>
                         </ion-list>
                     </div>
@@ -294,7 +331,8 @@
 
                     <ion-row>
                         <ion-col>
-                            <ion-button class="txt-center" type="submit" routerLink="/home" color="primary">Proceed</ion-button>
+                            <ion-button class="txt-center" type="submit" routerLink="/home" color="primary">Proceed
+                            </ion-button>
                         </ion-col>
                     </ion-row>
 
@@ -324,7 +362,7 @@
             </div>
             <ion-row>
                 <ion-col>
-                    <form [formGroup]="bookingForm" (ngSubmit)="proceed()">
+                    <form [formGroup]="bookingForm" (ngSubmit)="proceed($event)">
                         <ion-list-header>
                             <ion-label><strong>Flight Details</strong></ion-label>
                         </ion-list-header>
@@ -369,7 +407,8 @@
                     </form>
                 </ion-col>
                 <ion-col *ngIf="booking_Depart_Meals.length != 0 || booking_Return_Meals.length != 0">
-                    <form [formGroup]="bookingForm" (ngSubmit)="proceed()" *ngIf="booking_Depart_Meals.length != 0">
+                    <form [formGroup]="bookingForm" (ngSubmit)="proceed($event)"
+                        *ngIf="booking_Depart_Meals.length != 0">
                         <ion-list-header>
                             <ion-label><strong>Selected Depart Meals</strong></ion-label>
                         </ion-list-header>
@@ -386,9 +425,10 @@
                         </ion-list>
                     </form>
 
-                    <form [formGroup]="bookingForm" (ngSubmit)="proceed()" *ngIf="booking_Return_Meals.length != 0">
+                    <form [formGroup]="bookingForm" (ngSubmit)="proceed($event)"
+                        *ngIf="booking_Return_Meals.length != 0">
                         <ion-list-header>
-                            <ion-label><strong>Selected  Return Meals</strong></ion-label>
+                            <ion-label><strong>Selected Return Meals</strong></ion-label>
                         </ion-list-header>
                         <ion-list *ngFor="let item of  booking_Return_Meals;let i = index">
                             <ion-item lines="none" slot="start">
@@ -410,14 +450,14 @@
                 <ion-col>
                     <div class="txt-center">
                         <strong>
-              Flight total: R{{flight_price}}
-            </strong>
+                            Flight total: R{{flight_price}}
+                        </strong>
                     </div>
                 </ion-col>
                 <ion-col *ngIf="booking_Depart_Meals.length != 0 || booking_Return_Meals.length != 0">
                     <div class="txt-center">
                         <strong>
-                             Meals total: R{{meal_tot}}
+                            Meals total: R{{meal_tot}}
                         </strong>
                     </div>
                 </ion-col>
@@ -455,7 +495,9 @@
 
                     <ion-col>
                         <ion-label>Card Number:</ion-label>
-                        <ion-input mask="(999) 999-9999" placeholder="xxxx-xxxx-xxxx-xxxx" style="text-align: center;border: 1px solid #3880ff;border-radius: 5px;" formControlName="card_number" type="text"></ion-input>
+                        <ion-input mask="(999) 999-9999" placeholder="xxxx-xxxx-xxxx-xxxx"
+                            style="text-align: center;border: 1px solid #3880ff;border-radius: 5px;"
+                            formControlName="card_number" type="text"></ion-input>
                     </ion-col>
 
                     <ion-col>
@@ -472,14 +514,19 @@
 
                     <ion-row>
                         <ion-col>
-                            <ion-datetime style="text-align: center;border: 1px solid #3880ff;border-radius: 5px;" formControlName="card_expYear" placeholder="YYYY" displayFormat="YYYY" min="2020" max="2026">
+                            <ion-datetime style="text-align: center;border: 1px solid #3880ff;border-radius: 5px;"
+                                formControlName="card_expYear" placeholder="YYYY" displayFormat="YYYY" min="{{minDate2}}"
+                                max="2027">
                             </ion-datetime>
                         </ion-col>
                         <ion-col>
-                            <ion-datetime style="text-align: center;border: 1px solid #3880ff;border-radius: 5px;" formControlName="card_expMonth" [min]="2020-12-01" placeholder="MM" displayFormat="MM"></ion-datetime>
+                            <ion-datetime style="text-align: center;border: 1px solid #3880ff;border-radius: 5px;"
+                                formControlName="card_expMonth" [min]="minDate3" placeholder="MM" displayFormat="MM">
+                            </ion-datetime>
                         </ion-col>
                         <ion-col>
-                            <ion-input style="text-align: center;border: 1px solid #3880ff;border-radius: 5px;" formControlName="card_cvv" type="number" placeholder="CVV" max="3"></ion-input>
+                            <ion-input style="text-align: center;border: 1px solid #3880ff;border-radius: 5px;"
+                                formControlName="card_cvv" type="number" placeholder="CVV" max="3"></ion-input>
                         </ion-col>
                     </ion-row>
 

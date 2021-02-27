@@ -6,6 +6,8 @@ import { AlertController, PickerController, LoadingController, MenuController, N
 import { Router } from '@angular/router';
 import { ExcelService } from '../../services/excel.service';
 
+import jsPDF from 'jspdf';
+import autoTable from 'jspdf-autotable'
 @Component({
   selector: 'app-bookings',
   templateUrl: './bookings.page.html',
@@ -98,6 +100,45 @@ export class BookingsPage implements OnInit {
     link.remove();
   }
 
+  
+  download_report_pdf() {
+    import("jspdf").then(jsPDF => {
+      import("jspdf-autotable").then(x => {
+        //@ts-ignore
+        const doc = new jsPDF.default('p', 'mm');
+
+        var col = ["Destination","Tickets", "Total amt", "Depart date"];
+        var rows = [];
+        doc.text("Number of Bookings: " + this.users.length, 14, 10);
+
+        this.users.forEach((element: any) => {
+
+          const temp = [element.destination ,element.tickets,"R" +element.tot_amt, element.depart_date];
+          rows.push(temp)
+        });
+
+        //@ts-ignore
+
+        doc.autoTable(col, rows);
+        doc.save('report.pdf');
+      })
+    })
+  }
+
+
+  download_report_json() {
+
+    const link = document.createElement('a');
+    const blob = new Blob([JSON.stringify(this.users)], { type: 'data:text/json;charset=utf-8' });
+    const url = window.URL.createObjectURL(blob);
+
+    link.setAttribute('target', '_self');
+    link.setAttribute('href', url);
+    link.setAttribute('download', `report.json`);
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+  }
   download_xlsx() {
     let data: any = this.users;
     this.excelService.exportAsExcelFile(data, 'report');
@@ -122,7 +163,18 @@ export class BookingsPage implements OnInit {
             this.download_xlsx();
           }
         },
-       
+        {
+          text: 'pdf',
+          handler: () => {
+            this.download_report_pdf();
+          }
+        },
+        {
+          text: 'json',
+          handler: () => {
+            this. download_report_json()
+          }
+        },
 
       ]
     });

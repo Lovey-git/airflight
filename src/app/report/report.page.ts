@@ -184,7 +184,7 @@ export class ReportPage implements OnInit {
         //@ts-ignore
 
         doc.autoTable(col, rows);
-        doc.save('tests.pdf');
+        doc.save('report.pdf');
       })
     })
   }
@@ -232,7 +232,7 @@ export class ReportPage implements OnInit {
         {
           text: 'pdf',
           handler: () => {
-            this.download_report_pdf
+            this.download_report_pdf();
           }
         },
         {

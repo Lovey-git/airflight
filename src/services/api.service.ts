@@ -48,8 +48,8 @@ export class ApiService {
   }
 
   //Register
-  register(email, password, lname, fname) {
-    return this.http.post<any>(this._Url + 'register', { email, password, fname, lname });
+  register(email, password, lname, fname, cell, dob) {
+    return this.http.post<any>(this._Url + 'register', { email, password, fname, lname , cell, dob});
   }
 
   //UPDATE USER

@@ -121,8 +121,9 @@ export class RegisterPage implements OnInit {
       this.presentAlert('Weak Password detected 👎❌');
     } else {
       await loading.present();
-      this.api.register(email, password, names, surname).subscribe(
+      this.api.register(email, password, names,surname, cell, this.dob).subscribe(
         data => {
+        
           if (data.status == 0) {
             loading.dismiss();
             console.log(data);

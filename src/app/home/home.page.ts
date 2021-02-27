@@ -44,7 +44,7 @@ export class HomePage {
   ]
   returnAvailableFlights: any = []
   returnFilghts = [
-    { flight_no: 'A409', depart: "2021-02-26", return: '2021-02-27', from: 'OR Tambo', from_abbr: 'JNB', to: 'PE International', to_abbr: 'PLZ', time_slot: '14:00 pm', time_slot_land: '16:00 pm', return_time_slot: "14:40 pm", return_time_slot_land: "16:20" },
+    { flight_no: 'A409', depart: "2021-02-27", return: '2021-02-27', from: 'OR Tambo', from_abbr: 'JNB', to: 'PE International', to_abbr: 'PLZ', time_slot: '14:00 pm', time_slot_land: '16:00 pm', return_time_slot: "14:40 pm", return_time_slot_land: "16:20" },
     { flight_no: 'A503', depart: "2021-02-26", return: '2021-02-27', from: 'OR Tambo', from_abbr: 'JNB', to: 'PE International', to_abbr: 'PLZ', time_slot: '14:00 pm', time_slot_land: '16:00 pm', return_time_slot: "14:40 pm", return_time_slot_land: "16:20" },
 
   ]
@@ -88,7 +88,8 @@ export class HomePage {
   card_expMonth: any;
   card_expYear: string;
   card_cvv: any;
-
+  minDate2: string = new Date().toISOString();
+  minDate3: string;
   public minDate = moment().add(0, 'd').format().toString();
   public maxDate = moment().add(60, 'd').format().toString();
   public day = this.minDate;
@@ -114,6 +115,10 @@ export class HomePage {
     private pickerController: PickerController,
     private d: DestinationList,
     private app: AppComponent) {
+ 
+    var now = new Date();
+    var n = now.setMonth(now.getMonth() + 1, 1);
+    this.minDate3 = new Date(n).toISOString();
 
 
     //check if time slot is available
@@ -166,6 +171,7 @@ export class HomePage {
     this.hours = new Date().getHours();
 
     this.isLogged = this.authService.isLoggedin();
+    this.flight_type = localStorage.getItem('flight_type');
     if (!localStorage.getItem('current_page')) {
       this.current_page = 'flight';
       localStorage.setItem('current_page', this.current_page);
@@ -234,6 +240,18 @@ export class HomePage {
 
 
     }
+  }
+  ionViewWillEnter() {
+    console.log(this.isLogged);
+    this.isLogged = this.authService.isLoggedin();
+    console.log(this.isLogged);
+    this.flight_type = localStorage.getItem('flight_type');
+    if (this.flight_type == null) {
+      this.flight_type = "One Way Trip";
+    } else {
+      this.flight_type = localStorage.getItem('flight_type');
+    }
+
   }
   selectedDepatDate(ev) {
     if ((new Date().toLocaleDateString() != new Date(ev.detail.value).toLocaleDateString())) {
@@ -632,18 +650,7 @@ export class HomePage {
     window.location.reload();
   }
 
-  ionViewWillEnter() {
-    console.log(this.isLogged);
-    this.isLogged = this.authService.isLoggedin();
-    console.log(this.isLogged);
-    this.flight_type = localStorage.getItem('flight_type');
-    if (this.flight_type == null) {
-      this.flight_type = "One Way Trip";
-    } else {
-      this.flight_type = localStorage.getItem('flight_type');
-    }
 
-  }
 
 
 
