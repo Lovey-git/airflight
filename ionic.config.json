@@ -1,7 +1,0 @@
-{
-  "name": "Kohaku",
-  "integrations": {
-    "cordova": {}
-  },
-  "type": "angular"
-}
