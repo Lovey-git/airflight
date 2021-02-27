@@ -44,8 +44,8 @@ export class HomePage {
   ]
   returnAvailableFlights: any = []
   returnFilghts = [
-    { flight_no: 'A409', depart: "2021-02-28", return: '2021-02-27', from: 'OR Tambo', from_abbr: 'JNB', to: 'PE International', to_abbr: 'PLZ', time_slot: '22:00 pm', time_slot_land: '01:00 am', return_time_slot: "14:40 pm", return_time_slot_land: "16:20" },
-    { flight_no: 'A503', depart: "2021-02-28", return: '2021-02-27', from: 'OR Tambo', from_abbr: 'JNB', to: 'PE International', to_abbr: 'PLZ', time_slot: '14:00 pm', time_slot_land: '16:00 pm', return_time_slot: "14:40 pm", return_time_slot_land: "16:20" },
+    { flight_no: 'A409', depart: "2021-02-28", return: '2021-03-01', from: 'OR Tambo', from_abbr: 'JNB', to: 'PE International', to_abbr: 'PLZ', time_slot: '22:00 pm', time_slot_land: '01:00 am', return_time_slot: "14:40 pm", return_time_slot_land: "16:20" },
+    { flight_no: 'A503', depart: "2021-02-28", return: '2021-02-28', from: 'OR Tambo', from_abbr: 'JNB', to: 'PE International', to_abbr: 'PLZ', time_slot: '14:00 pm', time_slot_land: '16:00 pm', return_time_slot: "14:40 pm", return_time_slot_land: "16:20" },
 
   ]
 
