@@ -1,0 +1,57 @@
+<ion-content class="layer">
+
+  <ion-row  class="booking-form ">
+
+    <!-- <google-chart [title]="chartTitle" [type]="chartType" [data]="chartData" [columns]="chartLabels">
+    </google-chart> -->
+
+    <ion-header>
+      <ion-segment>
+        <ion-segment-button (click)="filterBy('v')" value="Verified">
+          <ion-label>Verified users</ion-label>
+        </ion-segment-button>
+        <ion-segment-button (click)="filterBy('n')" value="Non-Verified">
+          <ion-label>Non-Verified users</ion-label>
+        </ion-segment-button>
+        <ion-segment-button (click)="filterBy('a')" value="all">
+          <ion-label>All users</ion-label>
+        </ion-segment-button>
+      </ion-segment>
+      
+      <ion-searchbar  [(ngModel)]="searchText" (ngModelChange)="searcher()" showCancelButton="focus"></ion-searchbar>
+    </ion-header>
+  </ion-row>
+
+  <div class="booking-form">
+    <ion-list-header>
+      <ion-item lines="none">
+        Users ({{count}})
+        <ion-icon (click)="download_report_alert()" name="save-outline" slot="end"></ion-icon>
+      </ion-item>
+      
+
+    </ion-list-header>
+    <ion-row (click) = "userAlert(item.email, item.uuid)" style="border-bottom: groove;" *ngFor="let item of users;">
+      <ion-col >
+        <ion-item lines="none">
+          <ion-icon *ngIf="item.isVerified == 1" color="success" slot="" name="checkmark-circle-outline"></ion-icon>
+          <ion-icon *ngIf="item.isVerified == 0" color="danger" slot="" name="close-circle-outline"></ion-icon>
+          <ion-title style="text-align: left;font-size: medium;">{{item.email}}</ion-title>
+        </ion-item>
+      </ion-col>
+
+      <ion-col >
+        <ion-item lines="none">
+          <ion-title style="text-align: center;font-size: medium;">{{item.created_at}}</ion-title>
+        </ion-item>
+      </ion-col>
+
+      <ion-col >
+        <ion-item lines="none">
+          <ion-title style="text-align: right;font-size: medium;">{{item.role}}</ion-title>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </div>
+
+</ion-content>

@@ -1,0 +1,355 @@
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * https://ionicframework.com/docs/layout/global-stylesheets
+ */
+
+/* Core CSS required for Ionic components to work properly */
+@import "~@ionic/angular/css/core.css";
+
+/* Basic CSS for apps built with Ionic */
+@import "~@ionic/angular/css/normalize.css";
+@import "~@ionic/angular/css/structure.css";
+@import "~@ionic/angular/css/typography.css";
+@import '~@ionic/angular/css/display.css';
+
+/* Optional CSS utils that can be commented out */
+@import "~@ionic/angular/css/padding.css";
+@import "~@ionic/angular/css/float-elements.css";
+@import "~@ionic/angular/css/text-alignment.css";
+@import "~@ionic/angular/css/text-transformation.css";
+@import "~@ionic/angular/css/flex-utils.css";
+
+
+.color-primary {color:#3880ff};
+.color-primary-shade{color: #3171e0};
+.color-primary-tint{color: #8a35af};
+
+.color-secondary{color: #5F1C8C};
+.color-secondary-shade{color: #54197b};
+.color-secondary-tint{color: #6f3398};
+
+.color-tertiary{color: #0D0126};
+.color-tertiary-shade{color: #0b0121};
+.color-tertiary-tint{color: #251a3c};
+
+.color-success{color: #087f23};
+.color-success-shade{color: #07701f};
+.color-success-tint{color: #218c39};
+
+.color-warning{color: #D95525};
+.color-warning-shade{color: #bf4b21};
+.color-warning-tint{color: #dd663b};
+
+.color-danger{color: #eb445a};
+.color-danger-shade{color: #cf3c4f};
+.color-danger-tint{color: #ed576b};
+
+.color-dark{color: #0D0D0D};
+.color-dark-shade{color: #0b0b0b};
+.color-dark-tint{color: #252525};
+
+.color-medium{color: #92949c};
+.color-medium-shade{color: #808289};
+.color-medium-tint{color: #9d9fa6};
+
+.color-light{color: #F2F2F2};
+.color-light-shade{color: #d5d5d5};
+.color-light-tint{color: #f3f3f3};
+  
+
+.txt-center{
+text-align: center;
+}
+
+ion-icon{
+    @extend .color-primary;
+}
+ion-card-title{
+    @extend .color-primary;
+}
+ion-title{
+    @extend .color-primary;
+}
+.parent {
+    position: relative;
+}
+
+card-sucess{
+    @extend .color-success-tint;
+}
+  
+.child {
+    /* Center vertically */
+    position: absolute;
+}
+
+ion-button {
+    border-radius: 25px;
+    background-image: linear-gradient(to right, #795548 , #218c39, #795548);    width : 100%;
+    height: 40px;
+}
+
+form{
+    margin: 30px;
+}
+
+ion-slides {
+    height: 200px;
+}
+
+// Gradient backgrounds
+@mixin bg-gradient($parent, $gradient) {
+    #{$parent} {
+      background: $gradient;
+    }
+  }
+
+ion-content{
+    --background: #F2F2F2 url('./assets/easy-travel-tips-for-a-comfortable-flight-view-out-the-window_f-1150x767.jpg') no-repeat center center / cover;
+    @extend .layer;
+}
+
+.background {
+    background:url('./assets/easy-travel-tips-for-a-comfortable-flight-view-out-the-window_f-1150x767.jpg');
+    position: relative;
+}
+
+.layer {
+    background-color: var(--ion-color-light);
+    opacity: 0.8;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+div{
+    background: var(--ion-color-light);
+    ion-list-header{
+        background: var(--ion-color-light);
+    }
+  }
+ion-item{
+--background: var(--ion-color-light);
+}
+
+ion-segment{
+    --background: var(--ion-color-light);
+}
+
+ion-header{
+    background: var(--ion-color-light);
+}
+
+.login-form{
+    margin: auto;
+    margin-top: 80px;
+    margin-bottom: 50px;
+    --background: var(--ion-color-light);    
+    opacity: 0.85;
+    ion-input[type=text]{
+        text-align: center; 
+        border: 1px solid ;@extend .color-primary;
+        border-radius: 5px;
+    }
+    ion-input[type=tel]{
+        text-align: center; 
+        border: 1px solid ;@extend .color-primary;
+        border-radius: 5px;
+    }
+    ion-input[type=password]{
+        text-align: center;
+        border: 1px solid ;@extend .color-primary;
+        border-radius: 5px;
+    }
+    
+    // ion-datetime{
+    //     text-align: center;
+    //     border: 1px solid ;@extend .color-primary;
+    //     border-radius: 5px;
+    //     width: 100%;
+    // }
+    // ion-input[type=number]{
+    //     text-align: center;
+    //     border: 1px solid ;@extend .color-primary;
+    //     border-radius: 5px;
+    // }
+    ion-button {
+        border-radius: 25px;
+        background-image: linear-gradient(to right, #795548 , #218c39, #795548);    width : 100%;
+        height: 40px;
+    }
+}
+
+.booking-form{
+    margin: auto;
+    margin-top: 80px;
+    --background: var(--ion-color-light);    
+    opacity: 0.85;
+    ion-input[type=text]{
+        text-align: center; 
+        border: 1px solid ;@extend .color-primary;
+        border-radius: 5px;
+    }
+    ion-input[type=password]{
+        text-align: center;
+        border: 1px solid ;@extend .color-primary;
+        border-radius: 5px;
+    }
+    ion-button {
+        border-radius: 25px;
+        background-image: linear-gradient(to right, #795548 , #218c39, #795548);    width : 100%;
+        height: 40px;
+    }
+    ion-input[type=tel]{
+        text-align: center; 
+        border: 1px solid ;@extend .color-primary;
+        border-radius: 5px;
+    }
+    ion-input[type=file]{
+        text-align: center; 
+        border: 1px solid ;@extend .color-primary;
+        border-radius: 5px;
+    }
+    ion-select-option{
+        border-bottom:  1px solid ;@extend .color-primary;
+    }
+}
+
+.btn-danger{
+    border: 2px solid ;@extend .color-danger;
+    border-radius: 12px;
+}
+
+.btn-light{
+    border: 2px solid ;@extend .color-light;
+    border-radius: 12px;
+}
+
+editor{
+    border: 2px solid ;@extend .color-primary;
+    border-radius: 5px;
+}
+
+.add-moduleForm{  
+    margin: auto;
+    ion-item{
+        border: 1px solid ;@extend .color-primary;
+        border-radius: 5px;
+    }
+
+    ion-input[type=text]{
+        height: 100%;
+        text-align: center; 
+        border: 1px solid --ion-color-secondary;
+        border-radius: 5px;
+    }
+
+    ion-button {
+        border-radius: 25px;
+        background-image: linear-gradient(to right, #795548 , #218c39, #795548);    width : 100%;
+        height: 40px;
+    }
+
+    ion-input[type=file]{
+        text-align: center;
+        border: 1px solid ;@extend .color-primary;
+        border-radius: 5px;
+        height: 100%;
+    }
+    
+}
+
+
+
+.ion-shadow{
+    box-shadow: 0 4px 8px 0 #3171e0, 0 6px 20px 0 #3171e0;    
+}
+
+.nav-card{
+    height: 150px;
+    width: 150px;
+    border-radius: 5px;
+    box-shadow: 0 2px 8px 0 #3171e0, 0 2px 20px 0 #3171e0;
+}
+
+ion-header{
+    ion-icon {
+        font-size: 32px;
+      }
+}
+
+@media only screen and (min-width: 320px) {
+    .login-form{
+        width: 100%;
+    }
+    .add-form{
+        width: 100%;
+    }
+    .booking-form{
+        width: 100%;
+    }
+    
+}
+
+@media only screen and (min-width:500px) and (max-width:2468px) {
+    .login-form{
+        width: 500px;
+        border-radius: 5px;
+        box-shadow: 0 4px 8px 0 #3171e0, 0 6px 20px 0 #3171e0;
+    }
+    .booking-form{
+        width: 900px;
+        border-radius: 5px;
+        box-shadow: 0 4px 8px 0 #3171e0, 0 6px 20px 0 #3171e0;
+    }
+}
+
+.bg-primary{
+    background-color:#3171e0;
+}
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+  }
+  
+  .tooltip .tooltiptext {
+    visibility: hidden;
+    width: 93%;
+    text-align: left;
+    background-color: var(--ion-color-dark);
+    color: var(--ion-color-light);
+    text-align: left;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 150%;
+    left: 21%;
+    margin-left: -60px;
+  }
+  
+  .tooltip .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: var(--ion-color-dark) transparent transparent transparent;
+  }
+  
+  .tooltip:hover .tooltiptext {
+    visibility: visible;
+  }
+

@@ -1,0 +1,45 @@
+<ion-content class="layer">
+
+  <ion-row  class="booking-form ">
+    <ion-header>      
+      <ion-searchbar [(ngModel)]="searchText" (ngModelChange)="searcher()" showCancelButton="focus"></ion-searchbar>
+    </ion-header>
+  </ion-row>
+
+  <div class="booking-form">
+    <ion-list-header>
+      <ion-item lines="none">
+        Bookings ({{count}})
+        <ion-icon (click)="download_report_alert()" name="save-outline" slot="end"></ion-icon>
+      </ion-item>
+      
+    </ion-list-header>
+    <ion-row  style="border-bottom: groove;" *ngFor="let item of users;">
+      <ion-col >
+        <ion-item lines="none">
+          <ion-icon *ngIf="item.isVerified == 1" color="success" slot="" name="checkmark-circle-outline"></ion-icon>
+          <ion-title style="text-align: left;font-size: medium;">{{item.destination}}</ion-title>
+        </ion-item>
+      </ion-col>
+
+      <ion-col >
+        <ion-item lines="none">
+          <ion-title style="text-align: center;font-size: medium;">Tickets: <ion-badge color="tertiary">{{item.tickets}}</ion-badge></ion-title>
+        </ion-item>
+      </ion-col>
+
+      <ion-col >
+        <ion-item lines="none">
+          <ion-title style="text-align: right;font-size: medium;">R {{item.tot_amt}}</ion-title>
+        </ion-item>
+      </ion-col>
+
+      <ion-col >
+        <ion-item lines="none">
+          <ion-title style="text-align: right;font-size: medium;">{{item.depart_date}}</ion-title>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </div>
+
+</ion-content>
