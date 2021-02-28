@@ -105,10 +105,19 @@ export class HomePage {
   ]
   returnAvailableFlights: any = []
   returnFilghts = [
-    { flight_no: 'A404', depart: "2021-02-28", return: '2021-03-01', from: 'OR Tambo', from_abbr: 'JNB', to: 'PE International', to_abbr: 'PLZ', time_slot: '22:00 pm', time_slot_land: '01:00 am', return_time_slot: "14:40 pm", return_time_slot_land: "16:20" },
-    { flight_no: 'A503', depart: "2021-02-26", return: '2021-02-27', from: 'OR Tambo', from_abbr: 'JNB', to: 'PE International', to_abbr: 'PLZ', time_slot: '14:00 pm', time_slot_land: '16:00 pm', return_time_slot: "14:40 pm", return_time_slot_land: "16:20" },
-    { flight_no: 'A403', depart: "2021-03-01", return: '2021-03-01', from: 'PE International', from_abbr: 'PLZ', to: 'OR Tambo', to_abbr: 'JNB', time_slot: '16:00 pm', time_slot_land: '18:00 pm', return_time_slot: "20:40 pm", return_time_slot_land: "22:20" },
-
+    { flight_no: 'A200', depart: "2021-02-28", return: '2021-03-01', from: 'OR Tambo', from_abbr: 'JNB', to: 'PE International', to_abbr: 'PLZ', time_slot: '22:00 pm', time_slot_land: '01:00 am', return_time_slot: "14:40 pm", return_time_slot_land: "16:20 pm" },
+    { flight_no: 'A201', depart: "2021-03-01", return: '2021-03-01', from: 'OR Tambo', from_abbr: 'JNB', to: 'PE International', to_abbr: 'PLZ', time_slot: '14:00 pm', time_slot_land: '15:40 pm', return_time_slot: "22:00 pm", return_time_slot_land: "23:40 pm" },
+    { flight_no: 'A202', depart: "2021-03-01", return: '2021-03-02', from: 'Cape Town International', from_abbr: 'CPT', to: 'OR Tambo', to_abbr: 'JNB', time_slot: '16:00 pm', time_slot_land: '18:10 pm', return_time_slot: "20:00 pm", return_time_slot_land: "22:10 pm" },
+     { flight_no: 'A203', depart: "2021-03-01", return: '2021-03-02', from: 'King Shaka', from_abbr: 'DUR', to: 'PE International', to_abbr: 'PLZ', time_slot: '22:00 pm', time_slot_land: '23:10 pm', return_time_slot: "14:00 pm", return_time_slot_land: "15:10 pm" },
+    { flight_no: 'A204', depart: "2021-03-01", return: '2021-03-02', from: 'OR Tambo', from_abbr: 'JNB', to: 'Cape Town International', to_abbr: 'CPT', time_slot: '14:00 pm', time_slot_land: '16:10 pm', return_time_slot: "14:00 pm", return_time_slot_land: "16:10 pm" },
+    { flight_no: 'A205', depart: "2021-03-01", return: '2021-03-02', from: 'PE International', from_abbr: 'PLZ', to: 'OR Tambo', to_abbr: 'JNB', time_slot: '16:00 pm', time_slot_land: '18:00 pm', return_time_slot: "20:40 pm", return_time_slot_land: "22:20 pm" },
+    { flight_no: 'A206', depart: "2021-03-02", return: '2021-03-03', from: 'King Shaka', from_abbr: 'DUR', to: 'PE International', to_abbr: 'PLZ', time_slot: '22:00 pm', time_slot_land: '23:20 am', return_time_slot: "14:00 pm", return_time_slot_land: "16:20 pm" },
+    { flight_no: 'A207', depart: "2021-03-02", return: '2021-03-04', from: 'OR Tambo', from_abbr: 'JNB', to: 'King Shaka', to_abbr: 'DUR', time_slot: '14:00 pm', time_slot_land: '15:10 pm', return_time_slot: "14:00 pm", return_time_slot_land: "15:10 pm" },
+    { flight_no: 'A208', depart: "2021-03-02", return: '2021-03-05', from: 'PE International', from_abbr: 'PLZ', to: 'OR Tambo', to_abbr: 'JNB', time_slot: '16:00 pm', time_slot_land: '18:00 pm', return_time_slot: "20:40 pm", return_time_slot_land: "22:20 pm" },
+     { flight_no: 'A209', depart: "2021-03-02", return: '2021-03-05', from: 'OR Tambo', from_abbr: 'JNB', to: 'Cape Town International', to_abbr: 'CPT', time_slot: '22:00 pm', time_slot_land: '00:10 am', return_time_slot: "14:50 pm", return_time_slot_land: "16:00" },
+    { flight_no: 'A210', depart: "2021-03-02", return: '2021-03-06', from: 'OR Tambo', from_abbr: 'JNB', to: 'PE International', to_abbr: 'PLZ', time_slot: '14:00 pm', time_slot_land: '15:40 pm', return_time_slot: "14:00 pm", return_time_slot_land: "15:40 pm" },
+    { flight_no: 'A211', depart: "2021-03-02", return: '2021-03-06', from: 'PE International', from_abbr: 'PLZ', to: 'OR Tambo', to_abbr: 'JNB', time_slot: '16:00 pm', time_slot_land: '17:40 pm', return_time_slot: "20:00 pm", return_time_slot_land: "21:40 pm" },
+    
   ]
 
 
