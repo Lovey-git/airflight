@@ -103,6 +103,54 @@
                         <ion-card class="card-info-wrapper" *ngIf="oneWayAvailableFlights.length==0">
                             <ion-icon color="warning" name="warning"></ion-icon> No flights available! This may be due to existing travel bans. Please revise your search criteria.
                         </ion-card>
+
+                        <ion-card *ngFor="let item of oneWayAvailableFlights">
+                            <div class="card-info-wrapper">
+                                <div>
+                                    Depart : {{item.depart}}
+                                </div>
+                                <!---->
+                                <div class="ts-itin__info ts-itin__info--extended">
+                                    <div class="ts-itin__routes">
+                                        <div class="ts-itin__odo ts-itin__odo--departure">
+                                            <span class="ts-itin__airport"> {{item.time_slot | slice : 0 : 5 }}</span>
+                                            <span class="ts-itin__time ts-itin__departure"> {{item.from_abbr}}</span>
+                                        </div>
+                                        <div class="ts-itin__extras">
+                                            <div class="ts-itin-line">
+                                                <!---->
+                                                <!---->
+                                                <!---->
+                                            </div>
+                                            <div class="container ts-itin-extra__wrapper">
+                                                <span class="ts-itin-extra ts-itin-extra__stops">
+    
+                                                </span><span class="ts-itin-extra ts-itin-extra__duration">
+                                                    <!----><span></span>&nbsp;
+                                                </span>
+
+                                            </div>
+                                        </div>
+                                        <div class="ts-itin__odo ts-itin__odo--arrival">
+                                            <span class="ts-itin__airport"><span> {{item.time_slot_land | slice : 0 : 5
+                                                    }}</span>
+                                            <!---->
+                                            </span><span class="ts-itin__time ts-itin__time--arrival">
+                                                {{item.to_abbr}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="ts-card__actions ts-card__actions--line-top">
+                                <!----><span class="ts-card__action ts-card__action--price">
+                                    <!----><span class="ts-card__action__amount">&nbsp;</span>
+                                <!---->
+                                </span>
+                                <span (click)="proceed(item)" class="ts-card__action ts-card__action--last align-end">
+                                    Book
+                                </span>
+                            </div>
+                        </ion-card>
                     </div>
 
 
@@ -110,142 +158,98 @@
                         <ion-card class="card-info-wrapper" *ngIf="returnAvailableFlights.length==0">
                             <ion-icon color="warning" name="warning"></ion-icon> No flights available! This may be due to existing travel bans. Please revise your search criteria.
                         </ion-card>
+
+                        <ion-card *ngFor="let item of returnAvailableFlights" class="return_color">
+                            <div class="card-info-wrapper">
+                                <div>
+                                    Depart : {{item.depart}}
+                                </div>
+                                <!---->
+                                <div class="ts-itin__info ts-itin__info--extended">
+                                    <div class="ts-itin__routes">
+                                        <div class="ts-itin__odo ts-itin__odo--departure">
+                                            <span class="ts-itin__airport"> {{item.time_slot | slice : 0 : 5 }}</span>
+                                            <span class="ts-itin__time ts-itin__departure"> {{item.from_abbr}}</span>
+                                        </div>
+                                        <div class="ts-itin__extras">
+                                            <div class="ts-itin-line">
+                                                <!---->
+                                                <!---->
+                                                <!---->
+                                            </div>
+                                            <div class="container ts-itin-extra__wrapper">
+                                                <span class="ts-itin-extra ts-itin-extra__stops">
+    
+                                                </span><span class="ts-itin-extra ts-itin-extra__duration">
+                                                    <!----><span></span>&nbsp;
+                                                </span>
+
+                                            </div>
+                                        </div>
+                                        <div class="ts-itin__odo ts-itin__odo--arrival">
+                                            <span class="ts-itin__airport">
+                                                <span>
+                                                    {{item.time_slot_land | slice : 0 : 5}}</span>
+                                            <!---->
+                                            </span>
+                                            <span class="ts-itin__time ts-itin__time--arrival">
+                                                {{item.to_abbr}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-info-wrapper card-info-wrapper_return">
+                                <div>
+                                    Return : {{item.return}}
+                                </div>
+                                <!---->
+                                <div class="ts-itin__info ts-itin__info--extended">
+                                    <div class="ts-itin__routes">
+                                        <div class="ts-itin__odo ts-itin__odo--departure">
+                                            <span class="ts-itin__airport"> {{item.return_time_slot | slice : 0 : 5}}</span>
+                                            <span class="ts-itin__time ts-itin__departure"> {{item.to_abbr}}</span>
+                                        </div>
+                                        <div class="ts-itin__extras">
+                                            <div class="ts-itin-line">
+                                                <!---->
+                                                <!---->
+                                                <!---->
+                                            </div>
+                                            <div class="container ts-itin-extra__wrapper">
+                                                <span class="ts-itin-extra ts-itin-extra__stops">
+    
+                                                </span><span class="ts-itin-extra ts-itin-extra__duration">
+                                                    <!----><span></span>&nbsp;
+                                                </span>
+
+                                            </div>
+                                        </div>
+                                        <div class="ts-itin__odo ts-itin__odo--arrival">
+                                            <span class="ts-itin__airport"><span> {{item.return_time_slot_land | slice :
+                                                    0 : 5 }}</span>
+                                            <!---->
+                                            </span><span class="ts-itin__time ts-itin__time--arrival">
+                                                {{item.from_abbr}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="ts-card__actions ts-card__actions--line-top">
+                                <!----><span class="ts-card__action ts-card__action--price">
+                                    <!----><span class="ts-card__action__amount">&nbsp;</span>
+                                <!---->
+                                </span>
+                                <span (click)="proceed(item)" class="ts-card__action ts-card__action--last align-end">
+                                    Book
+                                </span>
+                            </div>
+                        </ion-card>
                     </div>
 
-                    <ion-card *ngFor="let item of oneWayAvailableFlights">
-                        <div class="card-info-wrapper">
-                            <div>
-                                Depart : {{item.depart}}
-                            </div>
-                            <!---->
-                            <div class="ts-itin__info ts-itin__info--extended">
-                                <div class="ts-itin__routes">
-                                    <div class="ts-itin__odo ts-itin__odo--departure">
-                                        <span class="ts-itin__airport"> {{item.time_slot | slice : 0 : 5 }}</span>
-                                        <span class="ts-itin__time ts-itin__departure"> {{item.from_abbr}}</span>
-                                    </div>
-                                    <div class="ts-itin__extras">
-                                        <div class="ts-itin-line">
-                                            <!---->
-                                            <!---->
-                                            <!---->
-                                        </div>
-                                        <div class="container ts-itin-extra__wrapper">
-                                            <span class="ts-itin-extra ts-itin-extra__stops">
 
-                                            </span><span class="ts-itin-extra ts-itin-extra__duration">
-                                                <!----><span></span>&nbsp;
-                                            </span>
 
-                                        </div>
-                                    </div>
-                                    <div class="ts-itin__odo ts-itin__odo--arrival">
-                                        <span class="ts-itin__airport"><span> {{item.time_slot_land | slice : 0 : 5
-                                                }}</span>
-                                        <!---->
-                                        </span><span class="ts-itin__time ts-itin__time--arrival">
-                                            {{item.to_abbr}}</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="ts-card__actions ts-card__actions--line-top">
-                            <!----><span class="ts-card__action ts-card__action--price">
-                                <!----><span class="ts-card__action__amount">&nbsp;</span>
-                            <!---->
-                            </span>
-                            <span (click)="proceed(item)" class="ts-card__action ts-card__action--last align-end">
-                                Book
-                            </span>
-                        </div>
-                    </ion-card>
 
-                    <ion-card *ngFor="let item of returnAvailableFlights" class="return_color">
-                        <div class="card-info-wrapper">
-                            <div>
-                                Depart : {{item.depart}}
-                            </div>
-                            <!---->
-                            <div class="ts-itin__info ts-itin__info--extended">
-                                <div class="ts-itin__routes">
-                                    <div class="ts-itin__odo ts-itin__odo--departure">
-                                        <span class="ts-itin__airport"> {{item.time_slot | slice : 0 : 5 }}</span>
-                                        <span class="ts-itin__time ts-itin__departure"> {{item.from_abbr}}</span>
-                                    </div>
-                                    <div class="ts-itin__extras">
-                                        <div class="ts-itin-line">
-                                            <!---->
-                                            <!---->
-                                            <!---->
-                                        </div>
-                                        <div class="container ts-itin-extra__wrapper">
-                                            <span class="ts-itin-extra ts-itin-extra__stops">
-
-                                            </span><span class="ts-itin-extra ts-itin-extra__duration">
-                                                <!----><span></span>&nbsp;
-                                            </span>
-
-                                        </div>
-                                    </div>
-                                    <div class="ts-itin__odo ts-itin__odo--arrival">
-                                        <span class="ts-itin__airport">
-                                            <span>
-                                                {{item.time_slot_land | slice : 0 : 5}}</span>
-                                        <!---->
-                                        </span>
-                                        <span class="ts-itin__time ts-itin__time--arrival">
-                                            {{item.to_abbr}}</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-info-wrapper card-info-wrapper_return">
-                            <div>
-                                Return : {{item.return}}
-                            </div>
-                            <!---->
-                            <div class="ts-itin__info ts-itin__info--extended">
-                                <div class="ts-itin__routes">
-                                    <div class="ts-itin__odo ts-itin__odo--departure">
-                                        <span class="ts-itin__airport"> {{item.return_time_slot | slice : 0 : 5}}</span>
-                                        <span class="ts-itin__time ts-itin__departure"> {{item.to_abbr}}</span>
-                                    </div>
-                                    <div class="ts-itin__extras">
-                                        <div class="ts-itin-line">
-                                            <!---->
-                                            <!---->
-                                            <!---->
-                                        </div>
-                                        <div class="container ts-itin-extra__wrapper">
-                                            <span class="ts-itin-extra ts-itin-extra__stops">
-
-                                            </span><span class="ts-itin-extra ts-itin-extra__duration">
-                                                <!----><span></span>&nbsp;
-                                            </span>
-
-                                        </div>
-                                    </div>
-                                    <div class="ts-itin__odo ts-itin__odo--arrival">
-                                        <span class="ts-itin__airport"><span> {{item.return_time_slot_land | slice :
-                                                0 : 5 }}</span>
-                                        <!---->
-                                        </span><span class="ts-itin__time ts-itin__time--arrival">
-                                            {{item.from_abbr}}</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                        <div class="ts-card__actions ts-card__actions--line-top">
-                            <!----><span class="ts-card__action ts-card__action--price">
-                                <!----><span class="ts-card__action__amount">&nbsp;</span>
-                            <!---->
-                            </span>
-                            <span (click)="proceed(item)" class="ts-card__action ts-card__action--last align-end">
-                                Book
-                            </span>
-                        </div>
-                    </ion-card>
 
                 </div>
             </ion-col>
