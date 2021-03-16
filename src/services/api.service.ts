@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { FormControl, Validators } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
@@ -33,6 +34,15 @@ export class ApiService {
     }
   }
 
+  validateCardNumber(number){
+    const control = new FormControl(number, Validators.pattern('[0-9]*'));  
+    if (control.status=="VALID") {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
   validatePass(password) {
     let numberOfElements = 0;
     numberOfElements = /.*[a-z].*/.test(password) ? ++numberOfElements : numberOfElements;      // Lowercase letters
@@ -47,6 +57,7 @@ export class ApiService {
     return re.test(String(email).toLowerCase());
   }
 
+  
   //Register
   register(email, password, lname, fname, cell, dob) {
     return this.http.post<any>(this._Url + 'register', { email, password, fname, lname , cell, dob});

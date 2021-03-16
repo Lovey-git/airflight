@@ -38,8 +38,8 @@ export class HomePage {
 
   oneWayAvailableFlights: any = []
   oneWayFlights = [
-    { flight_no: 'A909', depart: "2021-02-27", from: 'OR Tambo', from_abbr: 'JNB', to: 'PE International', to_abbr: 'PLZ', time_slot: '06:00 am', time_slot_land: '10:00 am' },
-    { flight_no: 'A906', depart: "2021-02-26", from: 'OR Tambo', from_abbr: 'JNB', to: 'Cape Town International', to_abbr: 'CPT', time_slot: '16:00 pm', time_slot_land: '19:00 pm' },
+    { flight_no: 'A909', depart: "2021-03-17", from: 'OR Tambo', from_abbr: 'JNB', to: 'PE International', to_abbr: 'PLZ', time_slot: '06:00 am', time_slot_land: '10:00 am' },
+    { flight_no: 'A906', depart: "2021-03-17", from: 'OR Tambo', from_abbr: 'JNB', to: 'Cape Town International', to_abbr: 'CPT', time_slot: '16:00 pm', time_slot_land: '19:00 pm' },
     { flight_no: 'A903', depart: "2021-02-26", from: 'OR Tambo', from_abbr: 'JNB', to: 'Cape Town International', to_abbr: 'CPT', time_slot: '20:00 pm', time_slot_land: '22:00 pm' },
     { flight_no: 'A553', depart: "2021-02-28", from: 'King Shaka', from_abbr: 'DUR', to: 'Cape Town International', to_abbr: 'CPT', time_slot: '20:00 pm', time_slot_land: '22:00 pm' },
   
@@ -804,8 +804,10 @@ export class HomePage {
       this.card_cvv == ''
     ) {
       this.presentAlert('Fill in all required fields!');
-    } else if (String(this.card_number).length < 16 || String(this.card_number).length > 16) {
-      this.presentAlert('card number should be 16 digits long!');
+    }else if (this.api.validateCardNumber(this.card_number)) {
+      this.presentAlert('Card number should contain digits only!');
+    }else if (String(this.card_number).length < 16 || String(this.card_number).length > 16) {
+      this.presentAlert('Card number should be 16 digits long!');
     } else if (this.api.validateName(this.card_holder)) {
       this.presentAlert('Invalid card holders name!');
     } else if (String(this.card_cvv).length > 4 || String(this.card_cvv).length < 3) {
@@ -813,6 +815,9 @@ export class HomePage {
     } else if (String(this.card_expYear).substr(0, 4) == '2020' && Number(String(this.card_expMonth).substr(5, 2)) < Number(this.minDate.substr(5, 2))) {
       this.presentAlert('card already expired!')
     } else {
+
+      console.log(this.card_number);
+      
       this.doBook();
     }
   }
