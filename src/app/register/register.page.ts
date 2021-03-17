@@ -19,6 +19,9 @@ export class RegisterPage implements OnInit {
   public registerForm: FormGroup;
   public minDate = moment().add(0, 'd').format().toString();
   public dob: string;
+  today:any;
+  mDate:any;
+  
 
   constructor(
     private router: Router,
@@ -32,6 +35,11 @@ export class RegisterPage implements OnInit {
     public app: AppComponent,
     private modalCtrl: ModalController
   ) {
+
+    this.today =  moment().format("YYYY-MM-DD");
+  
+    let maxDate=  new Date((new Date().getFullYear() - 18),new Date().getMonth(), new Date().getDate());
+           this.mDate=moment(maxDate).format("YYYY-MM-DD");
     this.registerForm = this.fb.group({
       email: ['', Validators.required],
       password: ['', Validators.required],
@@ -100,7 +108,7 @@ export class RegisterPage implements OnInit {
       message: 'Please wait...',
     });
 
-    if (email == null || password == '' || password1 == '' || names == '' || surname == '' || cell == '') {
+    if (email == null || password == '' || password1 == '' || names == '' || surname == '' || cell == '' || this.dob == '') {
       this.presentAlert('All fields are required! ⚠️');
     } else if (password != password1) {
       this.presentAlert('Passwords do not match ❌');
@@ -120,6 +128,8 @@ export class RegisterPage implements OnInit {
     } else if (this.api.validatePass(password) < 4) {
       this.presentAlert('Weak Password detected 👎❌');
     } else {
+   
+      
       await loading.present();
       this.api.register(email, password, names,surname, cell, this.dob).subscribe(
         data => {
